@@ -6,36 +6,25 @@
   <title>使用 skill 前后 · 异步按钮改造</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 40px; background: #eef0f3; color: #18181b; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    main { max-width: 960px; margin: auto; }
-    .eyebrow { font: 600 11px monospace; color: #636370; letter-spacing: 1.5px; margin: 0 0 12px; }
-    h1 { font-size: 26px; letter-spacing: -1px; margin: 0 0 12px; }
-    .intro { font-size: 13px; color: #636370; line-height: 1.7; margin: 0 0 26px; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    article { border: 1px solid #dddfe5; border-radius: 14px; background: #fff; overflow: hidden; }
-    header { padding: 18px 20px; border-bottom: 1px solid #e8e8ec; }
-    header strong { font-size: 14px; }
-    header small { display: block; font-size: 11px; color: #71717a; margin-top: 6px; }
-    iframe { display: block; width: 100%; height: 230px; border: 0; }
-    .caption { padding: 15px 20px; margin: 0; font-size: 12px; color: #636370; border-top: 1px solid #e8e8ec; }
+    body { margin: 0; padding: 32px; background: #fff; color: #18181b; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 860px; margin: auto; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    article { border: 1px solid #e6e7eb; border-radius: 12px; background: #f8f9fa; overflow: hidden; }
+    header { padding: 20px 20px 0; text-align: center; font-size: 14px; font-weight: 500; color: #71717a; }
+    iframe { display: block; width: 100%; height: 200px; border: 0; }
     .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
     .actions button { padding: 9px 14px; background: #fff; color: #18181b; border: 1px solid #d6d6dd; border-radius: 8px; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; }
     .actions button:focus-visible { outline: 2px solid #18181b; outline-offset: 3px; }
-    .note { font-size: 11px; color: #71717a; margin-top: 20px; line-height: 1.7; }
-    @media (max-width: 620px) { body { padding: 24px 16px; } .grid { grid-template-columns: 1fr; } h1 { font-size: 22px; } }
+    @media (max-width: 620px) { body { padding: 24px 16px; } .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <main>
-    <p class="eyebrow">UI MOTION GUIDE / BUTTONS / L2</p>
-    <h1>从静态按钮，到完整操作反馈</h1>
-    <p class="intro">使用 component-motion-tree 的异步反馈分支，保留按钮原有样式，补齐等待、结果与复原。</p>
-    <div class="grid">
-      <article><header><strong>改造前</strong><small>静态毛坯 · 无状态反馈</small></header><iframe src="before.html" title="改造前的静态按钮"></iframe><p class="caption">点击后，文字与图标保持原样。</p></article>
-      <article><header><strong>使用 skill 后</strong><small>等待 → 成功 / 失败 · 防重复提交</small></header><iframe src="after.html?embed=1" title="使用 skill 后的异步按钮" id="afterFrame"></iframe><p class="caption">文案平滑切换，宽度自然过渡，图标表达结果。</p></article>
+    <div class="grid" id="motionComparison">
+      <article><header>Before</header><iframe src="before.html" title="改造前的静态按钮"></iframe></article>
+      <article><header>After</header><iframe src="after.html?embed=1" title="使用 skill 后的异步按钮" id="afterFrame"></iframe></article>
     </div>
     <div class="actions"><button id="success">播放成功流程</button><button id="failure">播放失败流程</button><button id="reset">恢复初始状态</button></div>
-    <p class="note">演示任务使用可成功或失败的本地 Promise，1300ms 后返回结果；没有真实发布请求。减少动态效果时关闭过渡与旋转，保留同一业务状态。</p>
   </main>
   <script>
     const after = document.getElementById('afterFrame');

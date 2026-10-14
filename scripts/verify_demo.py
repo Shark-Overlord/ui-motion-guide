@@ -119,10 +119,13 @@ def main():
                 page.reload()
                 frame = next(f for f in page.frames if '/after.html' in f.url)
                 frame.wait_for_function("window.motionDemo && motionDemo.state === 'idle'")
-                page.screenshot(path=str(directory/'action-button-before-after.png'))
+                comparison = page.locator('#motionComparison')
+                assert comparison.inner_text().split() == ['Before', 'After']
+                clip = comparison.bounding_box()
+                page.screenshot(path=str(directory/'action-button-before-after.png'), clip=clip)
                 images, durations = [], []
                 def capture():
-                    images.append(Image.open(io.BytesIO(page.screenshot())).convert('RGB'))
+                    images.append(Image.open(io.BytesIO(page.screenshot(clip=clip))).convert('RGB'))
                 capture()
                 durations.append(600)
                 page.locator('#success').click()
@@ -137,7 +140,7 @@ def main():
                 page.locator('#failure').click()
                 expect(after_frame.locator('#publishButton')).to_have_attribute('data-state', 'error')
                 page.wait_for_timeout(350)
-                page.screenshot(path=str(directory/'action-button-error.png'))
+                page.screenshot(path=str(directory/'action-button-error.png'), clip=clip)
                 checks.append('browser_captured_png_and_gif')
             assert not errors, errors
             checks.append('no_browser_runtime_errors')

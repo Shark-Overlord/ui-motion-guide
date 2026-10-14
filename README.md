@@ -43,7 +43,7 @@ buttons → 操作需要等待结果 → buttons/L2：异步状态流转
 
 ### 失败流程截图
 
-![使用 skill 后的失败反馈：右侧显示 Try again 和失败说明](docs/images/action-button-error.png)
+![Before / After：右侧按钮的失败反馈](docs/images/action-button-error.png)
 
 本案例的任务适配器返回本地 Promise，1300ms 后模拟成功或失败，**没有真实发布请求**。业务项目接入时替换 `demoTask()`，让成功/失败状态跟随真实结果。本次改造结果与 Skill 内的原始参考分开保存。
 

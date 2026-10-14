@@ -36,6 +36,7 @@
     .status { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); width: 280px; font-size: 12px; color: #62626c; line-height: 1.6; }
     .controls { position: fixed; bottom: 24px; left: 0; right: 0; text-align: center; font-size: 12px; color: #62626c; }
     .controls select { margin-left: 8px; font: inherit; padding: 5px 8px; border: 1px solid #ddd; border-radius: 6px; background: #fff; }
+    .is-embedded .status { width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     @media (prefers-reduced-motion: reduce) {
       .motion-action-btn, .label-slot, .state-label, .icon-slot svg, .check path { transition: none; }
       .motion-action-btn:active:not(:disabled), .state-label { transform: none; filter: none; }
@@ -74,7 +75,10 @@
       let state = 'idle', operation = 0, resetTimer = null, task = null, calls = 0;
       const reduced = matchMedia('(prefers-reduced-motion: reduce)');
       measure.style.font = getComputedStyle(button).font;
-      if (new URLSearchParams(location.search).get('embed') === '1') document.querySelector('.controls').hidden = true;
+      if (new URLSearchParams(location.search).get('embed') === '1') {
+        document.body.classList.add('is-embedded');
+        document.querySelector('.controls').hidden = true;
+      }
 
       function render(next) {
         state = next;
