@@ -1,0 +1,104 @@
+{
+  "engine": {
+    "tmix_disjoint_group_averages": [
+      60,
+      190
+    ],
+    "distinct_css_subframe_positions": [
+      1.25,
+      2.5,
+      3.75,
+      5
+    ],
+    "js_timer_and_raf_checks": {
+      "raf": 4,
+      "timeout": 1,
+      "interval": 2,
+      "cancelled": 0
+    },
+    "clock_does_not_advance_with_wall_time": true
+  },
+  "files": [
+    {
+      "component": "action-button",
+      "frames": 324,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "button",
+      "frames": 768,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "split-button",
+      "frames": 834,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "button-group",
+      "frames": 714,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "floating-button-group",
+      "frames": 524,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "expanding-button-group",
+      "frames": 654,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "copy-button",
+      "frames": 210,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "icon-morph",
+      "frames": 552,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    },
+    {
+      "component": "confirm-morph",
+      "frames": 1410,
+      "fps": 60,
+      "size": [
+        2120,
+        1120
+      ]
+    }
+  ]
+}
