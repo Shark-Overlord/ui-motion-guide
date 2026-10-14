@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arc UI · Confirm morph (confirm-morph)</title>
+  <style>
+    :root {
+      /* ── Arc UI Motion Tokens ── */
+      --duration-instant: 120ms;
+      --duration-fast: 160ms;
+      --duration-standard: 240ms;
+      --duration-spring: 360ms;
+
+      --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-snappy: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      --ease-morph: cubic-bezier(0.34, 1.25, 0.64, 1);
+
+      color-scheme: light;
+      --bg-page: #fbfbfb;
+      --stage-bg: #ffffff;
+      --stage-border: #eeeeee;
+
+      --foreground: #0b0b0b;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --surface-raised: #ffffff;
+      --surface-muted: #f4f4f4;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-strong: rgba(0, 0, 0, 0.16);
+      --border-subtle: rgba(0, 0, 0, 0.04);
+      --text-muted: #888888;
+      --text-secondary: #555555;
+
+      --danger: #e03131;
+      --success: #10b981;
+
+      --radius-control: 18px;
+      --radius-panel: 20px;
+      --radius-surface: 24px;
+      --radius-pill: 9999px;
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-raised: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --shadow-floating: 0 20px 48px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+
+      --font-display: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-page: #141414;
+      --stage-bg: #1a1a1a;
+      --stage-border: #282828;
+
+      --foreground: #f4f4f4;
+      --background: #141414;
+      --surface: #222222;
+      --surface-raised: #282828;
+      --surface-muted: #2a2a2a;
+      --border: #303030;
+      --border-strong: #444444;
+      --border-subtle: #242424;
+      --text-muted: #8e8e8e;
+      --text-secondary: #aaaaaa;
+
+      --danger: #f56a65;
+      --success: #34d399;
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.4);
+      --shadow-raised: 0 6px 18px rgba(0, 0, 0, 0.5);
+      --shadow-floating: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-display);
+      background-color: var(--bg-page);
+      color: var(--foreground);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.015em;
+    }
+
+    /* 顶部控制栏 */
+    .arc-standalone-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 880px;
+      height: 48px;
+      background: color-mix(in oklab, var(--surface) 80%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+    }
+
+    .bar-meta { display: flex; align-items: center; gap: 10px; }
+    .bar-meta .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      color: var(--text-secondary);
+    }
+    .bar-meta .title { font-size: 13px; font-weight: 700; }
+
+    .theme-toggle-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-resting);
+      transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .theme-toggle-btn:active { transform: scale(0.90); }
+
+    /* 中央舞台卡片 (100% 对齐 screenshots/01_Buttons/confirm-morph.png) */
+    .arc-stage-card {
+      width: 100%;
+      max-width: 880px;
+      min-height: 480px;
+      background: var(--stage-bg);
+      border: 1px solid var(--stage-border);
+      border-radius: var(--radius-surface);
+      box-shadow: var(--shadow-floating);
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage-toolbar {
+      height: 52px;
+      border-bottom: 1px solid var(--stage-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: var(--stage-bg);
+      user-select: none;
+    }
+
+    .stage-tabs {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stage-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 16px 0;
+      position: relative;
+      border: none;
+      background: transparent;
+      outline: none;
+    }
+    .stage-tab.active {
+      color: var(--foreground);
+      font-weight: 600;
+    }
+    .stage-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--foreground);
+      border-radius: 1px;
+    }
+
+    .stage-hint {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .stage-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 32px 48px;
+      position: relative;
+      gap: 56px;
+    }
+
+    /* ── 核心项目行展示 (Northwind redesign + ConfirmMorph 药丸) ── */
+    .project-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .project-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--foreground);
+      user-select: none;
+    }
+    .project-title svg {
+      width: 17px;
+      height: 17px;
+      color: var(--text-secondary);
+      stroke-width: 1.75;
+    }
+
+    /* ── 官方 ConfirmMorph 规范 (对齐 confirm-morph.module.css) ── */
+    .morph-root {
+      position: relative;
+      display: inline-flex;
+      min-width: 0;
+      max-width: 100%;
+      vertical-align: middle;
+      color: var(--foreground);
+      font-size: 13.5px;
+      line-height: 20px;
+      user-select: none;
+      outline: none;
+    }
+
+    .morph-surface {
+      position: relative;
+      display: flex;
+      height: 36px;
+      max-width: 100%;
+      justify-content: flex-start;
+      overflow: clip;
+      border-radius: var(--radius-pill);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-resting);
+      transition: width 400ms cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color var(--duration-standard) var(--ease-standard),
+                  box-shadow var(--duration-standard) var(--ease-standard);
+      will-change: width;
+    }
+
+    .morph-surface::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--border);
+      border-radius: inherit;
+      pointer-events: none;
+      transition: border-color var(--duration-standard) var(--ease-standard);
+    }
+
+    /* 各阶段形态容器 (Face) */
+    .morph-face {
+      display: inline-flex;
+      flex: none;
+      height: 100%;
+      align-items: center;
+      gap: 2px;
+      padding: 0 4px;
+      white-space: nowrap;
+      transition: opacity var(--duration-fast) var(--ease-standard),
+                  transform var(--duration-fast) var(--ease-standard),
+                  filter var(--duration-fast) var(--ease-standard);
+    }
+    .morph-face[data-face="idle"] { padding: 0; }
+    .morph-face.is-exiting {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    /* 初始触发态 (Trigger) */
+    .morph-trigger {
+      display: inline-flex;
+      height: 100%;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px 0 14px;
+      border: 0;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      color: var(--foreground);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 500;
+      outline: none;
+      transition: background-color var(--duration-fast) var(--ease-standard);
+    }
+    .morph-trigger:hover {
+      background: color-mix(in oklab, var(--foreground) 5%, transparent);
+    }
+    .morph-trigger:active {
+      background: color-mix(in oklab, var(--foreground) 9%, transparent);
+    }
+    .morph-icon {
+      display: grid;
+      width: 16px;
+      height: 16px;
+      place-items: center;
+      color: var(--text-secondary);
+    }
+    .morph-icon svg { width: 16px; height: 16px; stroke-width: 1.75; }
+
+    /* 确认询问提示 (Prompt) */
+    .morph-prompt {
+      max-width: 16rem;
+      overflow: hidden;
+      padding: 0 8px 0 12px;
+      color: var(--foreground);
+      font-weight: 500;
+    }
+
+    /* 辅助按钮 (Cancel / Undo / Retry) */
+    .morph-btn-secondary {
+      position: relative;
+      display: inline-flex;
+      flex: none;
+      height: 28px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      border: 0;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      outline: none;
+      transition: background-color var(--duration-fast) var(--ease-standard),
+                  color var(--duration-fast) var(--ease-standard);
+    }
+    .morph-btn-secondary:hover {
+      background: color-mix(in oklab, var(--foreground) 7%, transparent);
+      color: var(--foreground);
+    }
+    .morph-btn-secondary:active {
+      background: color-mix(in oklab, var(--foreground) 11%, transparent);
+    }
+
+    /* 确认执行按钮 (Confirm / Delete) */
+    .morph-btn-confirm {
+      position: relative;
+      display: inline-flex;
+      flex: none;
+      height: 28px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      border: 0;
+      border-radius: var(--radius-pill);
+      background: color-mix(in oklab, var(--danger) 13%, transparent);
+      color: var(--danger);
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      outline: none;
+      overflow: clip;
+      user-select: none;
+      transition: background-color var(--duration-fast) var(--ease-standard);
+    }
+    .morph-btn-confirm:hover {
+      background: color-mix(in oklab, var(--danger) 18%, transparent);
+    }
+    .morph-btn-confirm:active {
+      background: color-mix(in oklab, var(--danger) 22%, transparent);
+    }
+
+    /* Hold 长按蓄力填色层 */
+    .morph-fill {
+      position: absolute;
+      inset: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--danger);
+      color: #ffffff;
+      pointer-events: none;
+      clip-path: inset(0 100% 0 0 round 999px);
+      transition: clip-path 0.05s linear;
+    }
+
+    /* 状态文本与图标槽 (Status: Spinner, Done, Error, Counting) */
+    .morph-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px 0 14px;
+      color: var(--foreground);
+      font-weight: 500;
+    }
+
+    /* 绿色圆盘 Check 成功图标 (CheckDisc) */
+    .check-disc-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .check-disc {
+      fill: var(--success);
+      transform-origin: 9px 9px;
+      transition: transform var(--duration-spring) var(--ease-snappy);
+    }
+    .check-tick {
+      stroke: #ffffff;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 12;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.3s var(--ease-enter) 0.1s;
+    }
+
+    /* 旋转 Spinner */
+    .morph-spinner {
+      width: 16px;
+      height: 16px;
+      animation: morphSpin 0.7s linear infinite;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    @keyframes morphSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 倒计时圆环 (Ring) */
+    .countdown-ring-svg {
+      width: 16px;
+      height: 16px;
+      transform: rotate(-90deg);
+      flex-shrink: 0;
+    }
+    .ring-track {
+      stroke: var(--border);
+      stroke-width: 1.75;
+    }
+    .ring-fill {
+      stroke: var(--danger);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-dasharray: 40;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
+    .countdown-number {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    /* 底部双控制器区 (对齐 screenshots/01_Buttons/confirm-morph.png) */
+    .stage-bottom-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .segmented-control {
+      position: relative;
+      display: inline-flex;
+      background: var(--surface-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .segmented-btn {
+      position: relative;
+      z-index: 2;
+      border: none;
+      background: transparent;
+      padding: 5px 14px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-pill);
+      transition: color var(--duration-fast) var(--ease-standard);
+      outline: none;
+    }
+
+    .segmented-btn.active {
+      color: var(--foreground);
+      font-weight: 600;
+      background: var(--surface);
+      box-shadow: var(--shadow-resting);
+    }
+  
+    /* 嵌入宿主模式适配 */
+    body.is-embedded {
+      padding: 0 !important;
+      background: transparent !important;
+      min-height: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    body.is-embedded .arc-standalone-bar {
+      display: none !important;
+    }
+    body.is-embedded .stage-card, 
+    body.is-embedded .stage-box, 
+    body.is-embedded .main-stage,
+    body.is-embedded .container,
+    body.is-embedded .wrapper {
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+
+  
+/* 宿主嵌入统一强力去重样式 */
+body.is-embedded .stage-toolbar,
+body.is-embedded .arc-standalone-bar,
+body.is-embedded .standalone-header {
+  display: none !important;
+}
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-box,
+body.is-embedded .main-stage {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  width: 100% !important;
+}
+body.is-embedded {
+  padding: 0 !important;
+  background: transparent !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* 嵌入模式彻底消除滚动条与强制居中 */
+html.is-embedded, body.is-embedded {
+  overflow: hidden !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body.is-embedded::-webkit-scrollbar,
+html.is-embedded::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+body.is-embedded .arc-stage,
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-content {
+  margin: 0 !important;
+  padding: 24px !important;
+  min-height: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- 顶部控制条 -->
+  <header class="arc-standalone-bar">
+    <div class="bar-meta">
+      <span class="badge">01_Buttons</span>
+      <span class="title">Confirm morph (confirm-morph)</span>
+    </div>
+    <div class="bar-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="切换暗黑/浅色模式 (快捷键: D)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 中央舞台卡片 (100% 对齐 screenshots/01_Buttons/confirm-morph.png) -->
+  <main class="arc-stage-card">
+    <div class="stage-toolbar">
+      <div class="stage-tabs">
+        <button class="stage-tab active" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span>Preview</span>
+        </button>
+      </div>
+      <span class="stage-hint">Live · keyboard ready</span>
+    </div>
+
+    <div class="stage-content">
+      <!-- 官方真实上下文：Northwind redesign + ConfirmMorph 原位流转药丸 -->
+      <div class="project-row" id="projectRow">
+        <span class="project-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+          </svg>
+          <span>Northwind redesign</span>
+        </span>
+
+        <!-- ConfirmMorph 核心组件 -->
+        <div class="morph-root" id="morphRoot" data-state="idle">
+          <div class="morph-surface" id="morphSurface">
+
+            <!-- 1. Idle 态 -->
+            <div class="morph-face" id="faceIdle" data-face="idle">
+              <button class="morph-trigger" id="btnTrigger" type="button">
+                <span class="morph-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                  </svg>
+                </span>
+                <span>Delete project</span>
+              </button>
+            </div>
+
+            <!-- 2. Confirming 询问态 (Prompt + Cancel + Delete) -->
+            <div class="morph-face is-exiting" id="faceConfirming" data-face="confirming" style="display:none;">
+              <span class="morph-prompt">Delete project?</span>
+              <button class="morph-btn-secondary" id="btnCancel" type="button">Cancel</button>
+              <button class="morph-btn-confirm" id="btnConfirm" type="button">
+                <span>Delete</span>
+                <span class="morph-fill" id="morphFill"><span>Delete</span></span>
+              </button>
+            </div>
+
+            <!-- 3. Counting 倒计时态 (Countdown 模式) -->
+            <div class="morph-face is-exiting" id="faceCounting" data-face="counting" style="display:none;">
+              <div class="morph-status">
+                <svg class="countdown-ring-svg" viewBox="0 0 16 16" fill="none">
+                  <circle class="ring-track" cx="8" cy="8" r="6.25"/>
+                  <circle class="ring-fill" id="ringFill" cx="8" cy="8" r="6.25"/>
+                </svg>
+                <span>Deleting in <span class="countdown-number" id="countdownNumber">3</span></span>
+              </div>
+              <button class="morph-btn-secondary" id="btnCancelCounting" type="button">Cancel</button>
+            </div>
+
+            <!-- 4. Pending 正在处理态 (Spinner) -->
+            <div class="morph-face is-exiting" id="facePending" data-face="pending" style="display:none;">
+              <div class="morph-status">
+                <svg class="morph-spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                </svg>
+                <span id="pendingText">Deleting...</span>
+              </div>
+            </div>
+
+            <!-- 5. Done 成功态 (CheckDisc + Undo) -->
+            <div class="morph-face is-exiting" id="faceDone" data-face="done" style="display:none;">
+              <div class="morph-status">
+                <svg class="check-disc-svg" viewBox="0 0 18 18" fill="none">
+                  <circle class="check-disc" cx="9" cy="9" r="8"/>
+                  <path class="check-tick" d="M5.6 9.3 7.8 11.4 12.4 6.7"/>
+                </svg>
+                <span>Deleted</span>
+              </div>
+              <button class="morph-btn-secondary" id="btnUndo" type="button">Undo</button>
+            </div>
+
+            <!-- 6. Error 失败态 (Alert + Retry) -->
+            <div class="morph-face is-exiting" id="faceError" data-face="error" style="display:none;">
+              <div class="morph-status">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>Couldn’t finish</span>
+              </div>
+              <button class="morph-btn-secondary" id="btnRetry" type="button">Retry</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部双控制器 (100% 对齐截图: [Click | Hold | Countdown] + [Succeeds | Fails]) -->
+      <div class="stage-bottom-controls">
+        <!-- 控制器 1: 模式切换 -->
+        <div class="segmented-control" id="modeSelector" role="radiogroup" aria-label="Confirm mode">
+          <button class="segmented-btn active" data-mode="press" type="button">Click</button>
+          <button class="segmented-btn" data-mode="hold" type="button">Hold</button>
+          <button class="segmented-btn" data-mode="countdown" type="button">Countdown</button>
+        </div>
+
+        <!-- 控制器 2: 结果模拟 -->
+        <div class="segmented-control" id="resultSelector" role="radiogroup" aria-label="Simulate result">
+          <button class="segmented-btn active" data-result="succeeds" type="button">Succeeds</button>
+          <button class="segmented-btn" data-result="fails" type="button">Fails</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+
+      // 嵌入检测与主题同步
+      const params = new URLSearchParams(window.location.search);
+      const isEmbedded = window.self !== window.top || params.get('embed') === 'true';
+      if (isEmbedded) {
+        document.body.classList.add('is-embedded'); document.documentElement.classList.add('is-embedded');
+      }
+      const urlTheme = params.get('theme');
+      if (urlTheme) {
+        document.documentElement.dataset.theme = urlTheme;
+      }
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'ARC_THEME_CHANGE' && e.data.theme) {
+          document.documentElement.dataset.theme = e.data.theme;
+        }
+      });
+
+    (function init() {
+      // 1. 主题切换
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeToggleBtn');
+      function toggleTheme() {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('arc_theme', next); } catch (e) {}
+      }
+      themeBtn.addEventListener('click', toggleTheme);
+      window.addEventListener('keydown', (e) => {
+        if ((e.key === 'd' || e.key === 'D') && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) toggleTheme();
+      });
+
+      // 2. DOM 缓存
+      const morphRoot = document.getElementById('morphRoot');
+      const surface = document.getElementById('morphSurface');
+
+      const faceIdle = document.getElementById('faceIdle');
+      const faceConfirming = document.getElementById('faceConfirming');
+      const faceCounting = document.getElementById('faceCounting');
+      const facePending = document.getElementById('facePending');
+      const faceDone = document.getElementById('faceDone');
+      const faceError = document.getElementById('faceError');
+
+      const btnTrigger = document.getElementById('btnTrigger');
+      const btnCancel = document.getElementById('btnCancel');
+      const btnConfirm = document.getElementById('btnConfirm');
+      const morphFill = document.getElementById('morphFill');
+      const btnCancelCounting = document.getElementById('btnCancelCounting');
+      const countdownNumber = document.getElementById('countdownNumber');
+      const ringFill = document.getElementById('ringFill');
+      const pendingText = document.getElementById('pendingText');
+      const btnUndo = document.getElementById('btnUndo');
+      const btnRetry = document.getElementById('btnRetry');
+
+      const modeSelector = document.getElementById('modeSelector');
+      const resultSelector = document.getElementById('resultSelector');
+
+      let currentMode = 'press'; // 'press' | 'hold' | 'countdown'
+      let simulationResult = 'succeeds'; // 'succeeds' | 'fails'
+      let activeFace = faceIdle;
+      let state = 'idle';
+
+      let autoResetTimer = null;
+      let countdownInterval = null;
+      let holdStartTime = 0;
+      let holdAnimFrame = null;
+
+      // 3. 官方自然尺寸自适应测量 (ResizeObserver)
+      function syncSurfaceWidth(targetFace) {
+        targetFace.style.display = 'inline-flex';
+        const w = targetFace.getBoundingClientRect().width;
+        surface.style.width = `${Math.ceil(w)}px`;
+      }
+
+      function switchFace(nextFace) {
+        if (activeFace === nextFace) return;
+        const prevFace = activeFace;
+        activeFace = nextFace;
+
+        // 让旧形态淡出并脱出排版
+        prevFace.classList.add('is-exiting');
+
+        // 显示新形态
+        nextFace.style.display = 'inline-flex';
+        syncSurfaceWidth(nextFace);
+
+        requestAnimationFrame(() => {
+          nextFace.classList.remove('is-exiting');
+        });
+
+        setTimeout(() => {
+          if (activeFace !== prevFace) {
+            prevFace.style.display = 'none';
+          }
+        }, 180);
+      }
+
+      // 4. 状态流转机
+      function toIdle() {
+        state = 'idle';
+        if (autoResetTimer) clearTimeout(autoResetTimer);
+        if (countdownInterval) clearInterval(countdownInterval);
+        cancelHold();
+        switchFace(faceIdle);
+      }
+
+      function toConfirming() {
+        state = 'confirming';
+        cancelHold();
+        switchFace(faceConfirming);
+      }
+
+      function toCounting() {
+        state = 'counting';
+        switchFace(faceCounting);
+        let sec = 3;
+        countdownNumber.textContent = sec;
+        const totalLen = 40; // 2 * PI * 6.25 approx
+        ringFill.style.strokeDashoffset = '0';
+
+        let start = performance.now();
+        const duration = 3000;
+
+        countdownInterval = setInterval(() => {
+          let elapsed = performance.now() - start;
+          let progress = Math.min(elapsed / duration, 1);
+          ringFill.style.strokeDashoffset = `${progress * totalLen}`;
+
+          let currentSec = Math.max(1, Math.ceil(3 * (1 - progress)));
+          countdownNumber.textContent = currentSec;
+
+          if (progress >= 1) {
+            clearInterval(countdownInterval);
+            toPending('confirm');
+          }
+        }, 30);
+      }
+
+      function toPending(actionKind) {
+        state = 'pending';
+        pendingText.textContent = actionKind === 'undo' ? 'Restoring...' : 'Deleting...';
+        switchFace(facePending);
+
+        setTimeout(() => {
+          if (actionKind === 'undo') {
+            toIdle();
+          } else {
+            if (simulationResult === 'succeeds') {
+              toDone();
+            } else {
+              toError();
+            }
+          }
+        }, 1200);
+      }
+
+      function toDone() {
+        state = 'done';
+        switchFace(faceDone);
+        autoResetTimer = setTimeout(() => toIdle(), 5000);
+      }
+
+      function toError() {
+        state = 'error';
+        switchFace(faceError);
+        autoResetTimer = setTimeout(() => toIdle(), 5000);
+      }
+
+      // 5. Hold 蓄力交互逻辑
+      function startHold() {
+        if (currentMode !== 'hold' || state !== 'confirming') return;
+        holdStartTime = performance.now();
+        const holdDuration = 1000;
+
+        function step() {
+          const elapsed = performance.now() - holdStartTime;
+          const pct = Math.min(elapsed / holdDuration, 1);
+          morphFill.style.clipPath = `inset(0 ${(1 - pct) * 100}% 0 0 round 999px)`;
+
+          if (pct >= 1) {
+            cancelHold();
+            toPending('confirm');
+          } else {
+            holdAnimFrame = requestAnimationFrame(step);
+          }
+        }
+        holdAnimFrame = requestAnimationFrame(step);
+      }
+
+      function cancelHold() {
+        if (holdAnimFrame) cancelAnimationFrame(holdAnimFrame);
+        holdAnimFrame = null;
+        morphFill.style.clipPath = 'inset(0 100% 0 0 round 999px)';
+      }
+
+      // 6. 事件绑定
+      btnTrigger.addEventListener('click', () => toConfirming());
+      btnCancel.addEventListener('click', (e) => { e.stopPropagation(); toIdle(); });
+      btnCancelCounting.addEventListener('click', (e) => { e.stopPropagation(); toIdle(); });
+
+      // Confirm 按键行为分发
+      btnConfirm.addEventListener('click', (e) => {
+        if (currentMode === 'press') {
+          toPending('confirm');
+        } else if (currentMode === 'countdown') {
+          toCounting();
+        }
+      });
+
+      // Hold 模式指针事件
+      btnConfirm.addEventListener('pointerdown', (e) => {
+        if (currentMode === 'hold' && e.button === 0) startHold();
+      });
+      window.addEventListener('pointerup', cancelHold);
+      btnConfirm.addEventListener('pointercancel', cancelHold);
+
+      // Undo 与 Retry
+      btnUndo.addEventListener('click', () => {
+        if (autoResetTimer) clearTimeout(autoResetTimer);
+        toPending('undo');
+      });
+      btnRetry.addEventListener('click', () => {
+        if (autoResetTimer) clearTimeout(autoResetTimer);
+        toPending('confirm');
+      });
+
+      // 7. 模式切换器
+      modeSelector.querySelectorAll('.segmented-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modeSelector.querySelectorAll('.segmented-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentMode = btn.dataset.mode;
+          toIdle();
+        });
+      });
+
+      resultSelector.querySelectorAll('.segmented-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          resultSelector.querySelectorAll('.segmented-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          simulationResult = btn.dataset.result;
+        });
+      });
+
+      // 外部点击与 Escape 键取消
+      document.addEventListener('pointerdown', (e) => {
+        if (state === 'confirming' && !morphRoot.contains(e.target)) {
+          toIdle();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (state === 'confirming' || state === 'counting') toIdle();
+          else if (state === 'done' || state === 'error') toIdle();
+        }
+      });
+
+      // 初始化初态尺寸
+      syncSurfaceWidth(faceIdle);
+    })();
+  </script>
+</body>
+</html>

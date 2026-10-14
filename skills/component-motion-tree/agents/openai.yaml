@@ -1,0 +1,4 @@
+interface:
+  display_name: "组件动效决策树"
+  short_description: "先选组件类别，再按交互意图选择动效，支持持续接入新的组件参考"
+  default_prompt: "使用 $component-motion-tree，先识别当前组件类别，再进入对应决策树选择动效、参考源码实现并验证。"

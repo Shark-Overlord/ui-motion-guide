@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Raw Button Group (浅色静态毛坯)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #f8f9fa;
+      color: #18181b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    /* 纯白轻量按钮组：无 Sizer 防抖、无 Odometer 机械滚轮、无滑动高光底块、无 JS */
+    .raw-btn-group {
+      display: inline-flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 9999px;
+      padding: 3px 6px;
+      gap: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .raw-btn-group button {
+      border: none;
+      background: transparent;
+      color: #18181b;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 9999px;
+    }
+    .raw-counter-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #52525b;
+      padding: 0 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="raw-btn-group">
+    <button id="minus">−</button>
+    <span class="raw-counter-text" id="zoomText">100%</span>
+    <button id="plus">+</button>
+  </div>
+</body>
+</html>

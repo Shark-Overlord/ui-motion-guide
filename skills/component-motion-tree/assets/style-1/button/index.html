@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arc UI · Button (button)</title>
+  <style>
+    :root {
+      /* ── transitions.dev Motion Tokens (Production 5-Dimension Scale) ── */
+      --duration-stagger: 40ms;
+      --duration-micro: 80ms;
+      --duration-quick: 150ms;
+      --duration-fast: 250ms;
+      --duration-medium: 350ms;
+      --duration-slow: 400ms;
+      --duration-very-slow: 500ms;
+
+      --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out: ease-in-out;
+      --ease-out: ease-out;
+      --ease-linear: linear;
+      --ease-bounce: cubic-bezier(0.34, 1.36, 0.64, 1);
+      --ease-bounce-strong: cubic-bezier(0.34, 3.85, 0.64, 1);
+
+      --distance-micro: 4px;
+      --distance-small: 6px;
+      --distance-base: 8px;
+      --distance-medium: 12px;
+      --distance-large: 30px;
+
+      --scale-large: 0.96;
+      --scale-medium: 0.97;
+      --scale-small: 0.98;
+      --scale-tiny: 0.99;
+
+      --blur-small: 2px;
+      --blur-medium: 3px;
+      --blur-large: 8px;
+
+      color-scheme: light;
+      --bg-page: #fbfbfb;
+      --stage-bg: #f8f8f8;
+      --stage-border: #eeeeee;
+
+      --btn-bg: #ffffff;
+      --btn-color: #0b0b0b;
+      --btn-border: rgba(0, 0, 0, 0.08);
+      --btn-hover-bg: #f2f2f2;
+
+      --btn-primary-bg: #0b0b0b;
+      --btn-primary-color: #ffffff;
+      --btn-primary-hover-bg: #222222;
+
+      --btn-delete-bg: #ffffff;
+      --btn-delete-color: #e03131;
+      --btn-delete-border: rgba(0, 0, 0, 0.08);
+
+      --text-muted: #888888;
+      --text-secondary: #555555;
+      --foreground: #0b0b0b;
+
+      --border: rgba(0, 0, 0, 0.08);
+      --border-subtle: rgba(0, 0, 0, 0.04);
+      --surface: #ffffff;
+      --surface-muted: #f2f2f2;
+      --accent: #0b0b0b;
+      --accent-foreground: #ffffff;
+      --danger: #e03131;
+      --success: #16a34a;
+      --success: oklch(62% 0.18 145);
+
+      --radius-xs: 6px;
+      --radius-sm: 10px;
+      --radius-control: 18px;
+      --radius-panel: 24px;
+      --radius-surface: 34px;
+      --radius-pill: 9999px;
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-raised: 0 4px 14px rgba(0, 0, 0, 0.05);
+      --shadow-floating: 0 20px 48px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+
+      --font-display: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --ease-snappy: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-page: #1a1a1a;
+      --stage-bg: #242424;         /* 100% 对齐截图 #242424 舞台 */
+      --stage-border: #2e2e2e;
+
+      --btn-bg: #191919;           /* 100% 对齐截图 #191919 深色药丸 */
+      --btn-color: #ffffff;
+      --btn-border: #2a2a2a;
+      --btn-hover-bg: #222222;
+
+      --btn-primary-bg: #f2f2f2;   /* 100% 对齐截图 #f2f2f2 亮白药丸 */
+      --btn-primary-color: #191919;
+      --btn-primary-hover-bg: #ffffff;
+
+      --btn-delete-bg: #191919;     /* 100% 对齐截图 #191919 */
+      --btn-delete-color: #f56a65;  /* 100% 对齐截图 #f56a65 亮珊瑚红 */
+      --btn-delete-border: #2a2a2a;
+
+      --text-muted: #919191;       /* 100% 对齐截图 #919191 标题灰 */
+      --text-secondary: #b5b5b5;
+      --foreground: #ffffff;
+
+      --border: #2e2e2e;
+      --border-subtle: #252525;
+      --surface: #242424;
+      --surface-muted: #1e1e1e;
+      --accent: #f2f2f2;
+      --accent-foreground: #191919;
+      --danger: #f56a65;
+      --success: #34d399;
+      --success: oklch(72% 0.18 145);
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --shadow-raised: 0 6px 18px rgba(0, 0, 0, 0.45);
+      --shadow-floating: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-display);
+      background-color: var(--background);
+      color: var(--foreground);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.015em;
+    }
+
+    /* 嵌入宿主模式适配 */
+    body.is-embedded {
+      padding: 0 !important;
+      background: transparent !important;
+      min-height: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    body.is-embedded .arc-standalone-bar {
+      display: none !important;
+    }
+    body.is-embedded .stage-card {
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+
+    /* 顶部控制栏 */
+    .arc-standalone-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 880px;
+      height: 48px;
+      background: color-mix(in oklab, var(--surface) 80%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-raised);
+      z-index: 100;
+    }
+
+    .bar-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bar-meta .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      color: var(--text-secondary);
+    }
+    .bar-meta .title {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .theme-toggle-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-resting);
+      transition: transform 0.15s var(--ease-snappy);
+    }
+    .theme-toggle-btn:active { transform: scale(0.90); }
+
+    /* 中央舞台 */
+    .arc-stage {
+      width: 100%;
+      max-width: 880px;
+      background: var(--stage-bg);
+      border: 1px solid var(--stage-border);
+      border-radius: var(--radius-surface);
+      box-shadow: var(--shadow-floating);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 32px;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    .showcase-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 36px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .group-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .group-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+    }
+
+    .button-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* 按钮基础样式 (Secondary / 普通操作项) */
+    .arc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 550;
+      line-height: 1;
+      height: 40px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      box-shadow: var(--shadow-resting);
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      outline: none;
+      transition: transform var(--duration-quick) var(--ease-snappy), background-color var(--duration-fast) ease, border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+      will-change: transform;
+    }
+
+    .arc-btn:hover {
+      background: var(--btn-hover-bg);
+      box-shadow: var(--shadow-raised);
+    }
+    .arc-btn:active {
+      transform: scale(0.97);
+    }
+    .arc-btn-icon-only:active {
+      transform: scale(0.96);
+    }
+
+    /* 变体：主按钮 (Primary: Save changes / Continue) */
+    .arc-btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-color);
+      border-color: transparent;
+    }
+    .arc-btn-primary:hover {
+      background: var(--btn-primary-hover-bg);
+      color: var(--btn-primary-color);
+    }
+    .arc-btn-primary:active {
+      opacity: 0.84;
+    }
+
+    /* 变体：幽灵按钮 (Ghost) */
+    .arc-btn-ghost {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      color: var(--text-muted);
+    }
+    .arc-btn-ghost:hover {
+      background: var(--btn-hover-bg);
+      color: var(--foreground);
+      box-shadow: none;
+    }
+    .arc-btn-ghost:active {
+      background: var(--btn-hover-bg);
+      color: var(--foreground);
+    }
+
+    /* 变体：危险按钮 (Delete / Danger) - 官方标准：hover 与 active 边框变红且背景变为 surface-muted */
+    .arc-btn-delete {
+      background: var(--btn-delete-bg);
+      color: var(--btn-delete-color);
+      border: 1px solid var(--btn-delete-border);
+    }
+    .arc-btn-delete:hover:not(:disabled) {
+      border-color: var(--btn-delete-color);
+      background: var(--surface-muted);
+      box-shadow: var(--shadow-resting);
+    }
+    .arc-btn-delete:active:not(:disabled) {
+      border-color: var(--btn-delete-color);
+      background: var(--surface-muted);
+      transform: scale(0.97);
+    }
+
+    .arc-btn-icon-only {
+      width: 40px;
+      padding: 0;
+      border-radius: var(--radius-pill);
+    }
+
+    .arc-btn-lg {
+      height: 46px;
+      padding: 0 24px;
+      font-size: 15px;
+    }
+
+    .arc-btn-disabled,
+    .arc-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+      box-shadow: none;
+    }
+
+    /* 动态 Spinner */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      flex-shrink: 0;
+      vertical-align: middle;
+      box-sizing: border-box;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .icon-svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+  
+    /* transitions.dev OS-level reduced motion accessibility guard */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+  
+    /* transitions.dev recipe 09: Icon swap with scale & rotate */
+    .icon-swap-wrapper {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-swap-wrapper .icon-state {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 320ms var(--ease-smooth-out),
+                  transform 380ms cubic-bezier(0.34, 1.36, 0.64, 1),
+                  filter 320ms var(--ease-smooth-out);
+      will-change: transform, opacity, filter;
+    }
+
+    .icon-swap-wrapper .icon-a {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0);
+    }
+    .icon-swap-wrapper .icon-b {
+      opacity: 0;
+      transform: scale(0.5) rotate(-45deg);
+      filter: blur(2.5px);
+      pointer-events: none;
+      color: var(--success);
+    }
+
+    .is-copied .icon-swap-wrapper .icon-a,
+    .is-success .icon-swap-wrapper .icon-a {
+      opacity: 0;
+      transform: scale(0.5) rotate(45deg);
+      filter: blur(2.5px);
+    }
+    .is-copied .icon-swap-wrapper .icon-b,
+    .is-success .icon-swap-wrapper .icon-b {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0);
+    }
+
+    /* 成功反馈态对号专用色彩 (Success Green) */
+    .icon-swap-wrapper .icon-b .icon-svg,
+    #uploadCheck {
+      color: var(--success);
+      stroke: var(--success);
+    }
+
+    #saveCheck {
+      color: var(--success);
+      stroke: var(--success);
+    }
+    [data-theme="light"] .arc-btn-primary #saveCheck {
+      color: oklch(72% 0.19 145);
+      stroke: oklch(72% 0.19 145);
+    }
+    [data-theme="dark"] .arc-btn-primary #saveCheck {
+      color: oklch(50% 0.20 145);
+      stroke: oklch(50% 0.20 145);
+    }
+
+    /* transitions.dev recipe 04: In-place text swap with micro-blur (舒缓物理节奏) */
+    .btn-label-swap {
+      display: inline-block;
+      white-space: nowrap;
+      will-change: transform, opacity, filter;
+      transition: opacity 220ms var(--ease-smooth-out),
+                  transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 220ms var(--ease-smooth-out);
+    }
+    .btn-label-swap.swap-out {
+      opacity: 0;
+      transform: translateY(-5px);
+      filter: blur(2.5px);
+    }
+    .btn-label-swap.swap-in {
+      opacity: 0;
+      transform: translateY(5px);
+      filter: blur(2.5px);
+    }
+
+    /* Upload button 三态前置插槽 (初始空 -> 中间态Spinner -> 结尾态勾选Check) */
+    .upload-state-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-right: 0;
+      transition: max-width 380ms cubic-bezier(0.34, 1.36, 0.64, 1),
+                  opacity 300ms var(--ease-smooth-out),
+                  margin-right 380ms cubic-bezier(0.34, 1.36, 0.64, 1);
+      will-change: max-width, opacity, margin-right;
+    }
+    .upload-state-slot.show-slot {
+      max-width: 22px;
+      opacity: 1;
+      margin-right: 8px;
+    }
+
+    .continue-hint {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: -12px;
+      opacity: 0;
+      transform: translateY(4px);
+      filter: blur(2px);
+      transition: opacity 220ms ease, transform 260ms var(--ease-smooth), filter 220ms ease;
+      pointer-events: none;
+    }
+    .continue-hint.show {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+  
+    body.is-embedded .stage-toolbar,
+    body.is-embedded .standalone-header { display: none !important; }
+    body.is-embedded .arc-stage-card { border: none !important; box-shadow: none !important; background: transparent !important; margin: 0 !important; }
+
+
+/* 宿主嵌入统一强力去重样式 */
+body.is-embedded .stage-toolbar,
+body.is-embedded .arc-standalone-bar,
+body.is-embedded .standalone-header {
+  display: none !important;
+}
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-box,
+body.is-embedded .main-stage {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  width: 100% !important;
+}
+body.is-embedded {
+  padding: 0 !important;
+  background: transparent !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* 嵌入模式彻底消除滚动条与强制居中 */
+html.is-embedded, body.is-embedded {
+  overflow: hidden !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body.is-embedded::-webkit-scrollbar,
+html.is-embedded::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+body.is-embedded .arc-stage,
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-content {
+  margin: 0 !important;
+  padding: 24px !important;
+  min-height: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- 顶部控制栏 -->
+  <header class="arc-standalone-bar">
+    <div class="bar-meta">
+      <span class="badge">01_Buttons</span>
+      <span class="title">Button (button)</span>
+    </div>
+    <div class="bar-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="切换暗黑/浅色模式 (快捷键: D)">
+        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 主舞台 -->
+  <main class="arc-stage">
+    <div class="showcase-grid">
+
+      <!-- Styles -->
+      <section class="group-section">
+        <span class="group-title">Styles</span>
+        <div class="button-row">
+          <button class="arc-btn arc-btn-primary" id="saveChangesBtn">
+            <span class="upload-state-slot" id="saveSlot">
+              <span class="spinner" id="saveSpinner" style="display:none;"></span>
+              <svg class="icon-svg" id="saveCheck" viewBox="0 0 24 24" style="display:none;"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="btn-label-swap" id="saveChangesText">Save changes</span>
+          </button>
+          <button class="arc-btn">Secondary</button>
+          <button class="arc-btn arc-btn-ghost">Ghost</button>
+          <button class="arc-btn arc-btn-delete">Delete</button>
+        </div>
+      </section>
+
+      <!-- Icons and sizes -->
+      <section class="group-section">
+        <span class="group-title">Icons and sizes</span>
+        <div class="button-row">
+          <button class="arc-btn">
+            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Add item</span>
+          </button>
+          <button class="arc-btn arc-btn-primary" id="continueBtn">
+            <span>Continue</span>
+            <svg class="icon-svg" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="arc-btn arc-btn-icon-only" title="More options">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          </button>
+          <button class="arc-btn arc-btn-lg">Large</button>
+        </div>
+      </section>
+
+      <!-- Feedback and states -->
+      <section class="group-section">
+        <span class="group-title">Feedback and states</span>
+        <div class="button-row">
+          <button class="arc-btn" id="copyLinkBtn">
+            <span class="icon-swap-wrapper">
+              <span class="icon-state icon-a">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </span>
+              <span class="icon-state icon-b">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+            </span>
+            <span class="btn-label-swap" id="copyLinkText">Copy link</span>
+          </button>
+          <button class="arc-btn arc-btn-icon-only" id="iconCopyBtn" title="Copy">
+            <span class="icon-swap-wrapper">
+              <span class="icon-state icon-a">
+                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </span>
+              <span class="icon-state icon-b">
+                <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+            </span>
+          </button>
+          <button class="arc-btn" id="uploadFileBtn">
+            <span class="upload-state-slot" id="uploadSlot">
+              <span class="spinner" id="uploadSpinner" style="display:none;"></span>
+              <svg class="icon-svg" id="uploadCheck" viewBox="0 0 24 24" style="display:none;"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="btn-label-swap" id="uploadFileContent">Upload file</span>
+          </button>
+          <button class="arc-btn" disabled>Disabled</button>
+        </div>
+      </section>
+
+      <!-- 对齐截图底部的状态提示 -->
+      <div class="continue-hint" id="continueHint">Continuing</div>
+
+    </div>
+  </main>
+
+  <script>
+    (function init() {
+      // Theme Switcher & Embed Detection
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeToggleBtn');
+      const params = new URLSearchParams(window.location.search);
+      const isEmbedded = window.self !== window.top || params.get('embed') === 'true';
+
+      if (isEmbedded) {
+        document.body.classList.add('is-embedded'); document.documentElement.classList.add('is-embedded');
+      }
+
+      // 优先采用 url 参数，其次 localStorage，默认 dark (与官方展示对标)
+      const urlTheme = params.get('theme');
+      if (urlTheme) {
+        root.dataset.theme = urlTheme;
+      } else {
+        const saved = localStorage.getItem('arc_theme');
+        if (saved) {
+          root.dataset.theme = saved;
+        } else if (isEmbedded) {
+          root.dataset.theme = 'dark';
+        }
+      }
+
+      function toggleTheme() {
+        const current = root.dataset.theme;
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('arc_theme', next); } catch (e) {}
+      }
+      if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.key === 'd' || e.key === 'D') && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+          toggleTheme();
+        }
+      });
+
+      // 监听外部 postMessage 主题联动
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'ARC_THEME_CHANGE' && e.data.theme) {
+          root.dataset.theme = e.data.theme;
+        }
+      });
+
+      // Transitions.dev Recipe 04: In-place text swap with micro-blur (舒缓平滑节奏)
+      function swapText(el, newText, callback) {
+        if (!el) return;
+        el.classList.remove('swap-in');
+        el.classList.add('swap-out');
+        setTimeout(() => {
+          el.textContent = newText;
+          el.classList.remove('swap-out');
+          el.classList.add('swap-in');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                el.classList.remove('swap-in');
+                if (callback) callback();
+              }, 40);
+            });
+          });
+        }, 160);
+      }
+
+      // Save changes interactive morph (三态物理加载：初始 -> Spinner/Saving... -> Saved -> 平滑复原)
+      const saveBtn = document.getElementById('saveChangesBtn');
+      const saveText = document.getElementById('saveChangesText');
+      const saveSlot = document.getElementById('saveSlot');
+      const saveSpinner = document.getElementById('saveSpinner');
+      const saveCheck = document.getElementById('saveCheck');
+      let saving = false;
+      let saveResetTimer = null;
+
+      saveBtn.addEventListener('click', () => {
+        if (saving) return;
+        saving = true;
+        clearTimeout(saveResetTimer);
+
+        // 【中间态】：展开 Spinner 并平滑翻转为 Saving...
+        saveSpinner.style.display = 'inline-block';
+        saveCheck.style.display = 'none';
+        saveSlot.classList.add('show-slot');
+        swapText(saveText, 'Saving...', () => {
+          setTimeout(() => {
+            // 【结尾态】：Spinner 转为 Check 图标，文字微模糊翻转为 Saved
+            saveSpinner.style.display = 'none';
+            saveCheck.style.display = 'inline-block';
+            swapText(saveText, 'Saved', () => {
+              // 成功展示 1800ms 后平滑退回初始态
+              saveResetTimer = setTimeout(() => {
+                saveSlot.classList.remove('show-slot');
+                swapText(saveText, 'Save changes', () => {
+                  saveSpinner.style.display = 'none';
+                  saveCheck.style.display = 'none';
+                  saving = false;
+                });
+              }, 1800);
+            });
+          }, 1400);
+        });
+      });
+
+      // 1. Copy link button (三态物理切换：初始 -> 图标旋转齿轮过渡+文字微模糊翻转 -> Copied! -> 平滑复原)
+      const copyBtn = document.getElementById('copyLinkBtn');
+      const copyText = document.getElementById('copyLinkText');
+      let copyTimer = null;
+      copyBtn.addEventListener('click', () => {
+        if (copyBtn.classList.contains('is-copied')) return;
+        copyBtn.classList.add('is-copied');
+        swapText(copyText, 'Copied!');
+        clearTimeout(copyTimer);
+        copyTimer = setTimeout(() => {
+          copyBtn.classList.remove('is-copied');
+          swapText(copyText, 'Copy link');
+        }, 2200);
+      });
+
+      // 2. Icon-only copy button (纯图标齿轮翻转弹性过渡)
+      const iconCopyBtn = document.getElementById('iconCopyBtn');
+      let iconCopyTimer = null;
+      iconCopyBtn.addEventListener('click', () => {
+        if (iconCopyBtn.classList.contains('is-copied')) return;
+        iconCopyBtn.classList.add('is-copied');
+        clearTimeout(iconCopyTimer);
+        iconCopyTimer = setTimeout(() => {
+          iconCopyBtn.classList.remove('is-copied');
+        }, 2200);
+      });
+
+      // 3. Upload file button (三态物理过渡：初始 -> 展开Spinner+Uploading... -> Uploaded+Check -> 平滑收拢复原)
+      const uploadBtn = document.getElementById('uploadFileBtn');
+      const uploadContent = document.getElementById('uploadFileContent');
+      const uploadSlot = document.getElementById('uploadSlot');
+      const uploadSpinner = document.getElementById('uploadSpinner');
+      const uploadCheck = document.getElementById('uploadCheck');
+      let uploading = false;
+      let uploadResetTimer = null;
+
+      uploadBtn.addEventListener('click', () => {
+        if (uploading) return;
+        uploading = true;
+        clearTimeout(uploadResetTimer);
+
+        // 【中间态】：展开 Spinner 并平滑翻转为 Uploading...
+        uploadSpinner.style.display = 'inline-block';
+        uploadCheck.style.display = 'none';
+        uploadSlot.classList.add('show-slot');
+        swapText(uploadContent, 'Uploading...', () => {
+          // 模拟物理加载过程 (充裕的 1800ms 让 Spinner 旋转清晰可辨)
+          setTimeout(() => {
+            // 【结尾态】：Spinner 转为 Check，文字平滑微模糊翻转为 Uploaded
+            uploadSpinner.style.display = 'none';
+            uploadCheck.style.display = 'inline-block';
+            swapText(uploadContent, 'Uploaded', () => {
+              // 成功态充裕展示 2200ms 后平滑退回初始态
+              uploadResetTimer = setTimeout(() => {
+                uploadSlot.classList.remove('show-slot');
+                swapText(uploadContent, 'Upload file', () => {
+                  uploadSpinner.style.display = 'none';
+                  uploadCheck.style.display = 'none';
+                  uploading = false;
+                });
+              }, 2200);
+            });
+          }, 1800);
+        });
+      });
+
+      // Continue button interaction
+      const continueBtn = document.getElementById('continueBtn');
+      const continueHint = document.getElementById('continueHint');
+      let continueTimer = null;
+      if (continueBtn && continueHint) {
+        continueBtn.addEventListener('click', () => {
+          clearTimeout(continueTimer);
+          continueHint.classList.add('show');
+          continueTimer = setTimeout(() => {
+            continueHint.classList.remove('show');
+          }, 2000);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

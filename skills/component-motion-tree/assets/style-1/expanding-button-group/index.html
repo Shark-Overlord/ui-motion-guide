@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arc UI · Expanding button group (expanding-button-group)</title>
+  <style>
+    :root {
+      /* ── Arc UI & transitions.dev Motion Tokens ── */
+      --duration-instant: 120ms;
+      --duration-fast: 160ms;
+      --duration-standard: 240ms;
+      --duration-morph: 420ms;
+
+      --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+      /* 官方真实物理弹簧曲线 (基于 motionTokens.spring.morph: visualDuration: 0.42s, bounce: 0.16) */
+      --ease-morph-spring: linear(
+        0 0%, 0.0258 2.78%, 0.09 5.56%, 0.1763 8.33%, 0.2732 11.11%,
+        0.3724 13.89%, 0.4683 16.67%, 0.5573 19.44%, 0.6376 22.22%,
+        0.7082 25%, 0.7689 27.78%, 0.8202 30.56%, 0.8628 33.33%,
+        0.8976 36.11%, 0.9256 38.89%, 0.9476 41.67%, 0.9648 44.44%,
+        0.9778 47.22%, 0.9875 50%, 0.9945 52.78%, 0.9994 55.56%,
+        1.0026 58.33%, 1.0047 61.11%, 1.0058 63.89%, 1.0062 66.67%,
+        1.0062 69.44%, 1.0059 72.22%, 1.0055 75%, 1.0049 77.78%,
+        1.0043 80.56%, 1.0036 83.33%, 1.0031 86.11%, 1.0025 88.89%,
+        1.002 91.67%, 1.0016 94.44%, 1.0013 97.22%, 1 100%
+      );
+
+      color-scheme: light;
+      --bg-page: #fbfbfb;
+      --stage-bg: #f8f8f8;
+      --stage-border: #eeeeee;
+
+      --foreground: #0b0b0b;
+      --background: #ffffff;
+      --surface: #ffffff;
+      --surface-raised: #ffffff;
+      --surface-muted: #f2f2f2;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-subtle: rgba(0, 0, 0, 0.04);
+      --text-muted: #888888;
+      --text-secondary: #555555;
+      --danger: #e03131;
+      --success: #10b981;
+
+      --radius-control: 18px;
+      --radius-surface: 34px;
+      --radius-pill: 9999px;
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-floating: 0 20px 48px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+
+      --font-display: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-page: #1a1a1a;
+      --stage-bg: #242424;
+      --stage-border: #2e2e2e;
+
+      --foreground: #ffffff;
+      --background: #191919;
+      --surface: #1e1e1e;
+      --surface-raised: #282828;
+      --surface-muted: #2a2a2a;
+      --border: #2e2e2e;
+      --border-subtle: #252525;
+      --text-muted: #919191;
+      --text-secondary: #b5b5b5;
+      --danger: #f56a65;
+      --success: #34d399;
+
+      --shadow-resting: 0 1px 3px rgba(0, 0, 0, 0.4);
+      --shadow-floating: 0 24px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-display);
+      background-color: var(--bg-page);
+      color: var(--foreground);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.015em;
+    }
+
+    /* 顶部控制栏 */
+    .arc-standalone-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 880px;
+      height: 48px;
+      background: color-mix(in oklab, var(--surface) 80%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      z-index: 100;
+    }
+
+    .bar-meta { display: flex; align-items: center; gap: 10px; }
+    .bar-meta .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      background: var(--surface-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      color: var(--text-secondary);
+    }
+    .bar-meta .title { font-size: 13px; font-weight: 700; }
+
+    .theme-toggle-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-resting);
+      transition: transform 0.15s var(--ease-snappy);
+    }
+    .theme-toggle-btn:active { transform: scale(0.90); }
+
+    /* 中央舞台 */
+    .arc-stage {
+      width: 100%;
+      max-width: 880px;
+      min-height: 460px;
+      background: var(--stage-bg);
+      border: 1px solid var(--stage-border);
+      border-radius: var(--radius-surface);
+      box-shadow: var(--shadow-floating);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 32px;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    .ebg-showcase-matrix {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    /* ── 官方 Expanding Button Group 核心样式 ── */
+    /* A flat pill on the surface. Geometry comes from the component as --ebg-* variables */
+    .ebg-group {
+      --ebg-h: 36px;
+      --ebg-icon: 16px;
+      --ebg-start: 10px;
+      --ebg-gap: 7px;
+      --ebg-end: 14px;
+      --ebg-pad: 3px;
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      max-width: 100%;
+      flex: none;
+      align-items: center;
+      gap: 2px;
+      padding: var(--ebg-pad);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      box-shadow: var(--shadow-resting);
+      user-select: none;
+    }
+
+    /* Small 尺寸变体 (官方 Row 2) */
+    .ebg-group.sm {
+      --ebg-h: 28px;
+      --ebg-icon: 14px;
+      --ebg-start: 7px;
+      --ebg-gap: 5px;
+      --ebg-end: 11px;
+      --ebg-pad: 3px;
+    }
+
+    /* The box never scales: its width is the animation. The icon keeps the same left inset collapsed and expanded, so it never moves! */
+    .ebg-item {
+      position: relative;
+      display: inline-flex;
+      height: var(--ebg-h);
+      min-width: var(--ebg-h);
+      flex: none;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--ebg-gap);
+      overflow: clip;
+      border: 0;
+      border-radius: var(--radius-pill);
+      padding: 0 0 0 var(--ebg-start);
+      background: transparent;
+      color: var(--text-secondary);
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      outline: none;
+      /* 官方真实弹簧物理形变 */
+      transition: color var(--duration-fast) var(--ease-standard),
+                  background-color var(--duration-standard) var(--ease-standard),
+                  width var(--duration-morph) var(--ease-morph-spring);
+      will-change: width, background-color;
+    }
+
+    /* 初始化未就绪时禁用过渡，彻底杜绝初载自展动画与视觉抖动 */
+    .ebg-group:not(.is-ready) .ebg-item {
+      transition: none !important;
+    }
+
+    .ebg-group.sm .ebg-item {
+      font-size: 12px;
+    }
+
+    .ebg-item[data-expanded] {
+      color: var(--foreground);
+      background: var(--surface-muted);
+    }
+
+    .ebg-item[data-tone="danger"][data-expanded] {
+      color: var(--danger);
+      background: color-mix(in oklab, var(--danger) 10%, var(--surface));
+    }
+
+    /* 确认成功态 (Done State) */
+    .ebg-item[data-state="done"]:not([data-tone="danger"]) {
+      background: color-mix(in oklab, var(--success) 10%, var(--surface)) !important;
+      color: var(--success) !important;
+    }
+    .ebg-item[data-state="done"]:not([data-tone="danger"]) .icon-slot {
+      color: var(--success);
+    }
+    .ebg-item[data-tone="danger"][data-state="done"] {
+      background: color-mix(in oklab, var(--danger) 12%, var(--surface)) !important;
+      color: var(--danger) !important;
+    }
+
+    /* 图标容器：尺寸严格由 --ebg-icon 约束，按下时 .icon 产生微按压 scale(.86) */
+    .icon-slot {
+      position: relative;
+      display: grid;
+      width: var(--ebg-icon);
+      height: var(--ebg-icon);
+      flex: none;
+      place-items: center;
+      transition: transform 320ms var(--ease-spring);
+    }
+
+    .ebg-item:active:not([aria-disabled="true"]) .icon-slot {
+      transform: scale(.86);
+      transition-duration: 90ms;
+      transition-timing-function: var(--ease-standard);
+    }
+
+    .glyph {
+      display: grid;
+      grid-area: 1 / 1;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      will-change: transform, opacity, filter;
+      transition: transform var(--duration-standard) var(--ease-snappy),
+                  opacity var(--duration-fast) var(--ease-enter),
+                  filter var(--duration-fast) var(--ease-enter);
+    }
+
+    .glyph svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: 1.85;
+    }
+
+    .glyph-normal {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+    .ebg-item[data-state="done"] .glyph-normal {
+      opacity: 0;
+      transform: scale(0.55);
+      filter: blur(2px);
+    }
+
+    .glyph-check {
+      opacity: 0;
+      transform: scale(0.55);
+      filter: blur(2px);
+    }
+    .ebg-item[data-state="done"] .glyph-check {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+
+    .drawn-check-path {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      transition: stroke-dashoffset var(--duration-standard) var(--ease-enter) 0.06s;
+    }
+    .ebg-item[data-state="done"] .drawn-check-path {
+      stroke-dashoffset: 0;
+    }
+
+    /* ── 标签容器：Out / In 字形共享一个单元格，空间由 .sizer 完美预留 ── */
+    .label-slot {
+      display: inline-grid;
+      flex: none;
+      align-items: center;
+      justify-items: start;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-6px);
+      filter: blur(2px);
+      transition: opacity var(--duration-instant) var(--ease-standard),
+                  transform var(--duration-instant) var(--ease-standard),
+                  filter var(--duration-instant) var(--ease-standard);
+      will-change: opacity, transform, filter;
+    }
+
+    .ebg-item[data-expanded] .label-slot {
+      opacity: 1;
+      transform: translateX(0);
+      filter: blur(0px);
+      transition: opacity var(--duration-standard) var(--ease-enter) 0.04s,
+                  transform var(--duration-standard) var(--ease-enter) 0.04s,
+                  filter var(--duration-standard) var(--ease-enter) 0.04s;
+    }
+
+    /* 当前文字层 */
+    .word {
+      grid-area: 1 / 1;
+      white-space: nowrap;
+      transition: transform var(--duration-standard) var(--ease-enter),
+                  opacity var(--duration-standard) var(--ease-enter),
+                  filter var(--duration-standard) var(--ease-enter);
+    }
+
+    .word.text-in {
+      opacity: 0;
+      transform: translateY(0.5em);
+      filter: blur(3px);
+    }
+    .word.text-rest {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+    .word.text-out {
+      opacity: 0;
+      transform: translateY(-0.4em);
+      filter: blur(2px);
+      transition: transform var(--duration-fast) var(--ease-standard),
+                  opacity var(--duration-fast) var(--ease-standard),
+                  filter var(--duration-fast) var(--ease-standard);
+    }
+
+    /* 隐藏的宽度预留测算器：容纳 label 与 doneLabel 中更长的一者 */
+    .sizer {
+      grid-area: 1 / 1;
+      visibility: hidden;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .hint-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 30px;
+      letter-spacing: -0.01em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  
+    /* 嵌入宿主模式适配 */
+    body.is-embedded {
+      padding: 0 !important;
+      background: transparent !important;
+      min-height: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    body.is-embedded .arc-standalone-bar {
+      display: none !important;
+    }
+    body.is-embedded .stage-card, 
+    body.is-embedded .stage-box, 
+    body.is-embedded .main-stage,
+    body.is-embedded .container,
+    body.is-embedded .wrapper {
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+
+  
+    body.is-embedded .stage-toolbar,
+    body.is-embedded .standalone-header { display: none !important; }
+    body.is-embedded .arc-stage-card { border: none !important; box-shadow: none !important; background: transparent !important; margin: 0 !important; }
+
+
+/* 宿主嵌入统一强力去重样式 */
+body.is-embedded .stage-toolbar,
+body.is-embedded .arc-standalone-bar,
+body.is-embedded .standalone-header {
+  display: none !important;
+}
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-box,
+body.is-embedded .main-stage {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  width: 100% !important;
+}
+body.is-embedded {
+  padding: 0 !important;
+  background: transparent !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+/* 嵌入模式彻底消除滚动条与强制居中 */
+html.is-embedded, body.is-embedded {
+  overflow: hidden !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body.is-embedded::-webkit-scrollbar,
+html.is-embedded::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+body.is-embedded .arc-stage,
+body.is-embedded .arc-stage-card,
+body.is-embedded .stage-card,
+body.is-embedded .stage-content {
+  margin: 0 !important;
+  padding: 24px !important;
+  min-height: auto !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+</style>
+</head>
+<body>
+
+  <!-- 顶部控制栏 -->
+  <header class="arc-standalone-bar">
+    <div class="bar-meta">
+      <span class="badge">01_Buttons</span>
+      <span class="title">Expanding button group (expanding-button-group)</span>
+    </div>
+    <div class="bar-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="切换暗黑/浅色模式 (快捷键: D)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 主舞台：官方三行完整对应矩阵 -->
+  <main class="arc-stage">
+    <div class="ebg-showcase-matrix">
+      <!-- ── 行 1: Message actions (md 尺寸: 36px) ── -->
+      <div role="toolbar" aria-label="Message actions" aria-orientation="horizontal" class="ebg-group md" data-group-id="msg">
+        <!-- 1. Reply (默认展开) -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="reply" data-tone="neutral" data-state="idle" data-expanded="true" aria-label="Reply" tabindex="0">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
+                <path d="m9 17-5-5 5-5"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Reply</span>
+            <span class="sizer">Reply</span>
+            <span class="sizer">Replied</span>
+          </span>
+        </button>
+
+        <!-- 2. Forward -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="forward" data-tone="neutral" data-state="idle" aria-label="Forward" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 17 5-5-5-5"/>
+                <path d="M4 18v-2a4 4 0 0 1 4-4h12"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Forward</span>
+            <span class="sizer">Forward</span>
+            <span class="sizer">Forwarded</span>
+          </span>
+        </button>
+
+        <!-- 3. Archive -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="archive" data-tone="neutral" data-state="idle" aria-label="Archive" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="5" x="2" y="3" rx="1"/>
+                <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/>
+                <path d="M10 12h4"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Archive</span>
+            <span class="sizer">Archive</span>
+            <span class="sizer">Archived</span>
+          </span>
+        </button>
+
+        <!-- 4. Snooze -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="snooze" data-tone="neutral" data-state="idle" aria-label="Snooze" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6h4"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Snooze</span>
+            <span class="sizer">Snooze</span>
+            <span class="sizer">Snoozed</span>
+          </span>
+        </button>
+
+        <!-- 5. Delete (Danger) -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="delete" data-tone="danger" data-state="idle" aria-label="Delete" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 11v6"/>
+                <path d="M14 11v6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                <path d="M3 6h18"/>
+                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Delete</span>
+            <span class="sizer">Delete</span>
+            <span class="sizer">Deleted</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- ── 行 2: File actions (sm 尺寸: 28px) ── -->
+      <div role="toolbar" aria-label="File actions" aria-orientation="horizontal" class="ebg-group sm" data-group-id="file">
+        <!-- 1. Download (默认展开) -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="download" data-tone="neutral" data-state="idle" data-expanded="true" aria-label="Download" tabindex="0">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 15V3"/>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <path d="m7 10 5 5 5-5"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Download</span>
+            <span class="sizer">Download</span>
+            <span class="sizer">Downloaded</span>
+          </span>
+        </button>
+
+        <!-- 2. Copy link -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="link" data-tone="neutral" data-state="idle" aria-label="Copy link" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 17H7A5 5 0 0 1 7 7h2"/>
+                <path d="M15 7h2a5 5 0 1 1 0 10h-2"/>
+                <line x1="8" x2="16" y1="12" y2="12"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Copy link</span>
+            <span class="sizer">Copy link</span>
+            <span class="sizer">Copied</span>
+          </span>
+        </button>
+
+        <!-- 3. Rename -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="rename" data-tone="neutral" data-state="idle" aria-label="Rename" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 21h8"/>
+                <path d="m15 5 4 4"/>
+                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Rename</span>
+            <span class="sizer">Rename</span>
+            <span class="sizer">Renamed</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- ── 行 3: Page actions (md 尺寸: 36px) ── -->
+      <div role="toolbar" aria-label="Page actions" aria-orientation="horizontal" class="ebg-group md" data-group-id="page">
+        <!-- 1. Publish (默认展开) -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="publish" data-tone="neutral" data-state="idle" data-expanded="true" aria-label="Publish" tabindex="0">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                <path d="M2 12h20"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Publish</span>
+            <span class="sizer">Publish</span>
+            <span class="sizer">Published</span>
+          </span>
+        </button>
+
+        <!-- 2. Duplicate -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="duplicate" data-tone="neutral" data-state="idle" aria-label="Duplicate" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Duplicate</span>
+            <span class="sizer">Duplicate</span>
+            <span class="sizer">Duplicated</span>
+          </span>
+        </button>
+
+        <!-- 3. Pin -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="pin" data-tone="neutral" data-state="idle" aria-label="Pin" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" x2="12" y1="17" y2="22"/>
+                <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Pin</span>
+            <span class="sizer">Pin</span>
+            <span class="sizer">Pinned</span>
+          </span>
+        </button>
+
+        <!-- 4. Delete (Danger) -->
+        <button type="button" class="ebg-item" data-ebg-item="" data-id="delete" data-tone="danger" data-state="idle" aria-label="Delete" tabindex="-1">
+          <span class="icon-slot" aria-hidden="true">
+            <span class="glyph glyph-normal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 11v6"/>
+                <path d="M14 11v6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+                <path d="M3 6h18"/>
+                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+            </span>
+            <span class="glyph glyph-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path class="drawn-check-path" d="M4 12.5l5 5L20 6.5"/>
+              </svg>
+            </span>
+          </span>
+          <span class="label-slot" aria-hidden="true">
+            <span class="word text-rest">Delete</span>
+            <span class="sizer">Delete</span>
+            <span class="sizer">Deleted</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <span class="hint-text">The one you point at or focus grows to reveal its label while neighbours slide aside</span>
+  </main>
+
+  <script>
+
+      // 嵌入检测与主题同步
+      const params = new URLSearchParams(window.location.search);
+      const isEmbedded = window.self !== window.top || params.get('embed') === 'true';
+      if (isEmbedded) {
+        document.body.classList.add('is-embedded'); document.documentElement.classList.add('is-embedded');
+      }
+      const urlTheme = params.get('theme');
+      if (urlTheme) {
+        document.documentElement.dataset.theme = urlTheme;
+      }
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'ARC_THEME_CHANGE' && e.data.theme) {
+          document.documentElement.dataset.theme = e.data.theme;
+        }
+      });
+
+    (function init() {
+      // 1. 主题切换
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeToggleBtn');
+      function toggleTheme() {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('arc_theme', next); } catch (e) {}
+      }
+      themeBtn.addEventListener('click', toggleTheme);
+      window.addEventListener('keydown', (e) => {
+        if ((e.key === 'd' || e.key === 'D') && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) toggleTheme();
+      });
+
+      // 2. 官方 Geometry 几何计算指标 (对标 ExpandingButtonGroup React 源码)
+      const metrics = {
+        sm: { height: 28, icon: 14, start: 7, gap: 5, end: 11 },
+        md: { height: 36, icon: 16, start: 10, gap: 7, end: 14 },
+      };
+
+      const hysteresis = 4; // 滞后阈值，防止在临界面晃动抖动
+
+      // 3. 为每一行工具栏独立挂载物理状态机与测量引擎
+      const groups = document.querySelectorAll('.ebg-group');
+
+      groups.forEach(group => {
+        const isSm = group.classList.contains('sm');
+        const m = isSm ? metrics.sm : metrics.md;
+
+        const items = Array.from(group.querySelectorAll('.ebg-item'));
+        const defaultItem = items.find(it => it.hasAttribute('data-expanded')) || items[0];
+
+        let currentActiveItem = defaultItem;
+        let pointerOverId = null;
+        let lastPointerPos = null;
+        let doneItem = null;
+        let doneTimer = null;
+
+        // 测量并计算每个项在展开态下的目标像素宽度
+        function calculateExpandedWidth(item) {
+          const sizers = Array.from(item.querySelectorAll('.sizer'));
+          let maxTextWidth = 0;
+          sizers.forEach(sz => {
+            const w = sz.getBoundingClientRect().width;
+            if (w > maxTextWidth) maxTextWidth = w;
+          });
+          return Math.round(m.start + m.icon + m.gap + maxTextWidth + m.end);
+        }
+
+        // 应用几何尺寸
+        function applyLayout(activeItem) {
+          items.forEach(it => {
+            if (it === activeItem) {
+              it.setAttribute('data-expanded', '');
+              it.tabIndex = 0;
+              const expWidth = calculateExpandedWidth(it);
+              it.style.width = `${expWidth}px`;
+            } else {
+              it.removeAttribute('data-expanded');
+              it.tabIndex = -1;
+              it.style.width = `${m.height}px`;
+            }
+          });
+          currentActiveItem = activeItem;
+        }
+
+        let hoverTimer = null;
+
+        // 初次挂载前瞬间直接无过渡应用初态宽度 (Zero-jump mount)
+        applyLayout(defaultItem);
+        requestAnimationFrame(() => {
+          group.classList.add('is-ready');
+        });
+
+        // PointerMove 遵循真实光标移动与 4px 滞后保护 (Hysteresis) + 35ms 意图防抖
+        group.addEventListener('pointermove', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          if (lastPointerPos && Math.abs(lastPointerPos.x - e.clientX) < 1 && Math.abs(lastPointerPos.y - e.clientY) < 1) return;
+          lastPointerPos = { x: e.clientX, y: e.clientY };
+
+          const hoveredBtn = e.target.closest('.ebg-item');
+          if (!hoveredBtn || !group.contains(hoveredBtn)) return;
+          const id = hoveredBtn.dataset.id;
+          if (id === pointerOverId) return;
+
+          if (pointerOverId) {
+            const box = hoveredBtn.getBoundingClientRect();
+            if (e.clientX < box.left + hysteresis || e.clientX > box.right - hysteresis) return;
+          }
+
+          pointerOverId = id;
+          clearTimeout(hoverTimer);
+
+          // 35ms 微意图防抖：快速掠过不触发，短暂停留即丝滑从容展开
+          hoverTimer = setTimeout(() => {
+            applyLayout(hoveredBtn);
+          }, 35);
+        });
+
+        group.addEventListener('pointerleave', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          clearTimeout(hoverTimer);
+          lastPointerPos = null;
+          pointerOverId = null;
+          // 鼠标离开时平滑复原到默认项（若有确认态则停留在确认项）
+          applyLayout(doneItem || defaultItem);
+        });
+
+        // 键盘无障碍焦点联动
+        items.forEach(item => {
+          item.addEventListener('focus', () => {
+            clearTimeout(hoverTimer);
+            applyLayout(item);
+          });
+
+          // 点击执行动作与 Check 确认态流转
+          item.addEventListener('click', () => {
+            if (item.dataset.state === 'done') return;
+            clearTimeout(doneTimer);
+
+            const labelSlot = item.querySelector('.label-slot');
+            const wordEl = item.querySelector('.word');
+            const sizers = Array.from(item.querySelectorAll('.sizer'));
+            const originalWord = sizers[0] ? sizers[0].textContent : '';
+            const doneWord = sizers[1] ? sizers[1].textContent : originalWord;
+
+            // 1. 设置 Done 状态
+            item.setAttribute('data-state', 'done');
+            doneItem = item;
+
+            // 2. 文字原位交叉渐变 (Crossfade word)
+            wordEl.classList.remove('text-rest');
+            wordEl.classList.add('text-out');
+
+            setTimeout(() => {
+              wordEl.textContent = doneWord;
+              wordEl.classList.remove('text-out');
+              wordEl.classList.add('text-in');
+
+              requestAnimationFrame(() => {
+                wordEl.classList.remove('text-in');
+                wordEl.classList.add('text-rest');
+              });
+            }, 80);
+
+            // 3. 官方确认驻留 1400ms 后自动静止平滑复原
+            doneTimer = setTimeout(() => {
+              item.setAttribute('data-state', 'idle');
+              doneItem = null;
+
+              wordEl.classList.remove('text-rest');
+              wordEl.classList.add('text-out');
+
+              setTimeout(() => {
+                wordEl.textContent = originalWord;
+                wordEl.classList.remove('text-out');
+                wordEl.classList.add('text-in');
+
+                requestAnimationFrame(() => {
+                  wordEl.classList.remove('text-in');
+                  wordEl.classList.add('text-rest');
+                });
+              }, 80);
+
+              // 如果鼠标已移出，复原到默认展开项
+              if (!pointerOverId) {
+                applyLayout(defaultItem);
+              }
+            }, 1400);
+          });
+        });
+
+        // 键盘左右光标切换导航
+        group.addEventListener('keydown', (e) => {
+          const list = items;
+          const currIdx = list.indexOf(document.activeElement);
+          if (currIdx < 0) return;
+
+          let targetIdx = -1;
+          if (e.key === 'ArrowRight') targetIdx = currIdx === list.length - 1 ? 0 : currIdx + 1;
+          else if (e.key === 'ArrowLeft') targetIdx = currIdx === 0 ? list.length - 1 : currIdx - 1;
+          else if (e.key === 'Home') targetIdx = 0;
+          else if (e.key === 'End') targetIdx = list.length - 1;
+
+          if (targetIdx >= 0) {
+            e.preventDefault();
+            list[targetIdx].focus();
+            applyLayout(list[targetIdx]);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
