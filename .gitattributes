@@ -6,5 +6,6 @@
 *.py text eol=lf
 *.png binary
 *.gif binary
+*.webm binary
 skills/component-motion-tree/assets/** -text -eol
 examples/action-button/before.html -text -eol

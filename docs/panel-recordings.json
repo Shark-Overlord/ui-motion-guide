@@ -1,0 +1,678 @@
+{
+  "browser": "Google Chrome / Playwright",
+  "source": "style-1 original interactive examples",
+  "before_definition": "Initial static state of the same full panel; not the separate raw button files",
+  "source_files_unchanged": 19,
+  "recordings": [
+    {
+      "component": "button",
+      "before": "docs/images/panels/button-before.png",
+      "after": "docs/images/panels/button-after.gif",
+      "original_recording": "docs/recordings/panels/button-after.webm",
+      "frames": 226,
+      "duration_ms": 15070,
+      "bytes": 1675452,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "press",
+          "target": ".arc-btn:not(.arc-btn-primary):not([disabled])"
+        },
+        {
+          "action": "press",
+          "target": ".arc-btn-ghost"
+        },
+        {
+          "action": "press",
+          "target": ".arc-btn-delete"
+        },
+        {
+          "action": "press",
+          "target": ".arc-btn-lg"
+        },
+        {
+          "action": "click",
+          "target": "#saveChangesBtn"
+        },
+        {
+          "action": "click",
+          "target": "#continueBtn"
+        },
+        {
+          "action": "click",
+          "target": "#copyLinkBtn"
+        },
+        {
+          "action": "click",
+          "target": "#iconCopyBtn"
+        },
+        {
+          "action": "click",
+          "target": "#uploadFileBtn"
+        },
+        {
+          "check": "save_and_upload_return_to_idle"
+        }
+      ]
+    },
+    {
+      "component": "action-button",
+      "before": "docs/images/panels/action-button-before.png",
+      "after": "docs/images/panels/action-button-after.gif",
+      "original_recording": "docs/recordings/panels/action-button-after.webm",
+      "frames": 107,
+      "duration_ms": 7140,
+      "bytes": 303562,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "press",
+          "target": "#mainActionBtn"
+        },
+        {
+          "check": "#mainActionBtn",
+          "attribute": "data-state",
+          "value": "idle"
+        }
+      ]
+    },
+    {
+      "component": "split-button",
+      "before": "docs/images/panels/split-button-before.png",
+      "after": "docs/images/panels/split-button-after.gif",
+      "original_recording": "docs/recordings/panels/split-button-after.webm",
+      "frames": 235,
+      "duration_ms": 15670,
+      "bytes": 547214,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "click",
+          "target": "#splitTriggerBtn"
+        },
+        {
+          "check": "#splitTriggerBtn",
+          "attribute": "aria-expanded",
+          "value": "true"
+        },
+        {
+          "action": "hover",
+          "target": "#itemSaveDraft"
+        },
+        {
+          "action": "click",
+          "target": "#itemSaveDraft"
+        },
+        {
+          "action": "click",
+          "target": "#splitPrimaryBtn"
+        },
+        {
+          "action": "click",
+          "target": "#splitTriggerBtn"
+        },
+        {
+          "action": "hover",
+          "target": "#itemPublishNotify"
+        },
+        {
+          "action": "click",
+          "target": "#itemPublishNotify"
+        },
+        {
+          "action": "click",
+          "target": "#splitTriggerBtn"
+        },
+        {
+          "action": "hover",
+          "target": "#itemDeleteDraft"
+        },
+        {
+          "action": "click",
+          "target": "#itemDeleteDraft"
+        },
+        {
+          "check": "#splitTriggerBtn",
+          "attribute": "aria-expanded",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "component": "icon-morph",
+      "before": "docs/images/panels/icon-morph-before.png",
+      "after": "docs/images/panels/icon-morph-after.gif",
+      "original_recording": "docs/recordings/panels/icon-morph-after.webm",
+      "frames": 170,
+      "duration_ms": 11340,
+      "bytes": 776161,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "click",
+          "target": "#cardMenu"
+        },
+        {
+          "check": "#cardMenu",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardPlay"
+        },
+        {
+          "check": "#cardPlay",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardPlus"
+        },
+        {
+          "check": "#cardPlus",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardCopy"
+        },
+        {
+          "check": "#cardCopy",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardTheme"
+        },
+        {
+          "check": "#cardTheme",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardChevron"
+        },
+        {
+          "check": "#cardChevron",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardBell"
+        },
+        {
+          "check": "#cardBell",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardHeart"
+        },
+        {
+          "check": "#cardHeart",
+          "attribute": "data-active",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#cardMenu"
+        },
+        {
+          "check": "#cardMenu",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardPlay"
+        },
+        {
+          "check": "#cardPlay",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardPlus"
+        },
+        {
+          "check": "#cardPlus",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardCopy"
+        },
+        {
+          "check": "#cardCopy",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardTheme"
+        },
+        {
+          "check": "#cardTheme",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardChevron"
+        },
+        {
+          "check": "#cardChevron",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardBell"
+        },
+        {
+          "check": "#cardBell",
+          "attribute": "data-active",
+          "value": "false"
+        },
+        {
+          "action": "click",
+          "target": "#cardHeart"
+        },
+        {
+          "check": "#cardHeart",
+          "attribute": "data-active",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "component": "confirm-morph",
+      "before": "docs/images/panels/confirm-morph-before.png",
+      "after": "docs/images/panels/confirm-morph-after.gif",
+      "original_recording": "docs/recordings/panels/confirm-morph-after.webm",
+      "frames": 388,
+      "duration_ms": 25870,
+      "bytes": 2402118,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "click",
+          "target": "#btnTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnCancel"
+        },
+        {
+          "action": "click",
+          "target": "#btnTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnConfirm"
+        },
+        {
+          "action": "click",
+          "target": "#btnUndo"
+        },
+        {
+          "action": "click",
+          "target": "[data-mode=\"hold\"]"
+        },
+        {
+          "action": "click",
+          "target": "#btnTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnUndo"
+        },
+        {
+          "action": "click",
+          "target": "[data-mode=\"countdown\"]"
+        },
+        {
+          "action": "click",
+          "target": "#btnTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnConfirm"
+        },
+        {
+          "action": "click",
+          "target": "#btnCancelCounting"
+        },
+        {
+          "action": "click",
+          "target": "[data-result=\"fails\"]"
+        },
+        {
+          "action": "click",
+          "target": "#btnTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnConfirm"
+        },
+        {
+          "action": "click",
+          "target": "[data-result=\"succeeds\"]"
+        },
+        {
+          "action": "click",
+          "target": "#btnRetry"
+        },
+        {
+          "action": "click",
+          "target": "#btnUndo"
+        },
+        {
+          "check": "click_hold_countdown_cancel_undo_error_retry"
+        }
+      ]
+    },
+    {
+      "component": "button-group",
+      "before": "docs/images/panels/button-group-before.png",
+      "after": "docs/images/panels/button-group-after.gif",
+      "original_recording": "docs/recordings/panels/button-group-after.webm",
+      "frames": 216,
+      "duration_ms": 14400,
+      "bytes": 652190,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "hover",
+          "target": "#btnShare"
+        },
+        {
+          "action": "hover",
+          "target": "#btnDuplicate"
+        },
+        {
+          "action": "hover",
+          "target": "#btnArchive"
+        },
+        {
+          "action": "hover",
+          "target": "#btnMenuTrigger"
+        },
+        {
+          "action": "click",
+          "target": "#btnShare"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomOut"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomOut"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomOut"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomIn"
+        },
+        {
+          "action": "click",
+          "target": "#btnZoomReset"
+        },
+        {
+          "action": "click",
+          "target": "#btnMenuTrigger"
+        },
+        {
+          "action": "hover",
+          "target": ".menu-item"
+        },
+        {
+          "action": "click",
+          "target": "#btnSave"
+        },
+        {
+          "action": "hover",
+          "target": "#btnPreview"
+        },
+        {
+          "check": "counter_25_to_400_then_reset"
+        }
+      ]
+    },
+    {
+      "component": "floating-button-group",
+      "before": "docs/images/panels/floating-button-group-before.png",
+      "after": "docs/images/panels/floating-button-group-after.gif",
+      "original_recording": "docs/recordings/panels/floating-button-group-after.webm",
+      "frames": 164,
+      "duration_ms": 10940,
+      "bytes": 787767,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "hover",
+          "target": "#trayEditor [aria-label=\"Undo\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayEditor [aria-label=\"Comment\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#btnShareItem"
+        },
+        {
+          "action": "hover",
+          "target": "#btnPresentItem"
+        },
+        {
+          "action": "hover",
+          "target": "#trayCanvas [aria-label=\"Zoom in\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayCanvas [aria-label=\"Zoom out\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayCanvas [aria-label=\"Lock layer\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayCanvas [aria-label=\"Hide layer\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayMessage [aria-label=\"Copy text\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayMessage [aria-label=\"Pin message\"]"
+        },
+        {
+          "action": "hover",
+          "target": "#trayMessage [aria-label=\"Archive\"]"
+        },
+        {
+          "action": "click",
+          "target": "#btnShareItem"
+        },
+        {
+          "action": "click",
+          "target": "#btnPresentItem"
+        },
+        {
+          "check": "#btnPresentItem",
+          "attribute": "aria-pressed",
+          "value": "true"
+        },
+        {
+          "action": "click",
+          "target": "#btnPresentItem"
+        },
+        {
+          "action": "click",
+          "target": "#trayCanvas [aria-label=\"Lock layer\"]"
+        },
+        {
+          "action": "click",
+          "target": "#trayCanvas [aria-label=\"Hide layer\"]"
+        }
+      ]
+    },
+    {
+      "component": "expanding-button-group",
+      "before": "docs/images/panels/expanding-button-group-before.png",
+      "after": "docs/images/panels/expanding-button-group-after.gif",
+      "original_recording": "docs/recordings/panels/expanding-button-group-after.webm",
+      "frames": 206,
+      "duration_ms": 13740,
+      "bytes": 726401,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "hover",
+          "group": 0,
+          "item": "reply"
+        },
+        {
+          "action": "hover",
+          "group": 0,
+          "item": "forward"
+        },
+        {
+          "action": "hover",
+          "group": 0,
+          "item": "archive"
+        },
+        {
+          "action": "hover",
+          "group": 0,
+          "item": "snooze"
+        },
+        {
+          "action": "hover",
+          "group": 0,
+          "item": "delete"
+        },
+        {
+          "action": "hover",
+          "group": 1,
+          "item": "download"
+        },
+        {
+          "action": "hover",
+          "group": 1,
+          "item": "link"
+        },
+        {
+          "action": "hover",
+          "group": 1,
+          "item": "rename"
+        },
+        {
+          "action": "hover",
+          "group": 2,
+          "item": "publish"
+        },
+        {
+          "action": "hover",
+          "group": 2,
+          "item": "duplicate"
+        },
+        {
+          "action": "hover",
+          "group": 2,
+          "item": "pin"
+        },
+        {
+          "action": "hover",
+          "group": 2,
+          "item": "delete"
+        },
+        {
+          "check": "all_groups_expand_and_feedback_reset"
+        }
+      ]
+    },
+    {
+      "component": "copy-button",
+      "before": "docs/images/panels/copy-button-before.png",
+      "after": "docs/images/panels/copy-button-after.gif",
+      "original_recording": "docs/recordings/panels/copy-button-after.webm",
+      "frames": 77,
+      "duration_ms": 5140,
+      "bytes": 200502,
+      "runtime_errors": [],
+      "events": [
+        {
+          "action": "click",
+          "target": "#copyLinkBtn"
+        },
+        {
+          "check": "#copyLinkBtn",
+          "attribute": "data-state",
+          "value": "copied"
+        },
+        {
+          "action": "click",
+          "target": "#copyCodeBtn"
+        },
+        {
+          "check": "#copyLinkBtn",
+          "attribute": "data-state",
+          "value": "idle"
+        },
+        {
+          "check": "#copyCodeBtn",
+          "attribute": "data-state",
+          "value": "idle"
+        },
+        {
+          "check": "actual_clipboard_results"
+        }
+      ]
+    }
+  ]
+}
