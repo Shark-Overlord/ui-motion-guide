@@ -107,11 +107,16 @@ After
 中的 skills/component-motion-tree。
 ```
 
-安装后，在目标项目中发送：
+安装后，可指定组件直接修改：
 
 ```text
-使用 $component-motion-tree，为当前组件添加合适的动效过渡。
-保留现有样式和业务逻辑，完成交互与状态验证。
+使用 $component-motion-tree，给 src/components/SaveButton.tsx 中的保存按钮添加过渡，保留现有样式和业务逻辑。
+```
+
+也可以先扫描界面，确认后再修改：
+
+```text
+使用 $component-motion-tree，先扫描当前页面，列出可以添加动效的组件，等我选择后再修改。
 ```
 
 也可以将 `skills/component-motion-tree` 整个目录放到目标项目的 `.agents/skills/`。调用方式见 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills)。
