@@ -1,8 +1,8 @@
 # UI Motion Guide · 组件动效指南
 
-按组件类别与交互意图选择过渡动效的 AI Skill 仓库。目前从按钮开始，后续组件会作为独立 Skill 接入。
+让 AI 为现有组件添加过渡动效，保留原有样式和业务逻辑。
 
-[统一入口](AGENTS.md) · [当前 Skill](skills/component-motion-tree/SKILL.md) · [按钮决策树](skills/component-motion-tree/references/buttons.md) · [组件扩展规则](skills/component-motion-tree/references/components.md)
+目前支持按钮按压、加载反馈、复制提示、图标切换等交互，更多组件将陆续加入。
 
 ## 使用
 
