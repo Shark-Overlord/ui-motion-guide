@@ -25,24 +25,31 @@ git clone --depth 1 https://github.com/Shark-Overlord/ui-motion-guide.git "<目�
 
 ## 组件动效目录
 
-已勾选为已支持，其余待加入。
+按 [UI Arc](https://uiarc.dev/components/dropdown-menu) 的 Components 二级分类整理。已勾选表示该类别已接入，具体组件覆盖以现有参考为准；其余待加入。
 
-- [x] Button · 按钮
-- [ ] Input · 输入框
-- [ ] Select · 选择器
-- [ ] Checkbox / Radio · 复选框与单选框
-- [ ] Switch · 开关
-- [ ] Dropdown · 下拉菜单
-- [ ] Tooltip / Popover · 提示与浮层
-- [ ] Dialog · 对话框
-- [ ] Drawer · 抽屉
-- [ ] Tabs · 标签页
-- [ ] Accordion · 折叠面板
-- [ ] Toast / Notification · 消息通知
-- [ ] Card · 卡片
-- [ ] List / Table · 列表与表格
-- [ ] Skeleton / Progress · 加载与进度
+- [x] Buttons · 按钮
+- [ ] Gestures · 手势交互
+- [ ] Menus · 菜单
+- [ ] Text fields · 文本输入
+- [ ] Special inputs · 特殊输入
+- [ ] Selects · 选择控件
+- [ ] Toggles · 切换控件
+- [ ] Sliders · 滑块
+- [ ] Pickers · 选择器
+- [ ] Editors · 编辑器
 - [ ] Navigation · 导航
+- [ ] Expand · 展开与折叠
+- [ ] Overlays · 浮层
+- [ ] Messages · 消息反馈
+- [ ] Progress · 进度
+- [ ] Avatars · 头像
+- [ ] Cards · 卡片
+- [ ] Charts · 图表
+- [ ] Advanced charts · 高级图表
+- [ ] Tables · 表格
+- [ ] Activity · 动态记录
+- [ ] Media · 媒体
+- [ ] Text effects · 文字动效
 
 ## 动效展示
 
