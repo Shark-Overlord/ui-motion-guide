@@ -23,6 +23,27 @@ git clone https://github.com/Shark-Overlord/ui-motion-guide.git "<目标目录>/
 
 无需专用安装器；入口和参考都在仓库内。放在任意目录时，首次使用请明确给 AI 入口路径。
 
+## 组件动效目录
+
+已勾选为已支持，其余待加入。
+
+- [x] Button · 按钮
+- [ ] Input · 输入框
+- [ ] Select · 选择器
+- [ ] Checkbox / Radio · 复选框与单选框
+- [ ] Switch · 开关
+- [ ] Dropdown · 下拉菜单
+- [ ] Tooltip / Popover · 提示与浮层
+- [ ] Dialog · 对话框
+- [ ] Drawer · 抽屉
+- [ ] Tabs · 标签页
+- [ ] Accordion · 折叠面板
+- [ ] Toast / Notification · 消息通知
+- [ ] Card · 卡片
+- [ ] List / Table · 列表与表格
+- [ ] Skeleton / Progress · 加载与进度
+- [ ] Navigation · 导航
+
 ## 动效展示
 
 原始页面录制，保留原有布局与样式，原速播放。Before 为初始静态状态，After 为带鼠标的主要过渡；演示不调用真实发布或删除接口。
