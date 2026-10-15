@@ -39,7 +39,7 @@ flowchart TD
 
 ## 第一层：选择组件类别
 
-完成入口判断并确定修改范围后，先查 [组件类别索引](references/components.md) 中实际收录的类别，再进入对应类别的决策树。当前第一个类别是 **buttons：按钮及其关联交互**，入口为 [按钮决策树](references/buttons.md)。后续类别在同一个 skill 中独立接入。
+完成入口判断并确定修改范围后，先查 [组件类别索引](references/components.md) 中实际收录的类别，再进入对应类别的决策树。当前第一个类别是 **buttons：按钮及其关联交互**，入口为 [按钮决策树](references/buttons.md)。后续独立组件能力可以作为新的 Skill 接入仓库；本 Skill 内的类别扩展以自己的索引为准。
 
 ```mermaid
 flowchart TD
@@ -88,4 +88,4 @@ flowchart TD
 
 ## 维护与扩展
 
-用户要求接入新组件参考时，按 [组件类别索引与扩展规则](references/components.md) 新增类别入口、独立决策树及实际来源；保留其他类别的规则和参考。普通组件实现任务不自动修改 skill。
+用户要求接入新组件参考时，按 [组件类别索引与扩展规则](references/components.md) 判断是新增独立 Skill，还是补充本 Skill 的交互分支或类别；保留已有规则和参考。普通组件实现任务不自动修改 Skill。

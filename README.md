@@ -1,8 +1,8 @@
 # UI Motion Guide · 组件动效指南
 
-一套按组件类别与交互意图选择过渡动效的 AI Skill。目前从按钮开始，后续扩展更多组件。
+按组件类别与交互意图选择过渡动效的 AI Skill 仓库。目前从按钮开始，后续组件会作为独立 Skill 接入。
 
-[Skill 入口](skills/component-motion-tree/SKILL.md) · [按钮决策树](skills/component-motion-tree/references/buttons.md) · [组件扩展规则](skills/component-motion-tree/references/components.md)
+[统一入口](AGENTS.md) · [当前 Skill](skills/component-motion-tree/SKILL.md) · [按钮决策树](skills/component-motion-tree/references/buttons.md) · [组件扩展规则](skills/component-motion-tree/references/components.md)
 
 ## 动效展示
 
@@ -91,21 +91,19 @@ After
 
 ## 使用
 
-```text
-使用 $skill-installer，安装 Shark-Overlord/ui-motion-guide
-中的 skills/component-motion-tree。
+克隆到你想存放的目录（替换 `<目标目录>`）：
+
+```bash
+git clone https://github.com/Shark-Overlord/ui-motion-guide.git "<目标目录>/ui-motion-guide"
 ```
 
-安装后，可指定组件直接修改：
+然后告诉能读取本地文件的 AI：
 
 ```text
-使用 $component-motion-tree，给 src/components/SaveButton.tsx 中的保存按钮添加过渡，保留现有样式和业务逻辑。
+先读取 <目标目录>/ui-motion-guide/AGENTS.md，按索引选择 Skill，
+给我的项目 src/components/SaveButton.tsx 中的按钮添加过渡，保留现有样式和业务逻辑。
 ```
 
-也可以先扫描界面，确认后再修改：
+未指定组件时，让 AI 先扫描当前界面，列出可修改组件，等你选择后再添加动效。
 
-```text
-使用 $component-motion-tree，先扫描当前页面，列出可以添加动效的组件，等我选择后再修改。
-```
-
-也可以将 `skills/component-motion-tree` 整个目录放到目标项目的 `.agents/skills/`。
+无需专用安装器；入口和参考都在仓库内。放在任意目录时，首次使用请明确给 AI 入口路径。
