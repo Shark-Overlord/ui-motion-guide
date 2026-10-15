@@ -9,7 +9,7 @@
 克隆到你想存放的目录（替换 `<目标目录>`）：
 
 ```bash
-git clone https://github.com/Shark-Overlord/ui-motion-guide.git "<目标目录>/ui-motion-guide"
+git clone --depth 1 https://github.com/Shark-Overlord/ui-motion-guide.git "<目标目录>/ui-motion-guide"
 ```
 
 然后告诉能读取本地文件的 AI：
