@@ -6,97 +6,87 @@
 
 ## 动效展示
 
-2120×1120 全宽展示，中性灰背景、原速 60fps 无损动画。Before 为初始静态状态，After 为带鼠标的主要过渡；演示不调用真实发布或删除接口。
+原始页面录制，保留原有布局与样式，原速播放。Before 为初始静态状态，After 为带鼠标的主要过渡；演示不调用真实发布或删除接口。
 
 ### 基础按钮
 
 Before
 
-![Before](docs/images/panels-neutral/button-before-neutral.png)
+![Before](docs/images/browser-native/button-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/button-after-neutral.png)
+![After](docs/images/browser-native/button-after-original.png)
 
 ### 异步按钮
 
 Before
 
-![Before](docs/images/panels-neutral/action-button-before-neutral.png)
+![Before](docs/images/browser-native/action-button-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/action-button-after-neutral.png)
+![After](docs/images/browser-native/action-button-after-original.png)
 
 ### 分割按钮
 
 Before
 
-![Before](docs/images/panels-neutral/split-button-before-neutral.png)
+![Before](docs/images/browser-native/split-button-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/split-button-after-neutral.png)
-
-### 按钮组与数字滚动
-
-Before
-
-![Before](docs/images/panels-neutral/button-group-before-neutral.png)
-
-After
-
-![After](docs/images/panels-neutral/button-group-after-neutral.png)
+![After](docs/images/browser-native/split-button-after-original.png)
 
 ### 浮动工具栏
 
 Before
 
-![Before](docs/images/panels-neutral/floating-button-group-before-neutral.png)
+![Before](docs/images/browser-native/floating-button-group-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/floating-button-group-after-neutral.png)
+![After](docs/images/browser-native/floating-button-group-after-original.png)
 
 ### 展开按钮组
 
 Before
 
-![Before](docs/images/panels-neutral/expanding-button-group-before-neutral.png)
+![Before](docs/images/browser-native/expanding-button-group-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/expanding-button-group-after-neutral.png)
+![After](docs/images/browser-native/expanding-button-group-after-original.png)
 
 ### 复制反馈
 
 Before
 
-![Before](docs/images/panels-neutral/copy-button-before-neutral.png)
+![Before](docs/images/browser-native/copy-button-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/copy-button-after-neutral.png)
+![After](docs/images/browser-native/copy-button-after-original.png)
 
 ### 图标切换
 
 Before
 
-![Before](docs/images/panels-neutral/icon-morph-before-neutral.png)
+![Before](docs/images/browser-native/icon-morph-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/icon-morph-after-neutral.png)
+![After](docs/images/browser-native/icon-morph-after-original.png)
 
 ### 原地确认
 
 Before
 
-![Before](docs/images/panels-neutral/confirm-morph-before-neutral.png)
+![Before](docs/images/browser-native/confirm-morph-before-original.png)
 
 After
 
-![After](docs/images/panels-neutral/confirm-morph-after-neutral.png)
+![After](docs/images/browser-native/confirm-morph-after-original.png)
 
 
 ## 使用
