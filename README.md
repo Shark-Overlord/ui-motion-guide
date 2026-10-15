@@ -25,8 +25,6 @@ git clone --depth 1 https://github.com/Shark-Overlord/ui-motion-guide.git "<目�
 
 ## 组件动效目录
 
-按 [UI Arc](https://uiarc.dev/components/dropdown-menu) 的 Components 二级分类整理。已勾选表示该类别已接入，具体组件覆盖以现有参考为准；其余待加入。
-
 - [x] Buttons · 按钮
 - [ ] Gestures · 手势交互
 - [ ] Menus · 菜单
