@@ -2,10 +2,8 @@
 
 让 AI 为你的现有 Web 组件注入细腻的物理弹簧、平滑过渡与微交互动效。
 
-- **在线交互预览（GitHub Pages）**：[https://shark-overlord.github.io/ui-motion-guide/](https://shark-overlord.github.io/ui-motion-guide/)  
-  在网页端直观体验「通用人工智能输出」与「具备 Ownai.icu 技能」的实时交互对比（涵盖 Agent 动态执行、算力计费、列表重排、防误删确认、异步部署等场景）。
-- **OwnAI 官方网站**：[https://ownai.icu/](https://ownai.icu/)  
-  访问 OwnAI 官网，探索更多 AI 创意作品、精选 Prompt 资产、实战教程与开发者工具。
+- **在线交互动效对比预览**：[https://shark-overlord.github.io/ui-motion-guide/](https://shark-overlord.github.io/ui-motion-guide/)
+- **OwnAI 官方网站**：[https://ownai.icu/](https://ownai.icu/)
 
 ---
 
