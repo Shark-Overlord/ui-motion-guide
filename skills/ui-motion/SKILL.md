@@ -1,6 +1,11 @@
 ---
 name: ui-motion
+version: 1.0.0
+display_name: UI 组件动效与微交互指南
+display_name_en: UI Motion & Micro-Interaction Guide
 description: 为现有 Web 组件或页面添加过渡动效、物理弹簧、微交互与状态切换动画（或修复现有组件切换生硬、闪烁、无退场过渡问题）。覆盖按钮、手势、导航、表单输入、选择器、浮层弹窗、通知、卡片、表格、画廊、图表等全部 UI 组件。
+description_zh: 为现有 Web 组件或页面添加过渡动效、物理弹簧、微交互与状态切换动画（或修复现有组件切换生硬、闪烁、无退场过渡问题）。覆盖按钮、手势、导航、表单输入、选择器、浮层弹窗、通知、卡片、表格、画廊、图表等 34 大分类共 155 个 UI 组件规范。
+description_en: Add physics-based spring transitions, smooth state animations, and tactile micro-interactions to existing Web components while preserving existing styles and business logic. Covers 155 component specs across 34 UI categories.
 ---
 
 # UI Motion
