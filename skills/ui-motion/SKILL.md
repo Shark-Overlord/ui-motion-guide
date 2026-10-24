@@ -86,8 +86,7 @@ description: 为现有 Web 组件或页面添加过渡动效、物理弹簧、�
 | cursor | `dot-grid`, `gravity-well` | 指针跟随与光标微交互：磁性点阵矩阵追踪、引力井中心吸附 | [cursor/INDEX.md](cursor/INDEX.md) |
 | illustrations | `data-flow`, `multi-region-failover`, `payment-flow`, `vector-search` | 技术拓扑与动效插画：流式管道数据流、多区域故障转移重路由、支付流向状态机、高维向量空间检索 | [illustrations/INDEX.md](illustrations/INDEX.md) |
 
-## 未收录类别
+## 未收录交互处理
 
-全部 34 个类别（共 155 个组件规范）已 100% 收录完毕。
-若目标交互属于未收录的新领域组件，请遵循 `templates/component.md` 规范提取沉淀后再行接入，不要将其强行归入不相关的已有类别。
+全部 34 个类别（共 155 个组件规范）已 100% 收录完毕。若目标交互属于未收录的特殊自定义组件，不要将其强行归入不相关的已有类别，可结合 [PRIMITIVES.md](PRIMITIVES.md) 中的共享物理原语与邻近类别机制推导实现。
 

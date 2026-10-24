@@ -5,6 +5,7 @@ Thumbs.db
 artifacts/
 .agents/
 inbox/
+templates/
 testset-static/
 benchmark/
 node_modules/
