@@ -1,4 +1,0 @@
-interface:
-  display_name: "组件动效决策树"
-  short_description: "指定组件时按类别选择动效；未指定时先扫描界面，用户选择后再添加过渡"
-  default_prompt: "使用 $component-motion-tree：指定本地组件时，先识别类别再按对应决策树添加过渡；未指定时，先扫描当前界面并列出可修改组件，等我选择后再匹配动效并实现。"

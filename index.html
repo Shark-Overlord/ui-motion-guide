@@ -1,0 +1,4156 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ownai.icu UI交互动效— 教你的编码智能体学会产品级微交互与动效</title>
+  <meta name="description" content="Web 原生组件动效与微交互规范库，供 AI 编码代理与开发者直接查阅、移植与接入。" />
+  <link rel="icon" type="image/png" sizes="256x256" href="./assets/favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="./assets/favicon.png?v=2" />
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/inter-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/Saans-Medium.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/GeistPixel-Square.woff2" crossorigin />
+  <link rel="stylesheet" href="./assets/fonts/fonts.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap" />
+  <style>
+    @font-face {
+      font-family: "Saans";
+      src: url("./assets/fonts/Saans-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Geist Pixel";
+      src: url("https://cdn.jsdelivr.net/npm/geist@1.8.2/dist/fonts/geist-pixel/GeistPixel-Square.woff2") format("woff2"),
+           url("./assets/fonts/GeistPixel-Square.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      /* PRIMITIVES.md 核心缓动令牌 */
+      --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+      /* Transitions.dev 原生字体栈与抗锯齿体系 */
+      --font-sans: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "PingFang SC", "HarmonyOS Sans SC", "Noto Sans SC", "Microsoft YaHei", monospace;
+
+      --bg-page: #f8f8f8;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f2f2f0;
+      --bg-subtle-hover: #e6e6e3;
+      --text-primary: #0d0d0d;
+      --text-secondary: #6c6c6c;
+      --text-muted: #8f8f8f;
+      --border-subtle: rgba(0, 0, 0, 0.06);
+      --border-default: rgba(0, 0, 0, 0.09);
+      --shadow-card: 0 22px 48px -12px rgba(0, 0, 0, 0.07), 0 4px 14px -2px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      --shadow-icon: 0 10px 26px -4px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      --shadow-popover: 0 16px 36px -6px rgba(0, 0, 0, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07);
+      --accent-blue-bg: #e0f2fe;
+      --accent-blue-text: #0284c7;
+      --btn-dark-bg: #17181c;
+      --btn-dark-hover: #27272a;
+      --btn-dark-text: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #121212;
+      --bg-surface: #181818;
+      --bg-subtle: #222226;
+      --bg-subtle-hover: #2c2c32;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(202, 202, 202, 0.7);
+      --text-muted: #767676;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-default: rgba(255, 255, 255, 0.12);
+      --shadow-card: 0 24px 52px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --shadow-icon: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      --shadow-popover: 0 18px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      --accent-blue-bg: rgba(14, 165, 233, 0.16);
+      --accent-blue-text: #38bdf8;
+      --btn-dark-bg: #f4f4f5;
+      --btn-dark-hover: #e4e4e7;
+      --btn-dark-text: #09090b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-smooth: always;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-feature-settings: "cv11", "ss01";
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 16px;
+      font-weight: 400;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 240ms var(--ease-standard), color 240ms var(--ease-standard);
+    }
+
+    /* Treg.to 一体化顶部羽化模糊遮罩（让顶栏与下方背景及滚动内容无缝融为一体，无硬切边） */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 142px;
+      z-index: 90;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        var(--bg-page) 0%,
+        color-mix(in srgb, var(--bg-page) 96%, transparent) 26%,
+        color-mix(in srgb, var(--bg-page) 82%, transparent) 50%,
+        color-mix(in srgb, var(--bg-page) 42%, transparent) 76%,
+        transparent 100%
+      );
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 38%,
+        rgba(0, 0, 0, 0.78) 62%,
+        rgba(0, 0, 0, 0.28) 84%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 38%,
+        rgba(0, 0, 0, 0.78) 62%,
+        rgba(0, 0, 0, 0.28) 84%,
+        transparent 100%
+      );
+      transition: background 240ms var(--ease-standard);
+    }
+
+    /* Treg.to WebGL 微字形流场画布 + 环境弥散光场（向上延伸至视口顶端并做首尾双向羽化） */
+    .treg-field-stage {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin-top: -58px;
+      padding-top: 58px;
+    }
+
+    .treg-field-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 50% 22%, rgba(220, 232, 223, 0.62), transparent 58%),
+        radial-gradient(ellipse at 39% 62%, rgba(139, 187, 172, 0.34), transparent 52%),
+        radial-gradient(ellipse at 63% 56%, rgba(184, 201, 196, 0.36), transparent 56%),
+        radial-gradient(ellipse at 54% 74%, rgba(79, 140, 121, 0.24), transparent 50%);
+      filter: blur(36px);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(0, 0, 0, 0.32) 64px,
+        #000 156px,
+        #000 calc(100% - 160px),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(0, 0, 0, 0.32) 64px,
+        #000 156px,
+        #000 calc(100% - 160px),
+        transparent 100%
+      );
+      animation: gatewayAura 16s ease-in-out infinite alternate;
+    }
+
+    [data-theme="dark"] .treg-field-stage::before {
+      display: none;
+    }
+
+    @keyframes gatewayAura {
+      from { transform: translate3d(-14px, 8px, 0) scale(0.98); }
+      to   { transform: translate3d(14px, -8px, 0) scale(1.03); }
+    }
+
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      contain: strict;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(0, 0, 0, 0.28) 64px,
+        #000 152px,
+        #000 calc(100% - 150px),
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(0, 0, 0, 0.28) 64px,
+        #000 152px,
+        #000 calc(100% - 150px),
+        transparent 100%
+      );
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      -webkit-font-smoothing: inherit;
+      -moz-osx-font-smoothing: inherit;
+    }
+
+    /* ================= TOP NAVBAR ================= */
+    .navbar-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: none;
+    }
+
+    .navbar {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 58px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      transition: transform 160ms var(--ease-snappy), opacity 160ms var(--ease-standard);
+    }
+
+    .brand-link:hover {
+      opacity: 0.85;
+    }
+
+    .brand-link:active {
+      transform: scale(0.97);
+    }
+
+    .brand-logo {
+      width: auto;
+      height: 24px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 13px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 160ms var(--ease-standard), background-color 160ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .nav-item:hover {
+      color: var(--text-primary);
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-item:active {
+      transform: scale(0.97);
+    }
+
+    .nav-badge-new {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--accent-blue-bg);
+      color: var(--accent-blue-text);
+      line-height: 1.4;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 50px;
+      border: 1px solid transparent;
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 160ms var(--ease-standard), color 160ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .nav-pill-btn:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: var(--text-primary);
+    }
+
+    .nav-pill-btn:active {
+      transform: scale(0.96);
+    }
+
+    .nav-pill-kbd {
+      font-family: inherit;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+
+    .nav-pill-pro {
+      background: var(--accent-blue-bg);
+      color: var(--accent-blue-text);
+      font-weight: 500;
+    }
+
+    .nav-pill-pro:hover {
+      background: color-mix(in srgb, var(--accent-blue-bg) 80%, #0284c7 20%);
+      color: var(--accent-blue-text);
+    }
+
+    .nav-icon-btn {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    /* 右上角昼夜主题切换胶囊小开关 */
+    .theme-switch-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 56px;
+      height: 30px;
+      padding: 3px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 240ms var(--ease-standard), border-color 240ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    [data-theme="dark"] .theme-switch-btn {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .theme-switch-btn:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+
+    [data-theme="dark"] .theme-switch-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .theme-switch-btn:active {
+      transform: scale(0.95);
+    }
+
+    .theme-switch-track-icon {
+      position: relative;
+      z-index: 1;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: color 220ms var(--ease-standard), opacity 220ms var(--ease-standard), transform 320ms var(--ease-spring);
+      pointer-events: none;
+    }
+
+    .theme-switch-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      transition: transform 340ms var(--ease-spring), background-color 240ms var(--ease-standard), box-shadow 240ms var(--ease-standard);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    [data-theme="dark"] .theme-switch-thumb {
+      transform: translate3d(26px, 0, 0);
+      background: #27272a;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    html:not([data-theme="dark"]) .theme-switch-sun {
+      color: #f59e0b;
+      transform: rotate(0deg) scale(1);
+    }
+
+    html:not([data-theme="dark"]) .theme-switch-moon {
+      opacity: 0.55;
+      transform: rotate(-18deg) scale(0.9);
+    }
+
+    [data-theme="dark"] .theme-switch-sun {
+      opacity: 0.45;
+      transform: rotate(45deg) scale(0.88);
+    }
+
+    [data-theme="dark"] .theme-switch-moon {
+      color: #ffffff;
+      transform: rotate(0deg) scale(1);
+    }
+
+    /* ================= HERO SECTION ================= */
+    .hero-section {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 56px 24px 48px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-agent-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto 14px;
+    }
+
+    .hero-title {
+      font-family: "Geist Pixel", var(--font-mono);
+      font-size: clamp(32px, 3.6vw, 44px);
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.15;
+      margin: 0 auto 14px;
+      color: var(--text-primary);
+      font-synthesis: none;
+    }
+
+    .hero-subtitle {
+      max-width: 820px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 24.2px;
+    }
+
+    .agent-vendor-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      transition: transform 220ms var(--ease-spring);
+      cursor: default;
+    }
+
+    .agent-vendor-badge:hover {
+      transform: translateY(-3px) scale(1.16);
+    }
+
+    .agent-vendor-badge svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .hero-actions {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 26px;
+      border: none;
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 13px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+      transition: transform 160ms var(--ease-snappy), background-color 160ms var(--ease-standard), box-shadow 160ms var(--ease-standard);
+    }
+
+    .btn-primary-pill:hover {
+      background: var(--btn-dark-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-pill:active {
+      transform: scale(0.96);
+    }
+
+    .btn-secondary-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 26px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 13px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 160ms var(--ease-snappy), background-color 160ms var(--ease-standard), border-color 160ms var(--ease-standard);
+    }
+
+    .btn-secondary-pill:hover {
+      background: rgba(0, 0, 0, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary-pill:active {
+      transform: scale(0.96);
+    }
+
+    /* ================= SIDE-BY-SIDE COMPARISON STAGE ================= */
+    .comparison-section {
+      max-width: 1280px;
+      margin: 28px auto 120px;
+      padding: 0 48px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 112px;
+      align-items: start;
+    }
+
+    @media (max-width: 820px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .comparison-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .comparison-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 14px;
+      color: #232323;
+      margin-bottom: 32px;
+      user-select: none;
+    }
+
+    [data-theme="dark"] .comparison-label {
+      color: var(--text-primary);
+    }
+
+    .status-dot-bad,
+    .status-dot-good {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .status-dot-bad {
+      background: #ef4444;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+    }
+
+    .status-dot-good {
+      background: #22c55e;
+      box-shadow: 0 2px 6px rgba(34, 197, 94, 0.35);
+    }
+
+    /* THE DEMO CARD (AI Compute Subscription & Billing Panel) */
+    .demo-widget-card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--bg-surface);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      position: relative;
+      text-align: left;
+    }
+
+    .widget-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .widget-tabs {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+    }
+
+    .widget-tab-pill {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    [data-theme="dark"] .widget-tab-pill {
+      background: #2f2f35;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-tab-pill {
+      transition: transform 360ms var(--ease-spring), width 360ms var(--ease-spring);
+    }
+
+    .widget-tab-btn {
+      position: relative;
+      z-index: 1;
+      height: 28px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Static card puts direct background on active tab */
+    .demo-widget-card[data-mode="static"] .widget-tab-btn.is-active {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="dark"] .demo-widget-card[data-mode="static"] .widget-tab-btn.is-active {
+      background: #2f2f35;
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-tab-btn {
+      transition: color 180ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-tab-btn.is-active {
+      color: var(--text-primary);
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-tab-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Billing Cycle Switch (Monthly / Yearly -20%) */
+    .billing-cycle-group {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+    }
+
+    .billing-cycle-pill {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    [data-theme="dark"] .billing-cycle-pill {
+      background: #2f2f35;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .demo-widget-card[data-mode="motion"] .billing-cycle-pill {
+      transition: transform 360ms var(--ease-spring), width 360ms var(--ease-spring);
+    }
+
+    .billing-cycle-btn {
+      position: relative;
+      z-index: 1;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .demo-widget-card[data-mode="static"] .billing-cycle-btn.is-active {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="dark"] .demo-widget-card[data-mode="static"] .billing-cycle-btn.is-active {
+      background: #2f2f35;
+    }
+
+    .demo-widget-card[data-mode="motion"] .billing-cycle-btn {
+      transition: color 180ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .demo-widget-card[data-mode="motion"] .billing-cycle-btn.is-active {
+      color: var(--text-primary);
+    }
+
+    .demo-widget-card[data-mode="motion"] .billing-cycle-btn:active {
+      transform: scale(0.95);
+    }
+
+    .discount-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 5px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 13px;
+      background: rgba(34, 197, 94, 0.14);
+      color: #16a34a;
+    }
+
+    [data-theme="dark"] .discount-tag {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    /* Price & Rolling Counter Header */
+    .pricing-header {
+      padding: 24px 24px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price-currency {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-right: 2px;
+    }
+
+    .price-number-static {
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 42px;
+      color: var(--text-primary);
+    }
+
+    /* Odometer Rolling Digits */
+    .odometer-box {
+      display: inline-flex;
+      align-items: center;
+      height: 42px;
+      overflow: hidden;
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 42px;
+      color: var(--text-primary);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    }
+
+    .odometer-col {
+      display: inline-flex;
+      flex-direction: column;
+      height: 42px;
+      transition: transform 460ms var(--ease-spring);
+      will-change: transform;
+    }
+
+    .odometer-col span {
+      height: 42px;
+      line-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .price-unit {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    /* Inline Seat Stepper */
+    .seat-stepper-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 10px;
+      background: var(--bg-subtle);
+    }
+
+    .seat-stepper-controls.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+    }
+
+    .demo-widget-card[data-mode="static"] .seat-stepper-controls.is-hidden {
+      display: none;
+    }
+
+    .demo-widget-card[data-mode="motion"] .seat-stepper-controls {
+      transition: opacity 220ms var(--ease-spring), transform 220ms var(--ease-spring);
+    }
+
+    .stepper-icon-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      border: none;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    .demo-widget-card[data-mode="motion"] .stepper-icon-btn {
+      transition: transform 140ms var(--ease-snappy), background-color 150ms var(--ease-standard);
+    }
+
+    .demo-widget-card[data-mode="motion"] .stepper-icon-btn:active {
+      transform: scale(0.88);
+    }
+
+    .seat-count-val {
+      min-width: 36px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Widget Body Container */
+    .widget-body-viewport {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-body-viewport {
+      transition: height 420ms var(--ease-spring);
+    }
+
+    .widget-pane {
+      padding: 4px 24px 24px;
+      width: 100%;
+    }
+
+    /* Static mode: harsh display:none toggle */
+    .demo-widget-card[data-mode="static"] .widget-pane {
+      display: none;
+    }
+    .demo-widget-card[data-mode="static"] .widget-pane.is-active {
+      display: block;
+    }
+
+    /* Motion mode: smooth crossfade + blur + scale */
+    .demo-widget-card[data-mode="motion"] .widget-pane {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      filter: blur(5px);
+      transform: translateY(8px) scale(0.985);
+      transition:
+        opacity 260ms var(--ease-spring),
+        transform 380ms var(--ease-spring),
+        filter 260ms var(--ease-spring);
+    }
+
+    .demo-widget-card[data-mode="motion"] .widget-pane.is-active {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      filter: blur(0px);
+      transform: translateY(0) scale(1);
+    }
+
+    /* Feature List */
+    .plan-feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .plan-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 18px;
+    }
+
+    .feature-check-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Card Bottom CTA */
+    .plan-subscribe-btn {
+      width: 100%;
+      height: 38px;
+      padding: 0 18px;
+      border-radius: 11px;
+      border: none;
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .demo-widget-card[data-mode="motion"] .plan-subscribe-btn {
+      transition: transform 160ms var(--ease-snappy), background-color 180ms var(--ease-standard);
+    }
+
+    .demo-widget-card[data-mode="motion"] .plan-subscribe-btn:hover {
+      background: var(--btn-dark-hover);
+    }
+
+    .demo-widget-card[data-mode="motion"] .plan-subscribe-btn:active {
+      transform: scale(0.97);
+    }
+
+    .plan-subscribe-btn.is-subscribed {
+      background: #16a34a !important;
+      color: #ffffff !important;
+    }
+
+    /* Scene Panel Switching inside Demo Card */
+    .scene-panel {
+      display: none;
+    }
+
+    .scene-panel.is-active {
+      display: block;
+      animation: sceneFadeIn 260ms var(--ease-spring) both;
+    }
+
+    @keyframes sceneFadeIn {
+      from { opacity: 0; transform: translateY(4px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+
+    .scene-head-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 18px;
+    }
+
+    .scene-Ghost-btn {
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .demo-widget-card[data-mode="motion"] .scene-Ghost-btn {
+      transition: transform 140ms var(--ease-snappy), background-color 150ms var(--ease-standard), color 150ms var(--ease-standard);
+    }
+
+    .demo-widget-card[data-mode="motion"] .scene-Ghost-btn:hover {
+      background: var(--bg-subtle-hover);
+      color: var(--text-primary);
+    }
+
+    .demo-widget-card[data-mode="motion"] .scene-Ghost-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* ================= SCENE 0: AGENT DYNAMIC TASK STREAM (Downward Appear / Execute / Disappear) ================= */
+    .agent-scene-body {
+      padding: 16px 22px 20px;
+      height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .agent-stream-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .agent-task-wrap {
+      overflow: hidden;
+      height: 44px;
+      margin-bottom: 8px;
+      will-change: height, margin-bottom, transform, opacity, filter;
+    }
+
+    .agent-task-row {
+      position: relative;
+      height: 44px;
+      padding: 0 13px;
+      border-radius: 10px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        background-color 220ms var(--ease-standard),
+        border-color 220ms var(--ease-standard),
+        transform 140ms var(--ease-snappy);
+    }
+
+    .agent-task-row:hover {
+      border-color: var(--border-default);
+    }
+
+    .agent-task-row:active {
+      transform: scale(0.985);
+    }
+
+    .agent-task-row[data-state="running"] {
+      background: color-mix(in srgb, var(--text-primary) 5%, var(--bg-subtle));
+      border-color: color-mix(in srgb, var(--text-primary) 18%, var(--border-subtle));
+    }
+
+    /* Motion shimmer sweep on active downward task */
+    .demo-widget-card[data-mode="motion"] .agent-task-row[data-state="running"]::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 55%;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text-primary) 10%, transparent), transparent);
+      transform: translateX(-110%);
+      animation: agentSweep 1.1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+      pointer-events: none;
+    }
+
+    @keyframes agentSweep {
+      to { transform: translateX(210%); }
+    }
+
+    .agent-task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .agent-task-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: var(--text-secondary);
+      background: color-mix(in srgb, var(--text-primary) 6%, transparent);
+      transition: background-color 200ms var(--ease-standard), color 200ms var(--ease-standard);
+    }
+
+    .agent-task-row[data-state="done"] .agent-task-icon {
+      background: rgba(22, 163, 74, 0.12);
+      color: #16a34a;
+    }
+
+    [data-theme="dark"] .agent-task-row[data-state="done"] .agent-task-icon {
+      background: rgba(74, 222, 128, 0.14);
+      color: #4ade80;
+    }
+
+    .agent-task-spinner {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1.7px solid currentColor;
+      border-top-color: transparent;
+      animation: deploySpin 680ms linear infinite;
+    }
+
+    .agent-task-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .agent-task-row[data-state="done"] .agent-task-title {
+      color: var(--text-secondary);
+    }
+
+    .agent-task-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+      flex-shrink: 0;
+    }
+
+    .agent-task-row[data-state="running"] .agent-task-meta {
+      color: var(--text-primary);
+    }
+
+    /* ================= SCENE 2: FLIP LIST REORDER ================= */
+    .flip-scene-body {
+      padding: 18px 22px 22px;
+    }
+
+    .flip-task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .flip-task-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 13px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid transparent;
+    }
+
+    .demo-widget-card[data-mode="motion"] .flip-task-row {
+      transition: background-color 180ms var(--ease-standard), border-color 180ms var(--ease-standard), box-shadow 180ms var(--ease-standard);
+    }
+
+    .demo-widget-card[data-mode="motion"] .flip-task-row:hover {
+      border-color: var(--border-default);
+    }
+
+    .flip-task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .flip-task-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .flip-task-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .flip-pin-btn {
+      height: 24px;
+      padding: 0 9px;
+      border-radius: 7px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .demo-widget-card[data-mode="motion"] .flip-pin-btn {
+      transition: transform 140ms var(--ease-snappy), color 150ms var(--ease-standard), border-color 150ms var(--ease-standard);
+    }
+
+    .demo-widget-card[data-mode="motion"] .flip-pin-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-default);
+    }
+
+    .demo-widget-card[data-mode="motion"] .flip-pin-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* ================= SCENE 3: DESTRUCTIVE CONFIRM MORPH & UNDO ================= */
+    .confirm-scene-body {
+      padding: 18px 22px 22px;
+    }
+
+    .key-item-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .key-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+    }
+
+    .key-item-meta {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .key-code-badge {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .key-time-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Static harsh delete buttons */
+    .static-del-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .static-del-btn {
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 7px;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      background: rgba(239, 68, 68, 0.08);
+      color: #ef4444;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .static-cancel-btn {
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 7px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Motion in-place expanding confirm pill */
+    .morph-del-btn {
+      position: relative;
+      height: 28px;
+      width: 54px;
+      padding: 0;
+      border-radius: 8px;
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      background: rgba(239, 68, 68, 0.08);
+      color: #ef4444;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition:
+        width 340ms cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 220ms var(--ease-standard),
+        border-color 220ms var(--ease-standard),
+        box-shadow 220ms var(--ease-standard),
+        transform 140ms var(--ease-snappy);
+    }
+
+    .morph-del-btn:hover:not(.is-confirming) {
+      background: rgba(239, 68, 68, 0.13);
+      border-color: rgba(239, 68, 68, 0.34);
+    }
+
+    .morph-del-btn:active {
+      transform: scale(0.96);
+    }
+
+    .morph-del-btn.is-confirming {
+      width: 126px;
+      background: var(--bg-surface);
+      border-color: rgba(239, 68, 68, 0.35);
+      box-shadow: 0 2px 8px -2px rgba(239, 68, 68, 0.16);
+    }
+
+    .morph-del-idle {
+      position: absolute;
+      inset: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+      transition:
+        opacity 160ms var(--ease-standard),
+        transform 240ms var(--ease-spring),
+        filter 160ms var(--ease-standard);
+    }
+
+    .morph-del-btn.is-confirming .morph-del-idle {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.9);
+      filter: blur(3px);
+    }
+
+    .morph-del-active {
+      position: absolute;
+      inset: 2px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px) scale(0.94);
+      filter: blur(3px);
+      font-size: 11px;
+      transition:
+        opacity 180ms var(--ease-standard),
+        transform 260ms var(--ease-spring),
+        filter 180ms var(--ease-standard);
+    }
+
+    .morph-del-btn.is-confirming .morph-del-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+    }
+
+    .morph-confirm-pill {
+      position: relative;
+      flex: 1;
+      height: 100%;
+      border-radius: 5px;
+      background: #ef4444;
+      color: #ffffff;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background-color 150ms var(--ease-standard);
+    }
+
+    .morph-confirm-pill:hover {
+      background: #dc2626;
+    }
+
+    .morph-confirm-label {
+      position: relative;
+      z-index: 1;
+    }
+
+    .morph-del-progress {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.22);
+      transform-origin: left center;
+      transform: scaleX(0);
+      pointer-events: none;
+    }
+
+    .morph-del-btn.is-confirming .morph-del-progress {
+      transform: scaleX(1);
+      transition: transform 3200ms linear;
+    }
+
+    .morph-undo-tag {
+      height: 100%;
+      padding: 0 8px;
+      border-radius: 5px;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        background-color 150ms var(--ease-standard),
+        color 150ms var(--ease-standard);
+    }
+
+    .morph-undo-tag:hover {
+      background: var(--bg-subtle-hover);
+      color: var(--text-primary);
+    }
+
+    /* ================= SCENE 4: 3-STATE ASYNC DEPLOY ================= */
+    .deploy-scene-body {
+      padding: 20px 24px 24px;
+    }
+
+    .deploy-target-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      margin-bottom: 14px;
+    }
+
+    .deploy-target-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .deploy-target-region {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .deploy-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 24px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .deploy-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #9ca3af;
+      transition: background-color 220ms var(--ease-standard), box-shadow 220ms var(--ease-standard);
+    }
+
+    .deploy-status-pill[data-state="loading"] .deploy-status-dot {
+      background: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .deploy-status-pill[data-state="done"] .deploy-status-dot {
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
+    }
+
+    /* Static jarring deploy button */
+    .static-deploy-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .static-deploy-btn {
+      height: 38px;
+      padding: 0 18px;
+      border-radius: 11px;
+      border: none;
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Motion 3-state deploy button */
+    .motion-deploy-btn {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      margin-top: 18px;
+      border-radius: 11px;
+      border: none;
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        transform 200ms cubic-bezier(0.18, 0.89, 0.32, 1.15),
+        background-color 240ms var(--ease-standard),
+        color 240ms var(--ease-standard);
+    }
+
+    .motion-deploy-btn:active {
+      transform: scale(0.96);
+    }
+
+    .motion-deploy-btn[data-state="done"] {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .deploy-state-slot {
+      position: absolute;
+      inset: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(12px) scale(0.94);
+      filter: blur(4px);
+      pointer-events: none;
+      transition:
+        transform 340ms var(--ease-spring),
+        opacity 220ms var(--ease-standard),
+        filter 220ms var(--ease-standard);
+    }
+
+    .motion-deploy-btn[data-state="idle"] .deploy-state-slot[data-slot="idle"],
+    .motion-deploy-btn[data-state="loading"] .deploy-state-slot[data-slot="loading"],
+    .motion-deploy-btn[data-state="done"] .deploy-state-slot[data-slot="done"] {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+    }
+
+    .deploy-spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      animation: deploySpin 680ms linear infinite;
+    }
+
+    @keyframes deploySpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .deploy-check-svg path {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      transition: stroke-dashoffset 340ms 80ms var(--ease-spring);
+    }
+
+    .motion-deploy-btn[data-state="done"] .deploy-check-svg path {
+      stroke-dashoffset: 0;
+    }
+
+    /* Comparison Controls Bar (Scene Switcher + Sync Trigger) */
+    .comparison-toolbar {
+      margin-top: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .scene-switcher {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 4px;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .scene-switcher-pill {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--btn-dark-bg);
+      z-index: 0;
+      pointer-events: none;
+      transition: transform 360ms var(--ease-spring), width 360ms var(--ease-spring);
+    }
+
+    .scene-switch-btn {
+      position: relative;
+      z-index: 1;
+      height: 28px;
+      padding: 0 13px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 180ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .scene-switch-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .scene-switch-btn.is-active {
+      color: var(--btn-dark-text);
+    }
+
+    .scene-switch-btn:active {
+      transform: scale(0.95);
+    }
+
+    .sync-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 34px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 150ms var(--ease-snappy), background-color 150ms var(--ease-standard), border-color 150ms var(--ease-standard);
+    }
+
+    .sync-trigger-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .sync-trigger-btn:active {
+      transform: scale(0.96);
+    }
+
+    .sync-trigger-btn .sync-icon {
+      transition: transform 320ms var(--ease-spring);
+    }
+
+    /* ================= INSTALL SECTION (Centered Single Command) ================= */
+    .content-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+      text-align: center;
+    }
+
+    .section-heading {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .section-subtext {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 22px;
+    }
+
+    .install-card {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border-radius: 16px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      text-align: left;
+      transition: box-shadow 280ms var(--ease-spring), transform 280ms var(--ease-spring);
+    }
+
+    /* Subtle scan sheen across install card when copied */
+    .install-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        105deg,
+        transparent 20%,
+        rgba(22, 163, 74, 0.09) 48%,
+        rgba(56, 189, 248, 0.08) 54%,
+        transparent 80%
+      );
+      transform: translate3d(-120%, 0, 0);
+      opacity: 0;
+    }
+
+    .install-card.is-copied-wave::after {
+      opacity: 1;
+      transform: translate3d(120%, 0, 0);
+      transition: transform 620ms var(--ease-spring), opacity 620ms var(--ease-standard);
+    }
+
+    .install-code-area {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 22px;
+      color: #3c3c3c;
+      overflow-x: auto;
+    }
+
+    [data-theme="dark"] .install-code-area {
+      color: var(--text-primary);
+    }
+
+    .install-cmd-text {
+      white-space: nowrap;
+      line-height: 22px;
+      transition: transform 260ms var(--ease-spring), color 220ms var(--ease-standard);
+    }
+
+    .install-card.is-copied-wave .install-cmd-text {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    .cmd-comment {
+      color: var(--text-muted);
+      user-select: none;
+    }
+
+    .cmd-accent {
+      color: #0284c7;
+      font-weight: 500;
+    }
+
+    .copy-code-btn {
+      position: relative;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      height: 34px;
+      padding: 0 13px;
+      border-radius: 40px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition:
+        transform 220ms cubic-bezier(0.18, 0.89, 0.32, 1.15),
+        background-color 220ms var(--ease-standard),
+        border-color 220ms var(--ease-standard),
+        color 220ms var(--ease-standard),
+        box-shadow 220ms var(--ease-standard);
+    }
+
+    .copy-code-btn:hover {
+      background: var(--bg-subtle-hover);
+      transform: translateY(-1px);
+    }
+
+    .copy-code-btn:active {
+      transform: scale(0.93);
+      transition-duration: 80ms;
+    }
+
+    .copy-code-btn.is-copied {
+      background: rgba(22, 163, 74, 0.11);
+      border-color: rgba(22, 163, 74, 0.34);
+      color: #15803d;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+    }
+
+    [data-theme="dark"] .copy-code-btn.is-copied {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(74, 222, 128, 0.36);
+      color: #4ade80;
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
+    }
+
+    /* Dual-icon morph stage (Clipboard <-> Stroke-Draw Checkmark) */
+    .copy-icon-stage {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .copy-icon-clipboard,
+    .copy-icon-check {
+      position: absolute;
+      inset: 0;
+      width: 14px;
+      height: 14px;
+      transition:
+        transform 320ms cubic-bezier(0.18, 0.89, 0.32, 1.25),
+        opacity 200ms var(--ease-standard),
+        filter 200ms var(--ease-standard);
+    }
+
+    .copy-icon-clipboard {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+
+    .copy-code-btn.is-copied .copy-icon-clipboard {
+      opacity: 0;
+      transform: scale(0.35) rotate(-35deg);
+      filter: blur(3px);
+    }
+
+    .copy-icon-check {
+      opacity: 0;
+      transform: scale(0.35) rotate(25deg);
+      filter: blur(3px);
+    }
+
+    .copy-code-btn.is-copied .copy-icon-check {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+
+    .copy-icon-check path {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      transition: stroke-dashoffset 320ms 60ms var(--ease-spring);
+    }
+
+    .copy-code-btn.is-copied .copy-icon-check path {
+      stroke-dashoffset: 0;
+    }
+
+    /* Zero-jitter dual-slot vertical blur text track */
+    .copy-label-stage {
+      position: relative;
+      display: inline-grid;
+      align-items: center;
+      overflow: hidden;
+      height: 18px;
+    }
+
+    .copy-label-idle,
+    .copy-label-done {
+      grid-area: 1 / 1;
+      display: inline-flex;
+      align-items: center;
+      height: 18px;
+      line-height: 18px;
+      white-space: nowrap;
+      transition:
+        transform 340ms var(--ease-spring),
+        opacity 220ms var(--ease-standard),
+        filter 220ms var(--ease-standard);
+    }
+
+    .copy-label-idle {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0px);
+    }
+
+    .copy-code-btn.is-copied .copy-label-idle {
+      opacity: 0;
+      transform: translate3d(0, -105%, 0) scale(0.92);
+      filter: blur(3px);
+    }
+
+    .copy-label-done {
+      opacity: 0;
+      transform: translate3d(0, 105%, 0) scale(0.92);
+      filter: blur(3px);
+    }
+
+    .copy-code-btn.is-copied .copy-label-done {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0px);
+    }
+
+    /* ================= 3-TIER ARCHITECTURE SECTION ================= */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 680px) {
+      .arch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .arch-card {
+      background: var(--bg-surface);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      transition: transform 240ms var(--ease-spring);
+    }
+
+    .arch-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .arch-step-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 650;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .arch-title {
+      font-size: 14.5px;
+      font-weight: 650;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .arch-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ================= 34 CATEGORIES / 155 COMPONENTS EXPLORER ================= */
+    .catalog-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+
+    .catalog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .catalog-search-wrap {
+      position: relative;
+      width: 280px;
+    }
+
+    .catalog-search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px 0 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 160ms var(--ease-standard), box-shadow 160ms var(--ease-standard);
+    }
+
+    .catalog-search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+    }
+
+    .catalog-search-icon {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .category-pills-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+
+    .cat-filter-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 160ms var(--ease-standard), color 160ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .cat-filter-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .cat-filter-btn:active {
+      transform: scale(0.96);
+    }
+
+    .cat-filter-btn.is-active {
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .cat-count {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 16px;
+    }
+
+    .comp-card {
+      background: var(--bg-surface);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: transform 240ms var(--ease-spring), box-shadow 240ms var(--ease-spring);
+    }
+
+    .comp-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .comp-card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .comp-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .comp-cat-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    .comp-slug-code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .comp-title {
+      font-size: 14.5px;
+      font-weight: 650;
+      color: var(--text-primary);
+    }
+
+    .comp-summary {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .comp-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .comp-btn {
+      flex: 1;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 550;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 150ms var(--ease-standard), transform 140ms var(--ease-snappy);
+    }
+
+    .comp-btn:hover {
+      background: var(--bg-subtle-hover);
+    }
+
+    .comp-btn:active {
+      transform: scale(0.96);
+    }
+
+    .comp-btn-primary {
+      background: var(--btn-dark-bg);
+      color: var(--btn-dark-text);
+      border-color: transparent;
+    }
+
+    .comp-btn-primary:hover {
+      background: var(--btn-dark-hover);
+    }
+
+    /* ================= MODAL (PREVIEW & SPEC & CMD+K) ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms var(--ease-standard);
+    }
+
+    .modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 920px;
+      height: 82vh;
+      background: var(--bg-surface);
+      border-radius: 20px;
+      box-shadow: var(--shadow-popover);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(12px) scale(0.97);
+      transition: transform 320ms var(--ease-spring);
+    }
+
+    .modal-backdrop.is-open .modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      font-size: 14.5px;
+      font-weight: 650;
+      color: var(--text-primary);
+    }
+
+    .modal-close-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: none;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow: auto;
+      position: relative;
+      background: var(--bg-page);
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+
+    .spec-pre {
+      padding: 24px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= TOP NAVBAR ================= -->
+  <header class="navbar-wrap" id="navbarWrap">
+    <nav class="navbar" aria-label="主导航">
+      <div class="nav-left">
+        <a href="https://ownai.icu/" target="_blank" rel="noopener noreferrer" class="brand-link">
+          <img src="./assets/ownai-logo.png" alt="OwnAI Logo" class="brand-logo" />
+          <span>Ownai.icu</span>
+        </a>
+        <ul class="nav-links">
+          <li>
+            <a href="https://ownai.icu/" target="_blank" rel="noopener noreferrer" class="nav-item">社区</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-right">
+        <a href="https://github.com/Shark-Overlord/ui-motion-guide" target="_blank" rel="noopener noreferrer" class="nav-pill-btn nav-icon-btn" title="在 GitHub 上查看" aria-label="GitHub 仓库">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <button type="button" class="theme-switch-btn" id="themeToggleBtn" title="切换深浅色主题" aria-label="切换深浅色主题">
+          <span class="theme-switch-thumb"></span>
+          <span class="theme-switch-track-icon theme-switch-sun" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
+          <span class="theme-switch-track-icon theme-switch-moon" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ================= TREG.TO 微字形流场背景容器 ================= -->
+  <div class="treg-field-stage" id="tregFieldStage">
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section">
+    <div class="hero-agent-row" id="heroAgentRow" aria-label="主流 AI 编码智能体">
+      <!-- Claude -->
+      <span class="agent-vendor-badge" title="Claude">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757"/></svg>
+      </span>
+      <!-- Claude Code -->
+      <span class="agent-vendor-badge" title="Claude Code">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path clip-rule="evenodd" d="M20.998 10.949H24v3.102h-3v3.028h-1.487V20H18v-2.921h-1.487V20H15v-2.921H9V20H7.488v-2.921H6V20H4.487v-2.921H3V14.05H0V10.95h3V5h17.998v5.949zM6 10.949h1.488V8.102H6v2.847zm10.51 0H18V8.102h-1.49v2.847z" fill="#D97757" fill-rule="evenodd"/></svg>
+      </span>
+      <!-- OpenAI Codex -->
+      <span class="agent-vendor-badge" title="OpenAI Codex">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9.064 3.344a4.578 4.578 0 012.285-.312c1 .115 1.891.54 2.673 1.275.01.01.024.017.037.021a.09.09 0 00.043 0 4.55 4.55 0 013.046.275l.047.022.116.057a4.581 4.581 0 012.188 2.399c.209.51.313 1.041.315 1.595a4.24 4.24 0 01-.134 1.223.123.123 0 00.03.115c.594.607.988 1.33 1.183 2.17.289 1.425-.007 2.71-.887 3.854l-.136.166a4.548 4.548 0 01-2.201 1.388.123.123 0 00-.081.076c-.191.551-.383 1.023-.74 1.494-.9 1.187-2.222 1.846-3.711 1.838-1.187-.006-2.239-.44-3.157-1.302a.107.107 0 00-.105-.024c-.388.125-.78.143-1.204.138a4.441 4.441 0 01-1.945-.466 4.544 4.544 0 01-1.61-1.335c-.152-.202-.303-.392-.414-.617a5.81 5.81 0 01-.37-.961 4.582 4.582 0 01-.014-2.298.124.124 0 00.006-.056.085.085 0 00-.027-.048 4.467 4.467 0 01-1.034-1.651 3.896 3.896 0 01-.251-1.192 5.189 5.189 0 01.141-1.6c.337-1.112.982-1.985 1.933-2.618.212-.141.413-.251.601-.33.215-.089.43-.164.646-.227a.098.098 0 00.065-.066 4.51 4.51 0 01.829-1.615 4.535 4.535 0 011.837-1.388zm3.482 10.565a.637.637 0 000 1.272h3.636a.637.637 0 100-1.272h-3.636zM8.462 9.23a.637.637 0 00-1.106.631l1.272 2.224-1.266 2.136a.636.636 0 101.095.649l1.454-2.455a.636.636 0 00.005-.64L8.462 9.23z" fill="url(#heroCodexGrad)"/><defs><linearGradient gradientUnits="userSpaceOnUse" id="heroCodexGrad" x1="12" x2="12" y1="3" y2="21"><stop stop-color="#B1A7FF"/><stop offset=".5" stop-color="#7A9DFF"/><stop offset="1" stop-color="#3941FF"/></linearGradient></defs></svg>
+      </span>
+      <!-- DeepSeek -->
+      <span class="agent-vendor-badge" title="DeepSeek">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.748 4.482c-.254-.124-.364.113-.512.234-.051.039-.094.09-.137.136-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.156-.708-.311-.955-.65-.172-.241-.219-.51-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.093.172.187.129.323-.082.28-.18.552-.266.833-.055.179-.137.217-.329.14a5.526 5.526 0 01-1.736-1.18c-.857-.828-1.631-1.742-2.597-2.458a11.365 11.365 0 00-.689-.471c-.985-.957.13-1.743.388-1.836.27-.098.093-.432-.779-.428-.872.004-1.67.295-2.687.684a3.055 3.055 0 01-.465.137 9.597 9.597 0 00-2.883-.102c-1.885.21-3.39 1.102-4.497 2.623C.082 8.606-.231 10.684.152 12.85c.403 2.284 1.569 4.175 3.36 5.653 1.858 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.133-.284 4.994-1.86.47.234.962.327 1.78.397.63.059 1.236-.03 1.705-.128.735-.156.684-.837.419-.961-2.155-1.004-1.682-.595-2.113-.926 1.096-1.296 2.746-2.642 3.392-7.003.05-.347.007-.565 0-.845-.004-.17.035-.237.23-.256a4.173 4.173 0 001.545-.475c1.396-.763 1.96-2.015 2.093-3.517.02-.23-.004-.467-.247-.588zM11.581 18c-2.089-1.642-3.102-2.183-3.52-2.16-.392.024-.321.471-.235.763.09.288.207.486.371.739.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.167-1.361-.802-2.5-1.86-3.301-3.307-.774-1.393-1.224-2.887-1.298-4.482-.02-.386.093-.522.477-.592a4.696 4.696 0 011.529-.039c2.132.312 3.946 1.265 5.468 2.774.868.86 1.525 1.887 2.202 2.891.72 1.066 1.494 2.082 2.48 2.914.348.292.625.514.891.677-.802.09-2.14.11-3.054-.614zm1-6.44a.306.306 0 01.415-.287.302.302 0 01.2.288.306.306 0 01-.31.307.303.303 0 01-.304-.308zm3.11 1.596c-.2.081-.399.151-.59.16a1.245 1.245 0 01-.798-.254c-.274-.23-.47-.358-.552-.758a1.73 1.73 0 01.016-.588c.07-.327-.008-.537-.239-.727-.187-.156-.426-.199-.688-.199a.559.559 0 01-.254-.078c-.11-.054-.2-.19-.114-.358.028-.054.16-.186.192-.21.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.391.451.462.576.685.914.176.265.336.537.445.848.067.195-.019.354-.25.452z" fill="#4D6BFE"/></svg>
+      </span>
+      <!-- Google Gemini -->
+      <span class="agent-vendor-badge" title="Google Gemini">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="#3186FF"/><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#heroGeminiG0)"/><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#heroGeminiG1)"/><path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#heroGeminiG2)"/><defs><linearGradient gradientUnits="userSpaceOnUse" id="heroGeminiG0" x1="7" x2="11" y1="15.5" y2="12"><stop stop-color="#08B962"/><stop offset="1" stop-color="#08B962" stop-opacity="0"/></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="heroGeminiG1" x1="8" x2="11.5" y1="5.5" y2="11"><stop stop-color="#F94543"/><stop offset="1" stop-color="#F94543" stop-opacity="0"/></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="heroGeminiG2" x1="3.5" x2="17.5" y1="13.5" y2="12"><stop stop-color="#FABC12"/><stop offset=".46" stop-color="#FABC12" stop-opacity="0"/></linearGradient></defs></svg>
+      </span>
+      <!-- Cursor -->
+      <span class="agent-vendor-badge" title="Cursor">
+        <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.106 5.68L12.5.135a.998.998 0 00-.998 0L1.893 5.68a.84.84 0 00-.419.726v11.186c0 .3.16.577.42.727l9.607 5.547a.999.999 0 00.998 0l9.608-5.547a.84.84 0 00.42-.727V6.407a.84.84 0 00-.42-.726zm-.603 1.176L12.228 22.92c-.063.108-.228.064-.228-.061V12.34a.59.59 0 00-.295-.51l-9.11-5.26c-.107-.062-.063-.228.062-.228h18.55c.264 0 .428.286.296.514z"/></svg>
+      </span>
+    </div>
+
+    <h1 class="hero-title" id="heroTitle">OwnAi-motion-skill</h1>
+
+    <p class="hero-subtitle">
+      一句指令，让你的 Agent 更懂界面微交互，为每一次点击与切换注入丝滑自然的物理质感
+    </p>
+
+    <div class="hero-actions">
+      <a href="#install" class="btn-primary-pill">开始使用</a>
+      <a href="https://github.com/Shark-Overlord/ui-motion-guide" target="_blank" rel="noopener noreferrer" class="btn-secondary-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>在 GitHub 上查看</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= SIDE-BY-SIDE INTERACTIVE COMPARISON ================= -->
+  <section class="comparison-section" id="comparison">
+    <div class="comparison-grid">
+
+      <!-- LEFT COLUMN: GENERIC AI OUTPUT (STATIC / JARRING) -->
+      <div class="comparison-col">
+        <div class="comparison-label">
+          <span class="status-dot-bad" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </span>
+          <span>通用人工智能输出</span>
+        </div>
+
+        <div class="demo-widget-card" data-mode="static" id="staticWidget">
+          <!-- SCENE 0: AGENT DYNAMIC TASK STREAM (Static - Default) -->
+          <div class="scene-panel is-active" data-scene="unfurl">
+            <div class="widget-topbar">
+              <span class="scene-head-title">Agent 动态执行</span>
+              <button type="button" class="scene-Ghost-btn" data-action="step-agent">推进任务</button>
+            </div>
+            <div class="agent-scene-body">
+              <ul class="agent-stream-list" id="staticAgentList"></ul>
+            </div>
+          </div>
+
+          <!-- SCENE 1: PRICING (Static) -->
+          <div class="scene-panel" data-scene="pricing">
+            <div class="widget-topbar">
+              <div class="widget-tabs" role="tablist">
+                <button type="button" class="widget-tab-btn" data-tab="pro" role="tab">个人版</button>
+                <button type="button" class="widget-tab-btn is-active" data-tab="team" role="tab">团队版</button>
+              </div>
+              <div class="billing-cycle-group">
+                <button type="button" class="billing-cycle-btn" data-cycle="monthly">月付</button>
+                <button type="button" class="billing-cycle-btn is-active" data-cycle="yearly">
+                  <span>年付</span>
+                  <span class="discount-tag">-20%</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="pricing-header">
+              <div class="price-row">
+                <span class="price-currency">$</span>
+                <span class="price-number-static" id="staticPriceVal">64</span>
+                <span class="price-unit">/ 月</span>
+              </div>
+              <div class="seat-stepper-controls" id="staticSeatControls">
+                <button type="button" class="stepper-icon-btn" data-action="seat-dec" aria-label="减少席位">−</button>
+                <span class="seat-count-val" id="staticSeatCount">3 席</span>
+                <button type="button" class="stepper-icon-btn" data-action="seat-inc" aria-label="增加席位">+</button>
+              </div>
+            </div>
+
+            <div class="widget-body-viewport">
+              <div class="widget-pane" data-pane="pro">
+                <ul class="plan-feature-list">
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>500 小时高速 GPU 算力</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>本地 CLI 技能无限制挂载</span>
+                  </li>
+                </ul>
+                <button type="button" class="plan-subscribe-btn" data-action="subscribe">立即订阅</button>
+              </div>
+
+              <div class="widget-pane is-active" data-pane="team">
+                <ul class="plan-feature-list">
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>2,400 小时高速 GPU 算力</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>团队共享私有动效规范库</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>优先推理队列与并发沙箱</span>
+                  </li>
+                </ul>
+                <button type="button" class="plan-subscribe-btn" data-action="subscribe">开通团队版</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCENE 2: FLIP LIST REORDER (Static) -->
+          <div class="scene-panel" data-scene="flip">
+            <div class="widget-topbar">
+              <span class="scene-head-title">Agent 任务队列</span>
+              <button type="button" class="scene-Ghost-btn" data-action="shuffle">随机重排</button>
+            </div>
+            <div class="flip-scene-body">
+              <ul class="flip-task-list" id="staticFlipList">
+                <li class="flip-task-row" data-id="1">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#22c55e"></span>
+                    <span class="flip-task-title">构建 WebGL 粒子着色器</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="2">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#38bdf8"></span>
+                    <span class="flip-task-title">编译 155 个微交互原语</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="3">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#f59e0b"></span>
+                    <span class="flip-task-title">校准弹簧阻尼物理曲线</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="4">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#a855f7"></span>
+                    <span class="flip-task-title">生成零依赖原生 CSS 包</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SCENE 3: DESTRUCTIVE CONFIRM & UNDO (Static) -->
+          <div class="scene-panel" data-scene="confirm">
+            <div class="widget-topbar">
+              <span class="scene-head-title">生产环境密钥</span>
+              <button type="button" class="scene-Ghost-btn" data-action="reset-keys">恢复默认</button>
+            </div>
+            <div class="confirm-scene-body">
+              <ul class="key-item-list" id="staticKeyList">
+                <li class="key-item-row" data-key="1">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-prod-9f8a</span>
+                    <span class="key-time-note">刚刚</span>
+                  </div>
+                  <div class="static-del-wrap">
+                    <button type="button" class="static-del-btn" data-action="static-del">销毁</button>
+                  </div>
+                </li>
+                <li class="key-item-row" data-key="2">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-edge-3c1b</span>
+                    <span class="key-time-note">2h 前</span>
+                  </div>
+                  <div class="static-del-wrap">
+                    <button type="button" class="static-del-btn" data-action="static-del">销毁</button>
+                  </div>
+                </li>
+                <li class="key-item-row" data-key="3">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-test-7d4e</span>
+                    <span class="key-time-note">昨天</span>
+                  </div>
+                  <div class="static-del-wrap">
+                    <button type="button" class="static-del-btn" data-action="static-del">销毁</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SCENE 4: 3-STATE ASYNC DEPLOY (Static) -->
+          <div class="scene-panel" data-scene="deploy">
+            <div class="widget-topbar">
+              <span class="scene-head-title">边缘节点发布</span>
+              <span class="deploy-status-pill" id="staticDeployPill" data-state="idle">
+                <span class="deploy-status-dot"></span>
+                <span id="staticDeployStatusText">就绪</span>
+              </span>
+            </div>
+            <div class="deploy-scene-body">
+              <div class="deploy-target-box">
+                <span class="deploy-target-name">OwnAi-Motion-v2.4</span>
+                <span class="deploy-target-region">us-east · 42ms</span>
+              </div>
+              <ul class="plan-feature-list" style="margin-bottom:0">
+                <li class="plan-feature-item">
+                  <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <span>静态资源哈希校验通过</span>
+                </li>
+                <li class="plan-feature-item">
+                  <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <span>全球边缘 Worker 预热就绪</span>
+                </li>
+              </ul>
+              <div class="static-deploy-wrap">
+                <button type="button" class="static-deploy-btn" id="staticDeployBtn" data-action="deploy">发布至生产环境</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: WITH UI MOTION SKILL (SPRING + ODOMETER + BLUR) -->
+      <div class="comparison-col">
+        <div class="comparison-label">
+          <span class="status-dot-good" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <span>具备 Ownai.icu 技能</span>
+        </div>
+
+        <div class="demo-widget-card" data-mode="motion" id="motionWidget">
+          <!-- SCENE 0: AGENT DYNAMIC TASK STREAM (Motion - Default) -->
+          <div class="scene-panel is-active" data-scene="unfurl">
+            <div class="widget-topbar">
+              <span class="scene-head-title">Agent 动态执行</span>
+              <button type="button" class="scene-Ghost-btn" data-action="step-agent">推进任务</button>
+            </div>
+            <div class="agent-scene-body">
+              <ul class="agent-stream-list" id="motionAgentList"></ul>
+            </div>
+          </div>
+
+          <!-- SCENE 1: PRICING (Motion) -->
+          <div class="scene-panel" data-scene="pricing">
+            <div class="widget-topbar">
+              <div class="widget-tabs" role="tablist">
+                <div class="widget-tab-pill" id="motionTabPill"></div>
+                <button type="button" class="widget-tab-btn" data-tab="pro" role="tab">个人版</button>
+                <button type="button" class="widget-tab-btn is-active" data-tab="team" role="tab">团队版</button>
+              </div>
+              <div class="billing-cycle-group" id="motionCycleGroup">
+                <div class="billing-cycle-pill" id="motionCyclePill"></div>
+                <button type="button" class="billing-cycle-btn" data-cycle="monthly">月付</button>
+                <button type="button" class="billing-cycle-btn is-active" data-cycle="yearly">
+                  <span>年付</span>
+                  <span class="discount-tag">-20%</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="pricing-header">
+              <div class="price-row">
+                <span class="price-currency">$</span>
+                <div class="odometer-box" aria-label="价格">
+                  <div class="odometer-col" id="odoTens">
+                    <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                  </div>
+                  <div class="odometer-col" id="odoOnes">
+                    <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                  </div>
+                </div>
+                <span class="price-unit">/ 月</span>
+              </div>
+              <div class="seat-stepper-controls" id="motionSeatControls">
+                <button type="button" class="stepper-icon-btn" data-action="seat-dec" aria-label="减少席位">−</button>
+                <span class="seat-count-val" id="motionSeatCount">3 席</span>
+                <button type="button" class="stepper-icon-btn" data-action="seat-inc" aria-label="增加席位">+</button>
+              </div>
+            </div>
+
+            <div class="widget-body-viewport" id="motionViewport">
+              <div class="widget-pane" data-pane="pro">
+                <ul class="plan-feature-list">
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>500 小时高速 GPU 算力</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>本地 CLI 技能无限制挂载</span>
+                  </li>
+                </ul>
+                <button type="button" class="plan-subscribe-btn" data-action="subscribe" id="motionSubProBtn">
+                  <span id="motionSubProLabel">立即订阅</span>
+                </button>
+              </div>
+
+              <div class="widget-pane is-active" data-pane="team">
+                <ul class="plan-feature-list">
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>2,400 小时高速 GPU 算力</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>团队共享私有动效规范库</span>
+                  </li>
+                  <li class="plan-feature-item">
+                    <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                    <span>优先推理队列与并发沙箱</span>
+                  </li>
+                </ul>
+                <button type="button" class="plan-subscribe-btn" data-action="subscribe" id="motionSubTeamBtn">
+                  <span id="motionSubTeamLabel">开通团队版</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCENE 2: FLIP LIST REORDER (Motion) -->
+          <div class="scene-panel" data-scene="flip">
+            <div class="widget-topbar">
+              <span class="scene-head-title">Agent 任务队列</span>
+              <button type="button" class="scene-Ghost-btn" data-action="shuffle">随机重排</button>
+            </div>
+            <div class="flip-scene-body">
+              <ul class="flip-task-list" id="motionFlipList">
+                <li class="flip-task-row" data-id="1">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#22c55e"></span>
+                    <span class="flip-task-title">构建 WebGL 粒子着色器</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="2">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#38bdf8"></span>
+                    <span class="flip-task-title">编译 155 个微交互原语</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="3">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#f59e0b"></span>
+                    <span class="flip-task-title">校准弹簧阻尼物理曲线</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+                <li class="flip-task-row" data-id="4">
+                  <div class="flip-task-left">
+                    <span class="flip-task-dot" style="background:#a855f7"></span>
+                    <span class="flip-task-title">生成零依赖原生 CSS 包</span>
+                  </div>
+                  <button type="button" class="flip-pin-btn" data-action="pin">置顶</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SCENE 3: DESTRUCTIVE CONFIRM & UNDO (Motion) -->
+          <div class="scene-panel" data-scene="confirm">
+            <div class="widget-topbar">
+              <span class="scene-head-title">生产环境密钥</span>
+              <button type="button" class="scene-Ghost-btn" data-action="reset-keys">恢复默认</button>
+            </div>
+            <div class="confirm-scene-body">
+              <ul class="key-item-list" id="motionKeyList">
+                <li class="key-item-row" data-key="1">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-prod-9f8a</span>
+                    <span class="key-time-note">刚刚</span>
+                  </div>
+                  <button type="button" class="morph-del-btn" data-action="morph-del">
+                    <span class="morph-del-idle">销毁</span>
+                    <span class="morph-del-active">
+                      <span class="morph-confirm-pill" data-action="morph-confirm">
+                        <span class="morph-del-progress"></span>
+                        <span class="morph-confirm-label">确认销毁</span>
+                      </span>
+                      <span class="morph-undo-tag" data-action="morph-undo">撤销</span>
+                    </span>
+                  </button>
+                </li>
+                <li class="key-item-row" data-key="2">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-edge-3c1b</span>
+                    <span class="key-time-note">2h 前</span>
+                  </div>
+                  <button type="button" class="morph-del-btn" data-action="morph-del">
+                    <span class="morph-del-idle">销毁</span>
+                    <span class="morph-del-active">
+                      <span class="morph-confirm-pill" data-action="morph-confirm">
+                        <span class="morph-del-progress"></span>
+                        <span class="morph-confirm-label">确认销毁</span>
+                      </span>
+                      <span class="morph-undo-tag" data-action="morph-undo">撤销</span>
+                    </span>
+                  </button>
+                </li>
+                <li class="key-item-row" data-key="3">
+                  <div class="key-item-meta">
+                    <span class="key-code-badge">sk-ownai-test-7d4e</span>
+                    <span class="key-time-note">昨天</span>
+                  </div>
+                  <button type="button" class="morph-del-btn" data-action="morph-del">
+                    <span class="morph-del-idle">销毁</span>
+                    <span class="morph-del-active">
+                      <span class="morph-confirm-pill" data-action="morph-confirm">
+                        <span class="morph-del-progress"></span>
+                        <span class="morph-confirm-label">确认销毁</span>
+                      </span>
+                      <span class="morph-undo-tag" data-action="morph-undo">撤销</span>
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SCENE 4: 3-STATE ASYNC DEPLOY (Motion) -->
+          <div class="scene-panel" data-scene="deploy">
+            <div class="widget-topbar">
+              <span class="scene-head-title">边缘节点发布</span>
+              <span class="deploy-status-pill" id="motionDeployPill" data-state="idle">
+                <span class="deploy-status-dot"></span>
+                <span id="motionDeployStatusText">就绪</span>
+              </span>
+            </div>
+            <div class="deploy-scene-body">
+              <div class="deploy-target-box">
+                <span class="deploy-target-name">OwnAi-Motion-v2.4</span>
+                <span class="deploy-target-region">us-east · 42ms</span>
+              </div>
+              <ul class="plan-feature-list" style="margin-bottom:0">
+                <li class="plan-feature-item">
+                  <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <span>静态资源哈希校验通过</span>
+                </li>
+                <li class="plan-feature-item">
+                  <span class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                  <span>全球边缘 Worker 预热就绪</span>
+                </li>
+              </ul>
+              <button type="button" class="motion-deploy-btn" id="motionDeployBtn" data-state="idle" data-action="deploy">
+                <span class="deploy-state-slot" data-slot="idle">发布至生产环境</span>
+                <span class="deploy-state-slot" data-slot="loading">
+                  <span class="deploy-spinner"></span>
+                  <span>正在分发边缘节点...</span>
+                </span>
+                <span class="deploy-state-slot" data-slot="done">
+                  <svg class="deploy-check-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  <span>部署已上线</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Interactive Comparison Scene Switcher + Sync Bar -->
+    <div class="comparison-toolbar">
+      <div class="scene-switcher" id="sceneSwitcher" role="tablist" aria-label="切换对比案例">
+        <div class="scene-switcher-pill" id="sceneSwitcherPill"></div>
+        <button type="button" class="scene-switch-btn is-active" data-scene-target="unfurl" role="tab">Agent 动态任务</button>
+        <button type="button" class="scene-switch-btn" data-scene-target="pricing" role="tab">算力计费</button>
+        <button type="button" class="scene-switch-btn" data-scene-target="flip" role="tab">列表重排</button>
+        <button type="button" class="scene-switch-btn" data-scene-target="confirm" role="tab">防误删确认</button>
+        <button type="button" class="scene-switch-btn" data-scene-target="deploy" role="tab">异步部署</button>
+      </div>
+      <button type="button" class="sync-trigger-btn" id="syncToggleBtn" title="同步触发当前场景交互对比">
+        <svg class="sync-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H4.2"/></svg>
+        <span>同步演示</span>
+      </button>
+    </div>
+  </section>
+  </div><!-- /.treg-field-stage -->
+
+  <!-- ================= INSTALL SECTION ================= -->
+  <div class="content-container" id="install">
+    <h2 class="section-heading">安装</h2>
+    <p class="section-subtext">
+      在项目根文件夹的终端中运行此命令，或者将其粘贴到编码代理中，它会自动为您运行。
+    </p>
+
+    <div class="install-card" id="installCard">
+      <div class="install-code-area">
+        <div class="install-cmd-text" id="installCmdText"><span class="cmd-accent">git clone</span> https://github.com/Shark-Overlord/ui-motion-guide.git</div>
+        <button type="button" class="copy-code-btn" id="copyInstallBtn">
+          <span class="copy-icon-stage" aria-hidden="true">
+            <svg class="copy-icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <svg class="copy-icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <span class="copy-label-stage" id="copyInstallLabel">
+            <span class="copy-label-idle">复制命令</span>
+            <span class="copy-label-done">复制成功</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/catalog-data.js"></script>
+  <script>
+    // =========================================================================
+    // 1. PRIMITIVES.md 微原语 (createSpring & swapText & FLIP)
+    // =========================================================================
+    function createSpring(initialValue = 0, { stiffness = 280, damping = 22, precision = 0.01 } = {}) {
+      let value = initialValue;
+      let target = initialValue;
+      let velocity = 0;
+      let rafId = 0;
+      let lastTime = 0;
+      const listeners = new Set();
+
+      function tick(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.064);
+        lastTime = now;
+        const force = -stiffness * (value - target) - damping * velocity;
+        velocity += force * dt;
+        value += velocity * dt;
+        if (Math.abs(value - target) <= precision && Math.abs(velocity) <= precision) {
+          value = target;
+          velocity = 0;
+          rafId = 0;
+          listeners.forEach((fn) => fn(value, true));
+          return;
+        }
+        listeners.forEach((fn) => fn(value, false));
+        rafId = requestAnimationFrame(tick);
+      }
+
+      return {
+        set(nextTarget) {
+          target = nextTarget;
+          if (!rafId) {
+            lastTime = performance.now();
+            rafId = requestAnimationFrame(tick);
+          }
+        },
+        impulse(deltaVelocity) {
+          velocity += deltaVelocity;
+          if (!rafId) {
+            lastTime = performance.now();
+            rafId = requestAnimationFrame(tick);
+          }
+        },
+        subscribe(fn) {
+          listeners.add(fn);
+          fn(value, rafId === 0);
+          return () => listeners.delete(fn);
+        }
+      };
+    }
+
+    // --- 1.5 HERO AGENT ICONS PULSE INTERACTION ---
+    (function initHeroMotion() {
+      const agentRow = document.getElementById('heroAgentRow');
+      if (!agentRow) return;
+      agentRow.addEventListener('click', (e) => {
+        if (window.tregParticles) window.tregParticles.pulseFromEvent(e);
+      });
+    })();
+
+    // --- 1.8 TREG.TO WEBGL TRAVELLING GLYPH FIELD + CURSOR TRAIL ---
+    (function initTregGlyphField() {
+      const host = document.getElementById('tregFieldStage');
+      if (!host) return;
+      const canvas = document.createElement('canvas');
+      canvas.className = 'hero-particles';
+      canvas.setAttribute('aria-hidden', 'true');
+      host.prepend(canvas);
+
+      const gl = canvas.getContext('webgl', {
+        alpha: true,
+        antialias: false,
+        depth: false,
+        stencil: false,
+        premultipliedAlpha: true,
+        powerPreference: 'low-power'
+      });
+      if (!gl) {
+        canvas.remove();
+        return;
+      }
+
+      const vertex = `
+        precision highp float;
+        attribute vec3 aPoint;
+        uniform vec2 uSize, uDrift;
+        uniform float uTime, uDpr, uCell;
+        uniform vec3 uOpening;
+        uniform vec3 uTrail[24];
+        uniform vec4 uTextAreas[8];
+        varying float vAlpha, vKind, vHeat;
+
+        float segment(vec2 p, vec2 a, vec2 b) {
+          vec2 ab = b - a;
+          float t = clamp(dot(p - a, ab) / max(dot(ab, ab), 0.001), 0.0, 1.0);
+          return length(p - a - t * ab);
+        }
+
+        void main() {
+          vec2 p = aPoint.xy + uDrift;
+          float ripple = 0.0, reveal = 1.0;
+          if (uOpening.z >= 0.0) {
+            vec2 radial = p - uOpening.xy * uSize;
+            float distance = length(radial);
+            float speed = length(uSize) * 0.17;
+            float radius = max(0.0, uOpening.z - 0.12) * speed;
+            float ring = exp(-pow((distance - radius) / 70.0, 2.0));
+            ripple = ring * (1.0 - smoothstep(3.8, 5.7, uOpening.z));
+            reveal = mix(1.0 - smoothstep(radius - 110.0, radius + 110.0, distance), 1.0, smoothstep(3.6, 5.3, uOpening.z));
+            p += radial / max(distance, 1.0) * ripple * 4.0;
+          }
+
+          float w = 0.5 + 0.30 * sin(p.x * 0.010 + p.y * 0.009 - uTime * 0.65) + 0.20 * sin(p.x * -0.006 + p.y * 0.013 - uTime * 0.43);
+          float heat = 0.0;
+          for (int i = 0; i < 23; i++) {
+            float life = min(uTrail[i].z, uTrail[i + 1].z);
+            float d = segment(p, uTrail[i].xy, uTrail[i + 1].xy);
+            if (life > 0.0 && d < 4.5) heat = 1.0;
+          }
+
+          float edge = smoothstep(20.0, 140.0, p.y) * (1.0 - smoothstep(uSize.y - 160.0, uSize.y, p.y));
+          float quiet = 1.0 - 0.45 * exp(-pow((p.x - uSize.x * 0.5) / (uSize.x * 0.24), 2.0) - pow((p.y - 180.0) / 130.0, 2.0));
+          vAlpha = ((0.045 + 0.26 * pow(w, 1.65)) * quiet * reveal + ripple * 0.08) * edge * step(0.10, aPoint.z);
+          vHeat = max(heat, min(1.0, ripple * 0.14)) * edge * step(0.10, aPoint.z);
+          vKind = mod(floor(aPoint.z * 31.0), 3.0);
+
+          float readability = 1.0;
+          for (int i = 0; i < 8; i++) {
+            vec4 area = uTextAreas[i];
+            if (area.z > 0.0) {
+              vec2 outside = max(abs(p - area.xy) - area.zw, vec2(0.0));
+              float cover = 1.0 - smoothstep(0.0, 88.0, length(outside));
+              readability = min(readability, 1.0 - cover * 0.85);
+            }
+          }
+          vAlpha *= readability;
+          vHeat *= readability;
+
+          gl_Position = vec4(p.x / uSize.x * 2.0 - 1.0, 1.0 - p.y / uSize.y * 2.0, 0.0, 1.0);
+          gl_PointSize = (min(uCell * 0.82, 5.0) + ripple * 0.35) * uDpr;
+        }
+      `;
+
+      const fragment = `
+        precision mediump float;
+        uniform mediump float uDark;
+        varying float vAlpha, vKind, vHeat;
+
+        float box(vec2 p, vec2 c, float r) {
+          return 1.0 - smoothstep(r - 0.045, r + 0.045, max(abs(p.x - c.x), abs(p.y - c.y)));
+        }
+
+        void main() {
+          vec2 p = gl_PointCoord - 0.5;
+          float d = length(p);
+          float glyph;
+          if (vKind < 0.5) glyph = 1.0 - smoothstep(0.17, 0.23, d);
+          else if (vKind < 1.5) glyph = (1.0 - smoothstep(0.35, 0.42, d)) * smoothstep(0.12, 0.19, d);
+          else glyph = max(box(p, vec2(-0.12, -0.12), 0.20), box(p, vec2(0.12, 0.12), 0.20));
+
+          float a = glyph * mix(vAlpha, 0.66, vHeat);
+          vec3 col = mix(vec3(0.19, 0.40, 0.34), vec3(0.02, 0.59, 0.35), vHeat);
+          if (uDark > 0.5) {
+            col = mix(vec3(0.52, 0.52, 0.54), vec3(0.86, 0.86, 0.88), vHeat);
+          }
+          gl_FragColor = vec4(col * a, a);
+        }
+      `;
+
+      function compileShader(type, source) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, source);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+          gl.deleteShader(s);
+          throw new Error('Shader compile failed');
+        }
+        return s;
+      }
+
+      let program, buffer;
+      try {
+        const vs = compileShader(gl.VERTEX_SHADER, vertex);
+        const fs = compileShader(gl.FRAGMENT_SHADER, fragment);
+        program = gl.createProgram();
+        gl.attachShader(program, vs);
+        gl.attachShader(program, fs);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error('Program link failed');
+      } catch (err) {
+        canvas.remove();
+        return;
+      }
+
+      gl.useProgram(program);
+      buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      const attr = gl.getAttribLocation(program, 'aPoint');
+      gl.enableVertexAttribArray(attr);
+      gl.vertexAttribPointer(attr, 3, gl.FLOAT, false, 0, 0);
+
+      const uniforms = Object.fromEntries(
+        ['uSize', 'uDrift', 'uTime', 'uDpr', 'uCell', 'uOpening', 'uDark', 'uTrail[0]', 'uTextAreas[0]'].map((n) => [
+          n,
+          gl.getUniformLocation(program, n)
+        ])
+      );
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const coarse = window.matchMedia('(pointer: coarse)');
+      let width = 1, height = 1, count = 0, dpr = 1, cell = 7;
+      let dx = 0, dy = 0, tx = 0, ty = 0;
+      let trail = [];
+      const packedTrail = new Float32Array(72);
+      const textAreas = new Float32Array(32);
+      let textDirty = true;
+      let openingStart = performance.now();
+      let openingX = 0.5, openingY = 0.22;
+      let lastTime = 0, simTime = 0;
+
+      function measureTextAreas() {
+        textAreas.fill(0);
+        textDirty = false;
+        const origin = host.getBoundingClientRect();
+        const nodes = [
+          document.getElementById('heroAgentRow'),
+          document.getElementById('heroTitle'),
+          host.querySelector('.hero-subtitle'),
+          host.querySelector('.hero-actions'),
+          document.getElementById('staticWidget'),
+          document.getElementById('motionWidget'),
+          host.querySelector('.comparison-toolbar')
+        ].filter(Boolean);
+        nodes.slice(0, 8).forEach((node, i) => {
+          const r = node.getBoundingClientRect();
+          if (!r.width || !r.height) return;
+          textAreas.set(
+            [
+              r.left - origin.left + r.width / 2,
+              r.top - origin.top + r.height / 2,
+              r.width / 2 + 10,
+              r.height / 2 + 8
+            ],
+            i * 4
+          );
+        });
+      }
+
+      function resizeField() {
+        textDirty = true;
+        width = Math.max(1, host.clientWidth);
+        height = Math.max(1, host.clientHeight);
+        dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+        cell = Math.max(coarse.matches ? 8 : 6, Math.sqrt((width * height) / 75000));
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+
+        const points = [];
+        let seed = 71;
+        for (let y = -cell; y < height + cell; y += cell) {
+          for (let x = -cell; x < width + cell; x += cell) {
+            seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+            points.push(x, y, seed / 4294967296);
+          }
+        }
+        count = points.length / 3;
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+      }
+
+      window.addEventListener('pointermove', (e) => {
+        if (reduced.matches || e.pointerType === 'touch') return;
+        const r = host.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        if (y < -40 || y > height + 40) return;
+        tx = (x / width - 0.5) * -16;
+        ty = (y / height - 0.5) * -12;
+        const now = performance.now();
+        const prev = trail[trail.length - 1];
+        if (!prev || Math.hypot(x - prev.x, y - prev.y) > 4 || now - prev.t > 40) {
+          trail.push({ x, y, t: now });
+          if (trail.length > 24) trail.shift();
+        }
+      }, { passive: true });
+
+      host.addEventListener('pointerleave', () => {
+        tx = 0;
+        ty = 0;
+      });
+
+      new ResizeObserver(resizeField).observe(host);
+      resizeField();
+
+      function tickField(now) {
+        if (!document.hidden) {
+          if (textDirty) measureTextAreas();
+          const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
+          lastTime = now;
+          if (!reduced.matches) simTime += dt;
+
+          const ease = 1 - Math.exp(-dt * 7);
+          dx += (tx - dx) * ease;
+          dy += (ty - dy) * ease;
+
+          const lifetime = 550;
+          packedTrail.fill(0);
+          trail = trail.filter((p) => now - p.t < lifetime);
+          for (let i = 0; i < trail.length; i++) {
+            packedTrail[i * 3] = trail[i].x;
+            packedTrail[i * 3 + 1] = trail[i].y;
+            packedTrail[i * 3 + 2] = 1 - (now - trail[i].t) / lifetime;
+          }
+
+          const openingElapsed = openingStart >= 0 ? (now - openingStart) / 1000 : -1;
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ? 1 : 0;
+
+          gl.uniform2f(uniforms.uSize, width, height);
+          gl.uniform2f(uniforms.uDrift, dx, dy);
+          gl.uniform1f(uniforms.uTime, simTime);
+          gl.uniform1f(uniforms.uDpr, dpr);
+          gl.uniform1f(uniforms.uCell, cell);
+          gl.uniform1f(uniforms.uDark, isDark);
+          gl.uniform3f(uniforms.uOpening, openingX, openingY, openingElapsed < 6.0 ? openingElapsed : -1);
+          gl.uniform3fv(uniforms['uTrail[0]'], packedTrail);
+          gl.uniform4fv(uniforms['uTextAreas[0]'], textAreas);
+
+          gl.clearColor(0, 0, 0, 0);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          gl.drawArrays(gl.POINTS, 0, count);
+        }
+        requestAnimationFrame(tickField);
+      }
+      requestAnimationFrame(tickField);
+
+      window.tregParticles = {
+        pulseFromEvent(e) {
+          const r = host.getBoundingClientRect();
+          openingX = e && e.clientX ? (e.clientX - r.left) / width : 0.5;
+          openingY = e && e.clientY ? (e.clientY - r.top) / height : 0.22;
+          openingStart = performance.now();
+        },
+        invalidateText() {
+          textDirty = true;
+        }
+      };
+    })();
+
+    function swapText(labelEl, nextText, { containerEl = null, duration = 180 } = {}) {
+      if (!labelEl || labelEl.textContent === nextText) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        labelEl.textContent = nextText;
+        return;
+      }
+      const half = duration / 2;
+      if (containerEl) {
+        const prevWidth = containerEl.offsetWidth;
+        const prevText = labelEl.textContent;
+        labelEl.textContent = nextText;
+        containerEl.style.width = 'auto';
+        const nextWidth = containerEl.offsetWidth;
+        labelEl.textContent = prevText;
+        containerEl.style.width = `${prevWidth}px`;
+        requestAnimationFrame(() => {
+          containerEl.style.transition = `width ${duration * 1.4}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          containerEl.style.width = `${nextWidth}px`;
+        });
+      }
+      const outAnim = labelEl.animate(
+        [
+          { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0) scale(1)' },
+          { opacity: 0, filter: 'blur(4px)', transform: 'translateY(-4px) scale(0.96)' }
+        ],
+        { duration: half, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' }
+      );
+      outAnim.onfinish = () => {
+        labelEl.textContent = nextText;
+        const inAnim = labelEl.animate(
+          [
+            { opacity: 0, filter: 'blur(4px)', transform: 'translateY(4px) scale(0.96)' },
+            { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0) scale(1)' }
+          ],
+          { duration: half * 1.3, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards' }
+        );
+        inAnim.onfinish = () => {
+          if (containerEl) containerEl.style.width = '';
+        };
+      };
+    }
+
+    function flipChildren(containerEl, mutateDom, { selector = ':scope > *', duration = 280 } = {}) {
+      if (!containerEl) { mutateDom(); return; }
+      const firstRects = new Map();
+      containerEl.querySelectorAll(selector).forEach((el) => {
+        firstRects.set(el, el.getBoundingClientRect());
+      });
+      mutateDom();
+      containerEl.querySelectorAll(selector).forEach((el) => {
+        const first = firstRects.get(el);
+        const last = el.getBoundingClientRect();
+        if (!first) {
+          el.animate(
+            [
+              { opacity: 0, transform: 'translateY(-8px) scale(0.94)', filter: 'blur(4px)' },
+              { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0px)' }
+            ],
+            { duration: duration, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+          );
+          return;
+        }
+        const dx = first.left - last.left;
+        const dy = first.top - last.top;
+        if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+          el.animate(
+            [
+              { transform: `translate3d(${dx}px, ${dy}px, 0)` },
+              { transform: 'translate3d(0, 0, 0)' }
+            ],
+            { duration, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+          );
+        }
+      });
+    }
+
+    // =========================================================================
+    // 2. MULTI-SCENE SIDE-BY-SIDE COMPARISON STAGE (Static vs UI Motion)
+    // =========================================================================
+    let currentScene = 'unfurl';
+    const sceneSwitcher = document.getElementById('sceneSwitcher');
+    const sceneSwitcherPill = document.getElementById('sceneSwitcherPill');
+
+    function updateSceneSwitcherPill() {
+      if (!sceneSwitcher || !sceneSwitcherPill) return;
+      const activeBtn = sceneSwitcher.querySelector('.scene-switch-btn.is-active');
+      if (!activeBtn) return;
+      sceneSwitcherPill.style.width = `${activeBtn.offsetWidth}px`;
+      sceneSwitcherPill.style.transform = `translate3d(${activeBtn.offsetLeft}px, 0, 0)`;
+    }
+
+    function switchScene(sceneName) {
+      currentScene = sceneName;
+      sceneSwitcher.querySelectorAll('.scene-switch-btn').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.sceneTarget === sceneName);
+      });
+      updateSceneSwitcherPill();
+
+      document.querySelectorAll('.scene-panel').forEach((panel) => {
+        panel.classList.toggle('is-active', panel.dataset.scene === sceneName);
+      });
+
+      if (sceneName === 'unfurl') {
+        scheduleAgentAutoStep();
+        if (window.tregParticles) {
+          requestAnimationFrame(() => window.tregParticles.invalidateText());
+        }
+      } else if (sceneName === 'pricing') {
+        requestAnimationFrame(() => {
+          updateMotionTabPill();
+          syncMotionViewportHeight();
+        });
+      } else if (window.tregParticles) {
+        requestAnimationFrame(() => window.tregParticles.invalidateText());
+      }
+    }
+
+    sceneSwitcher.addEventListener('click', (e) => {
+      const btn = e.target.closest('.scene-switch-btn');
+      if (btn && btn.dataset.sceneTarget) {
+        switchScene(btn.dataset.sceneTarget);
+      }
+    });
+
+    // --- SCENE 0: AGENT DYNAMIC TASK STREAM (Downward Appear / Execute / Disappear) ---
+    const AGENT_TASKS = [
+      { running: '扫描 Button.tsx 过渡属性...', done: '定位 3 处生硬 linear 过渡', meta: '12ms' },
+      { running: '注入物理阻尼弹簧曲线...', done: '已写入弹簧参数 ζ = 0.78', meta: '18ms' },
+      { running: '构建零抖动双层数字槽位...', done: '挂载 Odometer 滚轮计数', meta: '15ms' },
+      { running: '编译防误删双段式确认胶囊...', done: '内联倒计时与撤销就绪', meta: '14ms' },
+      { running: '采样无头浏览器 60fps 轨迹...', done: '零布局偏移校验通过 · 0 CLS', meta: '21ms' }
+    ];
+
+    const CHECK_ICON_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    const SPINNER_HTML = '<span class="agent-task-spinner"></span>';
+
+    const staticAgentList = document.getElementById('staticAgentList');
+    const motionAgentList = document.getElementById('motionAgentList');
+    let agentCursor = 2;
+    let agentAutoTimer = 0;
+
+    function createAgentTaskNode(task, state) {
+      const li = document.createElement('li');
+      li.className = 'agent-task-wrap';
+      const isDone = state === 'done';
+      li.innerHTML = `
+        <div class="agent-task-row" data-state="${state}">
+          <div class="agent-task-left">
+            <span class="agent-task-icon">${isDone ? CHECK_ICON_SVG : SPINNER_HTML}</span>
+            <span class="agent-task-title">${isDone ? task.done : task.running}</span>
+          </div>
+          <span class="agent-task-meta">${isDone ? task.meta : '执行中'}</span>
+        </div>
+      `;
+      li._taskData = task;
+      return li;
+    }
+
+    function initAgentStreams() {
+      if (!staticAgentList || !motionAgentList) return;
+      staticAgentList.innerHTML = '';
+      motionAgentList.innerHTML = '';
+      [0, 1, 2].forEach((idx, pos) => {
+        const state = pos < 2 ? 'done' : 'running';
+        staticAgentList.appendChild(createAgentTaskNode(AGENT_TASKS[idx], state));
+        motionAgentList.appendChild(createAgentTaskNode(AGENT_TASKS[idx], state));
+      });
+      agentCursor = 2;
+      scheduleAgentAutoStep();
+    }
+
+    function stepStaticAgent(nextTask) {
+      if (!staticAgentList) return;
+      // 1. Remove oldest completed task abruptly (instant jump)
+      if (staticAgentList.children.length >= 3 && staticAgentList.firstElementChild) {
+        staticAgentList.firstElementChild.remove();
+      }
+      // 2. Hard-swap current running task to done
+      const prevWrap = staticAgentList.lastElementChild;
+      if (prevWrap && prevWrap._taskData) {
+        const row = prevWrap.querySelector('.agent-task-row');
+        const icon = prevWrap.querySelector('.agent-task-icon');
+        const title = prevWrap.querySelector('.agent-task-title');
+        const meta = prevWrap.querySelector('.agent-task-meta');
+        if (row) row.dataset.state = 'done';
+        if (icon) icon.innerHTML = CHECK_ICON_SVG;
+        if (title) title.textContent = prevWrap._taskData.done;
+        if (meta) meta.textContent = prevWrap._taskData.meta;
+      }
+      // 3. Hard-append new running task downward
+      staticAgentList.appendChild(createAgentTaskNode(nextTask, 'running'));
+    }
+
+    function stepMotionAgent(nextTask) {
+      if (!motionAgentList) return;
+      // 1. Smoothly collapse & blur out the oldest completed task at the top (Disappear)
+      const activeItems = Array.from(motionAgentList.children).filter((el) => !el._exiting);
+      if (activeItems.length >= 3) {
+        const oldWrap = activeItems[0];
+        oldWrap._exiting = true;
+        const anim = oldWrap.animate(
+          [
+            { height: '44px', marginBottom: '8px', opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0px)' },
+            { height: '0px', marginBottom: '0px', opacity: 0, transform: 'translateY(-8px) scale(0.95)', filter: 'blur(4px)' }
+          ],
+          { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+        );
+        anim.onfinish = () => oldWrap.remove();
+      }
+
+      // 2. Resolve current running task in-place (Spinner -> Check Pop + Blur Text Swap)
+      const prevWrap = activeItems[activeItems.length - 1];
+      if (prevWrap && prevWrap._taskData) {
+        const t = prevWrap._taskData;
+        const row = prevWrap.querySelector('.agent-task-row');
+        const icon = prevWrap.querySelector('.agent-task-icon');
+        const title = prevWrap.querySelector('.agent-task-title');
+        const meta = prevWrap.querySelector('.agent-task-meta');
+        if (row) row.dataset.state = 'done';
+        if (icon) {
+          icon.innerHTML = CHECK_ICON_SVG;
+          icon.animate(
+            [
+              { transform: 'scale(0.5)', opacity: 0 },
+              { transform: 'scale(1.12)', opacity: 1, offset: 0.6 },
+              { transform: 'scale(1)', opacity: 1 }
+            ],
+            { duration: 260, easing: 'cubic-bezier(0.18, 0.89, 0.32, 1.25)' }
+          );
+        }
+        if (title) swapText(title, t.done, { duration: 150 });
+        if (meta) swapText(meta, t.meta, { duration: 140 });
+      }
+
+      // 3. Smoothly unfurl new running task downwards (Appear)
+      const newWrap = createAgentTaskNode(nextTask, 'running');
+      motionAgentList.appendChild(newWrap);
+      newWrap.animate(
+        [
+          { height: '0px', marginBottom: '0px', opacity: 0, transform: 'translateY(-10px) scale(0.96)', filter: 'blur(4px)' },
+          { height: '44px', marginBottom: '8px', opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0px)' }
+        ],
+        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
+    }
+
+    function stepBothAgents() {
+      agentCursor = (agentCursor + 1) % AGENT_TASKS.length;
+      const nextTask = AGENT_TASKS[agentCursor];
+      stepStaticAgent(nextTask);
+      stepMotionAgent(nextTask);
+      scheduleAgentAutoStep();
+    }
+
+    function scheduleAgentAutoStep() {
+      clearTimeout(agentAutoTimer);
+      agentAutoTimer = setTimeout(() => {
+        if (currentScene === 'unfurl' && !document.hidden) {
+          stepBothAgents();
+        } else {
+          scheduleAgentAutoStep();
+        }
+      }, 1850);
+    }
+
+    // --- SCENE 1: PRICING HELPERS ---
+    function computePlanPrice(tab, cycle, seats) {
+      if (tab === 'pro') {
+        return cycle === 'yearly' ? 24 : 29;
+      }
+      const yearlyPrices = { 2: 48, 3: 64, 4: 80, 5: 96 };
+      const monthlyPrices = { 2: 59, 3: 79, 4: 89, 5: 99 };
+      return cycle === 'yearly' ? (yearlyPrices[seats] || 64) : (monthlyPrices[seats] || 79);
+    }
+
+    const staticWidget = document.getElementById('staticWidget');
+    let staticState = { tab: 'team', cycle: 'yearly', seats: 3 };
+
+    function renderStaticWidget() {
+      staticWidget.querySelectorAll('.widget-tab-btn').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.tab === staticState.tab);
+      });
+      staticWidget.querySelectorAll('.billing-cycle-btn').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.cycle === staticState.cycle);
+      });
+      staticWidget.querySelectorAll('.widget-pane').forEach((pane) => {
+        pane.classList.toggle('is-active', pane.dataset.pane === staticState.tab);
+      });
+      const price = computePlanPrice(staticState.tab, staticState.cycle, staticState.seats);
+      document.getElementById('staticPriceVal').textContent = String(price);
+      document.getElementById('staticSeatCount').textContent = `${staticState.seats} 席`;
+      document.getElementById('staticSeatControls').classList.toggle('is-hidden', staticState.tab !== 'team');
+    }
+
+    // --- SCENE 3: DEFAULT KEYS TEMPLATE ---
+    const INITIAL_KEYS = [
+      { id: '1', code: 'sk-ownai-prod-9f8a', time: '刚刚' },
+      { id: '2', code: 'sk-ownai-edge-3c1b', time: '2h 前' },
+      { id: '3', code: 'sk-ownai-test-7d4e', time: '昨天' }
+    ];
+
+    function resetStaticKeys() {
+      const ul = document.getElementById('staticKeyList');
+      if (!ul) return;
+      ul.innerHTML = INITIAL_KEYS.map((k) => `
+        <li class="key-item-row" data-key="${k.id}">
+          <div class="key-item-meta">
+            <span class="key-code-badge">${k.code}</span>
+            <span class="key-time-note">${k.time}</span>
+          </div>
+          <div class="static-del-wrap">
+            <button type="button" class="static-del-btn" data-action="static-del">销毁</button>
+          </div>
+        </li>
+      `).join('');
+    }
+
+    function resetMotionKeys() {
+      const ul = document.getElementById('motionKeyList');
+      if (!ul) return;
+      flipChildren(ul, () => {
+        ul.innerHTML = INITIAL_KEYS.map((k) => `
+          <li class="key-item-row" data-key="${k.id}">
+            <div class="key-item-meta">
+              <span class="key-code-badge">${k.code}</span>
+              <span class="key-time-note">${k.time}</span>
+            </div>
+            <button type="button" class="morph-del-btn" data-action="morph-del">
+              <span class="morph-del-idle">销毁</span>
+              <span class="morph-del-active">
+                <span class="morph-confirm-pill" data-action="morph-confirm">
+                  <span class="morph-del-progress"></span>
+                  <span class="morph-confirm-label">确认销毁</span>
+                </span>
+                <span class="morph-undo-tag" data-action="morph-undo">撤销</span>
+              </span>
+            </button>
+          </li>
+        `).join('');
+      });
+    }
+
+    // --- SCENE 4: DEPLOY TIMERS ---
+    let staticDeployTimer1 = 0, staticDeployTimer2 = 0;
+    let motionDeployTimer1 = 0, motionDeployTimer2 = 0;
+
+    function triggerStaticDeploy() {
+      const btn = document.getElementById('staticDeployBtn');
+      const pill = document.getElementById('staticDeployPill');
+      const statusTxt = document.getElementById('staticDeployStatusText');
+      if (!btn || !pill || !statusTxt) return;
+      clearTimeout(staticDeployTimer1);
+      clearTimeout(staticDeployTimer2);
+      btn.textContent = 'Deploying...';
+      pill.dataset.state = 'loading';
+      statusTxt.textContent = '分发中';
+      staticDeployTimer1 = setTimeout(() => {
+        btn.textContent = '已上线';
+        pill.dataset.state = 'done';
+        statusTxt.textContent = '已上线';
+        staticDeployTimer2 = setTimeout(() => {
+          btn.textContent = '发布至生产环境';
+          pill.dataset.state = 'idle';
+          statusTxt.textContent = '就绪';
+        }, 1800);
+      }, 1150);
+    }
+
+    function triggerMotionDeploy() {
+      const btn = document.getElementById('motionDeployBtn');
+      const pill = document.getElementById('motionDeployPill');
+      const statusTxt = document.getElementById('motionDeployStatusText');
+      if (!btn || !pill || !statusTxt) return;
+      clearTimeout(motionDeployTimer1);
+      clearTimeout(motionDeployTimer2);
+      btn.dataset.state = 'loading';
+      pill.dataset.state = 'loading';
+      swapText(statusTxt, '分发中', { duration: 140 });
+      motionDeployTimer1 = setTimeout(() => {
+        btn.dataset.state = 'done';
+        pill.dataset.state = 'done';
+        swapText(statusTxt, '已上线', { duration: 140 });
+        btn.animate(
+          [
+            { transform: 'scale(0.96)' },
+            { transform: 'scale(1.02)', offset: 0.55 },
+            { transform: 'scale(1)' }
+          ],
+          { duration: 320, easing: 'cubic-bezier(0.18, 0.89, 0.32, 1.25)' }
+        );
+        motionDeployTimer2 = setTimeout(() => {
+          btn.dataset.state = 'idle';
+          pill.dataset.state = 'idle';
+          swapText(statusTxt, '就绪', { duration: 140 });
+        }, 1800);
+      }, 1150);
+    }
+
+    // --- LEFT WIDGET CLICK HANDLER ---
+    staticWidget.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.widget-tab-btn');
+      if (tabBtn) {
+        staticState.tab = tabBtn.dataset.tab;
+        renderStaticWidget();
+        return;
+      }
+      const cycleBtn = e.target.closest('.billing-cycle-btn');
+      if (cycleBtn) {
+        staticState.cycle = cycleBtn.dataset.cycle;
+        renderStaticWidget();
+        return;
+      }
+      const decBtn = e.target.closest('[data-action="seat-dec"]');
+      if (decBtn) {
+        staticState.seats = Math.max(2, staticState.seats - 1);
+        renderStaticWidget();
+        return;
+      }
+      const incBtn = e.target.closest('[data-action="seat-inc"]');
+      if (incBtn) {
+        staticState.seats = Math.min(5, staticState.seats + 1);
+        renderStaticWidget();
+        return;
+      }
+      const subBtn = e.target.closest('[data-action="subscribe"]');
+      if (subBtn) {
+        const isSub = subBtn.classList.toggle('is-subscribed');
+        const defaultText = staticState.tab === 'pro' ? '立即订阅' : '开通团队版';
+        subBtn.textContent = isSub ? '已激活 ✓' : defaultText;
+        return;
+      }
+      // Scene 2: Static Pin / Shuffle
+      const pinBtn = e.target.closest('[data-action="pin"]');
+      if (pinBtn) {
+        const row = pinBtn.closest('.flip-task-row');
+        const ul = document.getElementById('staticFlipList');
+        if (row && ul) ul.prepend(row);
+        return;
+      }
+      const shuffleBtn = e.target.closest('[data-action="shuffle"]');
+      if (shuffleBtn) {
+        const ul = document.getElementById('staticFlipList');
+        if (ul && ul.lastElementChild) ul.prepend(ul.lastElementChild);
+        return;
+      }
+      // Scene 3: Static Delete / Confirm
+      const delBtn = e.target.closest('[data-action="static-del"]');
+      if (delBtn) {
+        const wrap = delBtn.closest('.static-del-wrap');
+        if (wrap) {
+          wrap.innerHTML = `
+            <button type="button" class="static-del-btn" data-action="static-confirm">确认?</button>
+            <button type="button" class="static-cancel-btn" data-action="static-cancel">取消</button>
+          `;
+        }
+        return;
+      }
+      const cancelBtn = e.target.closest('[data-action="static-cancel"]');
+      if (cancelBtn) {
+        const wrap = cancelBtn.closest('.static-del-wrap');
+        if (wrap) {
+          wrap.innerHTML = `<button type="button" class="static-del-btn" data-action="static-del">销毁</button>`;
+        }
+        return;
+      }
+      const confirmBtn = e.target.closest('[data-action="static-confirm"]');
+      if (confirmBtn) {
+        const row = confirmBtn.closest('.key-item-row');
+        if (row) row.remove();
+        return;
+      }
+      if (e.target.closest('[data-action="reset-keys"]')) {
+        resetStaticKeys();
+        return;
+      }
+      // Scene 0: Static Agent Stream Step
+      if (e.target.closest('[data-action="step-agent"]') || e.target.closest('.agent-task-row')) {
+        stepBothAgents();
+        return;
+      }
+      // Scene 4: Static Deploy
+      if (e.target.closest('[data-action="deploy"]')) {
+        triggerStaticDeploy();
+      }
+    });
+
+    // --- RIGHT WIDGET: UI Motion Skill ---
+    const motionWidget = document.getElementById('motionWidget');
+    const motionTabPill = document.getElementById('motionTabPill');
+    const motionCyclePill = document.getElementById('motionCyclePill');
+    const motionViewport = document.getElementById('motionViewport');
+    const odoTens = document.getElementById('odoTens');
+    const odoOnes = document.getElementById('odoOnes');
+    let motionState = { tab: 'team', cycle: 'yearly', seats: 3 };
+
+    function updateMotionTabPill() {
+      const activeTabBtn = motionWidget.querySelector('.widget-tab-btn.is-active');
+      if (activeTabBtn && motionTabPill) {
+        motionTabPill.style.width = `${activeTabBtn.offsetWidth}px`;
+        motionTabPill.style.transform = `translate3d(${activeTabBtn.offsetLeft}px, 0, 0)`;
+      }
+      const activeCycleBtn = motionWidget.querySelector('.billing-cycle-btn.is-active');
+      if (activeCycleBtn && motionCyclePill) {
+        motionCyclePill.style.width = `${activeCycleBtn.offsetWidth}px`;
+        motionCyclePill.style.transform = `translate3d(${activeCycleBtn.offsetLeft}px, 0, 0)`;
+      }
+    }
+
+    function syncMotionViewportHeight() {
+      const activePane = motionWidget.querySelector('.widget-pane.is-active');
+      if (!activePane || !motionViewport) return;
+      motionViewport.style.height = `${activePane.offsetHeight}px`;
+      if (window.tregParticles) window.tregParticles.invalidateText();
+    }
+
+    function setOdometerPrice(price) {
+      const clamped = Math.max(0, Math.min(99, price));
+      const tens = Math.floor(clamped / 10);
+      const ones = clamped % 10;
+      if (odoTens) odoTens.style.transform = `translate3d(0, -${tens * 42}px, 0)`;
+      if (odoOnes) odoOnes.style.transform = `translate3d(0, -${ones * 42}px, 0)`;
+    }
+
+    function updateMotionMetrics({ tabChanged = false } = {}) {
+      motionWidget.querySelectorAll('.widget-tab-btn').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.tab === motionState.tab);
+      });
+      motionWidget.querySelectorAll('.billing-cycle-btn').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.cycle === motionState.cycle);
+      });
+      updateMotionTabPill();
+
+      const price = computePlanPrice(motionState.tab, motionState.cycle, motionState.seats);
+      setOdometerPrice(price);
+      swapText(document.getElementById('motionSeatCount'), `${motionState.seats} 席`, { duration: 140 });
+      document.getElementById('motionSeatControls').classList.toggle('is-hidden', motionState.tab !== 'team');
+
+      if (tabChanged) {
+        motionWidget.querySelectorAll('.widget-pane').forEach((pane) => {
+          const isTarget = pane.dataset.pane === motionState.tab;
+          pane.classList.toggle('is-active', isTarget);
+          if (isTarget) {
+            pane.querySelectorAll('.plan-feature-item').forEach((row, idx) => {
+              row.animate(
+                [
+                  { opacity: 0, transform: 'translateY(6px)', filter: 'blur(3px)' },
+                  { opacity: 1, transform: 'translateY(0)', filter: 'blur(0px)' }
+                ],
+                { duration: 280, delay: idx * 35, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }
+              );
+            });
+          }
+        });
+        syncMotionViewportHeight();
+      }
+    }
+
+    function startMorphConfirm(btn) {
+      if (btn._confirmTimer) clearTimeout(btn._confirmTimer);
+      btn.classList.add('is-confirming');
+      btn._confirmTimer = setTimeout(() => {
+        const row = btn.closest('.key-item-row');
+        const ul = document.getElementById('motionKeyList');
+        if (row && ul) {
+          flipChildren(ul, () => row.remove(), { duration: 320 });
+        }
+      }, 3200);
+    }
+
+    function cancelMorphConfirm(btn) {
+      if (btn._confirmTimer) clearTimeout(btn._confirmTimer);
+      btn.classList.remove('is-confirming');
+    }
+
+    motionWidget.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.widget-tab-btn');
+      if (tabBtn && tabBtn.dataset.tab !== motionState.tab) {
+        motionState.tab = tabBtn.dataset.tab;
+        updateMotionMetrics({ tabChanged: true });
+        return;
+      }
+      const cycleBtn = e.target.closest('.billing-cycle-btn');
+      if (cycleBtn && cycleBtn.dataset.cycle !== motionState.cycle) {
+        motionState.cycle = cycleBtn.dataset.cycle;
+        updateMotionMetrics({ tabChanged: false });
+        return;
+      }
+      const decBtn = e.target.closest('[data-action="seat-dec"]');
+      if (decBtn && motionState.seats > 2) {
+        motionState.seats -= 1;
+        updateMotionMetrics({ tabChanged: false });
+        return;
+      }
+      const incBtn = e.target.closest('[data-action="seat-inc"]');
+      if (incBtn && motionState.seats < 5) {
+        motionState.seats += 1;
+        updateMotionMetrics({ tabChanged: false });
+        return;
+      }
+      const subBtn = e.target.closest('[data-action="subscribe"]');
+      if (subBtn) {
+        const lbl = subBtn.querySelector('span');
+        const isSub = subBtn.classList.toggle('is-subscribed');
+        const defaultText = motionState.tab === 'pro' ? '立即订阅' : '开通团队版';
+        swapText(lbl, isSub ? '已激活 ✓' : defaultText, { duration: 180 });
+        return;
+      }
+      // Scene 2: Motion FLIP Pin / Shuffle
+      const pinBtn = e.target.closest('[data-action="pin"]');
+      if (pinBtn) {
+        const row = pinBtn.closest('.flip-task-row');
+        const ul = document.getElementById('motionFlipList');
+        if (row && ul) {
+          flipChildren(ul, () => ul.prepend(row), { duration: 360 });
+        }
+        return;
+      }
+      const shuffleBtn = e.target.closest('[data-action="shuffle"]');
+      if (shuffleBtn) {
+        const ul = document.getElementById('motionFlipList');
+        if (ul && ul.lastElementChild) {
+          flipChildren(ul, () => ul.prepend(ul.lastElementChild), { duration: 360 });
+        }
+        return;
+      }
+      // Scene 3: Motion Confirm Morph & Undo
+      if (e.target.closest('[data-action="morph-undo"]')) {
+        const btn = e.target.closest('.morph-del-btn');
+        if (btn) cancelMorphConfirm(btn);
+        return;
+      }
+      if (e.target.closest('[data-action="morph-confirm"]')) {
+        const btn = e.target.closest('.morph-del-btn');
+        if (btn && btn.classList.contains('is-confirming')) {
+          if (btn._confirmTimer) clearTimeout(btn._confirmTimer);
+          const row = btn.closest('.key-item-row');
+          const ul = document.getElementById('motionKeyList');
+          if (row && ul) {
+            flipChildren(ul, () => row.remove(), { duration: 320 });
+          }
+        }
+        return;
+      }
+      const morphBtn = e.target.closest('[data-action="morph-del"]');
+      if (morphBtn && !morphBtn.classList.contains('is-confirming')) {
+        startMorphConfirm(morphBtn);
+        return;
+      }
+      if (e.target.closest('[data-action="reset-keys"]')) {
+        resetMotionKeys();
+        return;
+      }
+      // Scene 0: Motion Agent Stream Step
+      if (e.target.closest('[data-action="step-agent"]') || e.target.closest('.agent-task-row')) {
+        stepBothAgents();
+        return;
+      }
+      // Scene 4: Motion 3-State Deploy
+      if (e.target.closest('[data-action="deploy"]')) {
+        triggerMotionDeploy();
+      }
+    });
+
+    // Sync Toggle Control (Triggers active scene on both cards)
+    const syncToggleBtn = document.getElementById('syncToggleBtn');
+    let syncSpinDeg = 0;
+
+    function triggerBothToggle() {
+      if (currentScene === 'unfurl') {
+        stepBothAgents();
+      } else if (currentScene === 'pricing') {
+        const nextTab = motionState.tab === 'team' ? 'pro' : 'team';
+        const nextCycle = nextTab === 'pro' ? 'monthly' : 'yearly';
+        staticState.tab = nextTab;
+        staticState.cycle = nextCycle;
+        renderStaticWidget();
+
+        motionState.tab = nextTab;
+        motionState.cycle = nextCycle;
+        updateMotionMetrics({ tabChanged: true });
+      } else if (currentScene === 'flip') {
+        const sUl = document.getElementById('staticFlipList');
+        if (sUl && sUl.lastElementChild) sUl.prepend(sUl.lastElementChild);
+        const mUl = document.getElementById('motionFlipList');
+        if (mUl && mUl.lastElementChild) {
+          flipChildren(mUl, () => mUl.prepend(mUl.lastElementChild), { duration: 380 });
+        }
+      } else if (currentScene === 'confirm') {
+        const sWrap = staticWidget.querySelector('.static-del-wrap');
+        const mBtn = motionWidget.querySelector('.morph-del-btn');
+        if (!sWrap || !mBtn) {
+          resetStaticKeys();
+          resetMotionKeys();
+          return;
+        }
+        if (mBtn.classList.contains('is-confirming')) {
+          cancelMorphConfirm(mBtn);
+          sWrap.innerHTML = `<button type="button" class="static-del-btn" data-action="static-del">销毁</button>`;
+        } else {
+          startMorphConfirm(mBtn);
+          sWrap.innerHTML = `
+            <button type="button" class="static-del-btn" data-action="static-confirm">确认?</button>
+            <button type="button" class="static-cancel-btn" data-action="static-cancel">取消</button>
+          `;
+        }
+      } else if (currentScene === 'deploy') {
+        triggerStaticDeploy();
+        triggerMotionDeploy();
+      }
+    }
+
+    syncToggleBtn.addEventListener('click', () => {
+      syncSpinDeg += 180;
+      const icon = syncToggleBtn.querySelector('.sync-icon');
+      if (icon) icon.style.transform = `rotate(${syncSpinDeg}deg)`;
+      triggerBothToggle();
+    });
+
+    // =========================================================================
+    // 3. INSTALL COMMAND COPY (Spring Recoil + Icon Morph + Zero-Jitter Slot)
+    // =========================================================================
+    const INSTALL_CMD_RAW = 'git clone https://github.com/Shark-Overlord/ui-motion-guide.git';
+    const copyInstallBtn = document.getElementById('copyInstallBtn');
+    const installCard = document.getElementById('installCard');
+    let copyResetTimer = 0;
+
+    copyInstallBtn.addEventListener('click', () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(INSTALL_CMD_RAW).catch(() => {});
+      }
+
+      // Snappy spring press-and-overshoot pulse
+      copyInstallBtn.animate(
+        [
+          { transform: 'scale(0.92)' },
+          { transform: 'scale(1.04)', offset: 0.55 },
+          { transform: 'scale(1)' }
+        ],
+        { duration: 340, easing: 'cubic-bezier(0.18, 0.89, 0.32, 1.25)' }
+      );
+
+      copyInstallBtn.classList.add('is-copied');
+
+      if (installCard) {
+        installCard.classList.remove('is-copied-wave');
+        void installCard.offsetWidth;
+        installCard.classList.add('is-copied-wave');
+      }
+
+      clearTimeout(copyResetTimer);
+      copyResetTimer = setTimeout(() => {
+        copyInstallBtn.classList.remove('is-copied');
+        if (installCard) installCard.classList.remove('is-copied-wave');
+      }, 1900);
+    });
+
+    // Theme Toggle
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+    });
+
+    // Navbar border on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbarWrap').classList.toggle('is-scrolled', window.scrollY > 12);
+    }, { passive: true });
+
+    // Initialize measurements
+    window.addEventListener('DOMContentLoaded', () => {
+      initAgentStreams();
+      setOdometerPrice(64);
+      requestAnimationFrame(() => {
+        updateSceneSwitcherPill();
+        updateMotionTabPill();
+        syncMotionViewportHeight();
+      });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          updateSceneSwitcherPill();
+          updateMotionTabPill();
+          syncMotionViewportHeight();
+        });
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      updateSceneSwitcherPill();
+      updateMotionTabPill();
+      syncMotionViewportHeight();
+    });
+  </script>
+</body>
+</html>

@@ -1,24 +1,32 @@
 # UI Motion Guide
 
-这是组件动效 Skill 仓库。先根据下面的索引选择 Skill，再读取它的 `SKILL.md`；不要一次加载全部参考源码。
+组件动效 Skill 仓库。
 
-## 使用流程
+## 使用
 
-1. 确认用户要修改的目标项目与组件。仓库中的参考源码和展示素材不是默认修改对象；遵循目标项目自身的指令。
-2. 根据任务匹配下表，只读取相关 Skill。Skill 内的相对路径以该 Skill 所在目录为基准，仓库入口中的相对路径以仓库根目录为基准，不依赖克隆位置或固定盘符。
-3. 按所选 Skill 的决策树与修改范围执行。用户已指定可定位的组件且要求修改时，识别类别后直接处理；未指定组件时，只读扫描当前界面并列出候选，等用户选择或同意后再匹配和添加动效。
-4. 索引没有适合的 Skill 时说明覆盖缺口，不把其他组件强行当成按钮。可以在用户已授权的范围内使用适用机制，并说明哪些是迁移推导。
+为项目组件添加动效时，读取 [skills/ui-motion/SKILL.md](skills/ui-motion/SKILL.md) 并按其中的工作流执行。仓库其余目录不是使用时的读取对象。
 
-## Skill 索引
+## 维护
 
-| Skill | 适用任务 | 入口 |
-| --- | --- | --- |
-| component-motion-tree | 为现有组件选择过渡；当前有完整参考的是按钮、按钮组，以及按钮关联的异步反馈、复制、菜单、图标切换与原地确认 | [SKILL.md](skills/component-motion-tree/SKILL.md) |
+仅在用户要求维护本仓库时执行以下内容。
 
-只列已存在的 Skill；按钮附带的菜单或提示不表示已收录独立菜单或提示组件。
+### 目录
 
-## 扩展仓库
+```
+inbox/<NN_Category>/<slug>/          原型原料（index.html、styles.css、script.js 等），不参与路由
+templates/component.md               组件 md 模板
+skills/ui-motion/SKILL.md            第 1 层：工作流 + 类别表
+skills/ui-motion/<category>/INDEX.md 第 2 层：交互意图 → 组件
+skills/ui-motion/<category>/<slug>.md 第 3 层：组件文档
+```
 
-仅在用户要求维护本仓库时新增或修改 Skill。后续独立组件能力放在 `skills/<skill-name>/`，包含自己的 `SKILL.md`、决策树及所需参考，并在上表登记实际覆盖范围。同一组件的交互变体或视觉风格可以留在对应 Skill 内，不重复复制共享规则。
+类别目录名为 inbox 类别名去掉编号后的小写形式，如 `01_Buttons` → `buttons`，`02_Gestures` → `gestures`；组件文件名沿用 inbox 的 slug。
 
-普通组件改造任务不自动扩充本仓库。README 中的录屏与展示素材无需在使用 Skill 前生成。
+### 整理 inbox 原型
+
+1. 读取 `inbox/<NN_Category>/<slug>/` 下的全部源码。
+2. 复制 [templates/component.md](templates/component.md) 到 `skills/ui-motion/<category>/<slug>.md`，按模板注释逐节填写。
+3. 在该类别的 `INDEX.md` 中登记意图与分流；类别首次出现时新建 `INDEX.md`，并在 `SKILL.md` 类别表中登记、从“未收录类别”中移除。
+4. 与其他类别存在易混淆组件时，在双方 `INDEX.md` 中互相指向。
+
+普通组件改造任务不读取 `inbox/`、`templates/`，也不修改本仓库。

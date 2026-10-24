@@ -3,3 +3,8 @@ __pycache__/
 .DS_Store
 Thumbs.db
 artifacts/
+.agents/
+inbox/
+testset-static/
+benchmark/
+node_modules/

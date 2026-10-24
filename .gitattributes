@@ -10,3 +10,4 @@
 *.mp4 binary
 skills/component-motion-tree/assets/** -text -eol
 examples/action-button/before.html -text -eol
+inbox/** -text -eol
