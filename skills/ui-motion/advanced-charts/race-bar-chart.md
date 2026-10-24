@@ -1,7 +1,6 @@
 ---
 slug: race-bar-chart
 category: advanced-charts
-source: inbox/19_Advanced_charts/race-bar-chart/
 ---
 
 # Race Bar Chart · 动态竞速条形图

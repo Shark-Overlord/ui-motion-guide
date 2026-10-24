@@ -1,7 +1,6 @@
 ---
 slug: streamgraph
 category: advanced-charts
-source: inbox/19_Advanced_charts/streamgraph/
 ---
 
 # Streamgraph · 流水堆叠面积图

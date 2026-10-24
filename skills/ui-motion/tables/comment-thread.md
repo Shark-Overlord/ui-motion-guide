@@ -1,7 +1,6 @@
 ---
 slug: comment-thread
 category: tables
-source: inbox/20_Tables/comment-thread/
 ---
 
 # Comment Thread 分层嵌套评论树
@@ -10,9 +9,9 @@ source: inbox/20_Tables/comment-thread/
 
 ## 原型清单
 
-- `inbox/20_Tables/comment-thread/index.html`：评论列表、嵌套回复分支、@提及面板与解决状态条原型。
-- `inbox/20_Tables/comment-thread/styles.css`：层级连线、折叠手柄、头像堆叠与评论输入框样式。
-- `inbox/20_Tables/comment-thread/motion.json`：高度弹簧（420ms，无过冲）、表情初始缩放（0.6）与状态切换动画参数。
+- `index.html`：评论列表、嵌套回复分支、@提及面板与解决状态条原型。
+- `styles.css`：层级连线、折叠手柄、头像堆叠与评论输入框样式。
+- `motion.json`：高度弹簧（420ms，无过冲）、表情初始缩放（0.6）与状态切换动画参数。
 
 ## 适用
 

@@ -1,7 +1,6 @@
 ---
 slug: split-bar
 category: charts
-source: inbox/18_Charts/split-bar/
 ---
 
 # Split Bar · 分割条形图

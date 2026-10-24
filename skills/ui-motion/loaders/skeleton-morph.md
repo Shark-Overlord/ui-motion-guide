@@ -1,7 +1,6 @@
 ---
 slug: skeleton-morph
 category: loaders
-source: inbox/31_Loaders/skeleton-morph/
 ---
 
 # Skeleton Morph · 骨架屏就地内容形变

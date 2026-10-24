@@ -1,7 +1,6 @@
 ---
 slug: lightbox-gallery
 category: galleries
-source: inbox/27_Galleries/lightbox-gallery/
 ---
 
 # Lightbox Gallery · 瀑布流画廊与灯箱

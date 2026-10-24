@@ -1,7 +1,6 @@
 ---
 slug: orbit-menu
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/orbit-menu/
 ---
 
 # Orbit Menu · 环形放射菜单

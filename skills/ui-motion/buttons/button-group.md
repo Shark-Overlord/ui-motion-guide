@@ -1,7 +1,6 @@
 ---
 slug: button-group
 category: buttons
-source: inbox/01_Buttons/button-group
 ---
 
 # Button Group · 按钮组

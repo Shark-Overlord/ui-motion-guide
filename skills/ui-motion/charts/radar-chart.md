@@ -1,7 +1,6 @@
 ---
 slug: radar-chart
 category: charts
-source: inbox/18_Charts/radar-chart/
 ---
 
 # Radar Chart · 雷达图

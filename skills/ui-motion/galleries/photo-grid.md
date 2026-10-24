@@ -1,7 +1,6 @@
 ---
 slug: photo-grid
 category: galleries
-source: inbox/27_Galleries/photo-grid/
 ---
 
 # Photo Grid · 多列相片网格与查看器

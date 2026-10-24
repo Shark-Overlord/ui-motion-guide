@@ -1,5 +1,5 @@
 <!--
-组件 md 模板。整理 inbox 原型时复制本文件到 skills/ui-motion/<category>/<slug>.md 后逐节填写。
+组件 md 模板。新增组件规范时复制本文件到 skills/ui-motion/<category>/<slug>.md 后逐节填写。
 
 填写规则：
 - 小节不得删除、不得改名、不得调整顺序；与本组件无关的小节写“不涉及”并给出一句理由。
@@ -13,7 +13,6 @@
 ---
 slug: <slug>
 category: <category>
-source: inbox/<NN_Category>/<slug>
 ---
 
 # <英文名> · <中文名>

@@ -1,7 +1,6 @@
 ---
 slug: file-dropzone
 category: editors
-source: inbox/10_Editors/file-dropzone/
 ---
 
 # File Dropzone · 文件投递区

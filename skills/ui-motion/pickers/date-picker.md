@@ -1,7 +1,6 @@
 ---
 slug: date-picker
 category: pickers
-source: inbox/09_Pickers/date-picker/
 ---
 
 # Date Picker · 日期选择器

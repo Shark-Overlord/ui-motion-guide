@@ -1,7 +1,6 @@
 ---
 slug: vector-search
 category: illustrations
-source: inbox/34_Illustrations/vector-search/
 ---
 
 # Vector Search · 向量检索与聚类图解

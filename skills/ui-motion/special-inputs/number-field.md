@@ -1,7 +1,6 @@
 ---
 slug: number-field
 category: special-inputs
-source: inbox/05_Special_inputs/number-field
 ---
 
 # Number Field · 数字步进输入框

@@ -1,7 +1,6 @@
 ---
 slug: pagination
 category: navigation
-source: inbox/11_Navigation/pagination/
 ---
 
 # Pagination · 分页导航

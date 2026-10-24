@@ -1,7 +1,6 @@
 ---
 slug: tabs
 category: navigation
-source: inbox/11_Navigation/tabs/
 ---
 
 # Tabs · 选项卡导航

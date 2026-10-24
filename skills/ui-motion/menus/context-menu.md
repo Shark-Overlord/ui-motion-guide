@@ -1,7 +1,6 @@
 ---
 slug: context-menu
 category: menus
-source: inbox/03_Menus/context-menu
 ---
 
 # Context Menu · 上下文菜单

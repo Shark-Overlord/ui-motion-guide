@@ -1,7 +1,6 @@
 ---
 slug: calendar
 category: pickers
-source: inbox/09_Pickers/calendar/
 ---
 
 # Calendar · 日历

@@ -1,7 +1,6 @@
 ---
 slug: checkbox
 category: toggles
-source: inbox/07_Toggles/checkbox/
 ---
 
 # Checkbox · 弹性笔触复选框

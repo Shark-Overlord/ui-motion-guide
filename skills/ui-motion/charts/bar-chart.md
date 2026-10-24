@@ -1,7 +1,6 @@
 ---
 slug: bar-chart
 category: charts
-source: inbox/18_Charts/bar-chart/
 ---
 
 # Bar Chart · 柱状图

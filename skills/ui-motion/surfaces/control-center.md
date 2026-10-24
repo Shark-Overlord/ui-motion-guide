@@ -1,7 +1,6 @@
 ---
 slug: control-center
 category: surfaces
-source: inbox/26_Surfaces/control-center/
 ---
 
 # Control Center · 控制中心表面

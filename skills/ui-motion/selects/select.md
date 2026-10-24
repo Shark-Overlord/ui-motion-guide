@@ -1,7 +1,6 @@
 ---
 slug: select
 category: selects
-source: inbox/06_Selects/select/
 ---
 
 # Select · 原生感单选下拉菜单

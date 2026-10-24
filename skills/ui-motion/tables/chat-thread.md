@@ -1,7 +1,6 @@
 ---
 slug: chat-thread
 category: tables
-source: inbox/20_Tables/chat-thread/
 ---
 
 # Chat Thread 对话流消息列表
@@ -10,9 +9,9 @@ source: inbox/20_Tables/chat-thread/
 
 ## 原型清单
 
-- `inbox/20_Tables/chat-thread/index.html`：对话流主视口、消息列表气泡、表情选择器与输入器原型。
-- `inbox/20_Tables/chat-thread/styles.css`：气泡阴影、头像排版、输入中跳动圆点与滚动条样式。
-- `inbox/20_Tables/chat-thread/motion.json`：消息进场弹簧、滚动磁吸阈值（48px）、远距胶囊阈值（180px）与动画参数。
+- `index.html`：对话流主视口、消息列表气泡、表情选择器与输入器原型。
+- `styles.css`：气泡阴影、头像排版、输入中跳动圆点与滚动条样式。
+- `motion.json`：消息进场弹簧、滚动磁吸阈值（48px）、远距胶囊阈值（180px）与动画参数。
 
 ## 适用
 

@@ -1,7 +1,6 @@
 ---
 slug: holo-card
 category: surfaces
-source: inbox/26_Surfaces/holo-card/
 ---
 
 # Holo Card · 全息双面卡片

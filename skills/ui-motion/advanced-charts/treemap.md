@@ -1,7 +1,6 @@
 ---
 slug: treemap
 category: advanced-charts
-source: inbox/19_Advanced_charts/treemap/
 ---
 
 # Treemap · 矩形树图

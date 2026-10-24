@@ -1,7 +1,6 @@
 ---
 slug: wallet-stack
 category: surfaces
-source: inbox/26_Surfaces/wallet-stack/
 ---
 
 # Wallet Stack · 钱包堆叠卡包

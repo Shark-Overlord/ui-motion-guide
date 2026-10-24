@@ -1,7 +1,6 @@
 ---
 slug: file-dropzone
 category: media
-source: inbox/22_Media/file-dropzone/
 ---
 
 # File Dropzone · 媒体文件投递区

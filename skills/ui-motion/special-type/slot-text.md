@@ -1,7 +1,6 @@
 ---
 slug: slot-text
 category: special-type
-source: inbox/30_Special_type/slot-text/
 ---
 
 # Slot Text · 滚轮字符数字滚动

@@ -1,7 +1,6 @@
 ---
 slug: funnel-chart
 category: charts
-source: inbox/18_Charts/funnel-chart/
 ---
 
 # Funnel Chart · 漏斗图

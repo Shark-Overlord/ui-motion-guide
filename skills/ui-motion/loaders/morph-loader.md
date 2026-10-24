@@ -1,7 +1,6 @@
 ---
 slug: morph-loader
 category: loaders
-source: inbox/31_Loaders/morph-loader/
 ---
 
 # Morph Loader · 连续几何形变加载器

@@ -1,7 +1,6 @@
 ---
 slug: confirm-morph
 category: buttons
-source: inbox/01_Buttons/confirm-morph
 ---
 
 # Confirm Morph · 原位确认变形按钮

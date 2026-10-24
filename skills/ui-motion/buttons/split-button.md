@@ -1,7 +1,6 @@
 ---
 slug: split-button
 category: buttons
-source: inbox/01_Buttons/split-button
 ---
 
 # Split Button · 分割按钮

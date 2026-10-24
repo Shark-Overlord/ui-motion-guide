@@ -1,7 +1,6 @@
 ---
 slug: hold-to-confirm
 category: gestures
-source: inbox/02_Gestures/hold-to-confirm
 ---
 
 # Hold to Confirm · 长按手势确认

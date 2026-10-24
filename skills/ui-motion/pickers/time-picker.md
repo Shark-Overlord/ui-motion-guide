@@ -1,7 +1,6 @@
 ---
 slug: time-picker
 category: pickers
-source: inbox/09_Pickers/time-picker/
 ---
 
 # Time Picker · 时间选择器

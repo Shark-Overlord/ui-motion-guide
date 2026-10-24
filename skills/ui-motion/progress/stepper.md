@@ -1,7 +1,6 @@
 ---
 slug: stepper
 category: progress
-source: inbox/15_Progress/stepper/
 ---
 
 # Stepper · 步骤向导

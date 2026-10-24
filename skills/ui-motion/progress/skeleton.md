@@ -1,7 +1,6 @@
 ---
 slug: skeleton
 category: progress
-source: inbox/15_Progress/skeleton/
 ---
 
 # Skeleton · 骨架屏

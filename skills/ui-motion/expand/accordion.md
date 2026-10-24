@@ -1,7 +1,6 @@
 ---
 slug: accordion
 category: expand
-source: inbox/12_Expand/accordion/
 ---
 
 # Accordion · 手风琴折叠面板

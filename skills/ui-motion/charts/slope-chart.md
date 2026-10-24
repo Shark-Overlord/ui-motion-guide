@@ -1,7 +1,6 @@
 ---
 slug: slope-chart
 category: charts
-source: inbox/18_Charts/slope-chart/
 ---
 
 # Slope Chart · 坡度图

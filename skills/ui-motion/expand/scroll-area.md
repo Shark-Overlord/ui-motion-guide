@@ -1,7 +1,6 @@
 ---
 slug: scroll-area
 category: expand
-source: inbox/12_Expand/scroll-area/
 ---
 
 # Scroll Area · 滚动区域

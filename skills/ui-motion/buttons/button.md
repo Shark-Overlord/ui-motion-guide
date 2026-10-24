@@ -1,7 +1,6 @@
 ---
 slug: button
 category: buttons
-source: inbox/01_Buttons/button
 ---
 
 # Button · 基础按钮

@@ -1,7 +1,6 @@
 ---
 slug: password-field
 category: text-fields
-source: inbox/04_Text_fields/password-field
 ---
 
 # Password Field · 密码输入框

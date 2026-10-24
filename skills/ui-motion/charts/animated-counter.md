@@ -1,7 +1,6 @@
 ---
 slug: animated-counter
 category: charts
-source: inbox/18_Charts/animated-counter/
 ---
 
 # Animated Counter · 数字翻滚计数器

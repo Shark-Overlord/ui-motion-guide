@@ -1,7 +1,6 @@
 ---
 slug: glass-menu
 category: glass
-source: inbox/25_Glass/glass-menu/
 ---
 
 # Glass Menu · 玻璃拟态菜单

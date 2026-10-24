@@ -1,7 +1,6 @@
 ---
 slug: carousel
 category: media
-source: inbox/22_Media/carousel/
 ---
 
 # Carousel · 媒体轮播卡

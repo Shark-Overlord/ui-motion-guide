@@ -1,7 +1,6 @@
 ---
 slug: expandable-card
 category: expand
-source: inbox/12_Expand/expandable-card/
 ---
 
 # Expandable Card · 可展开卡片

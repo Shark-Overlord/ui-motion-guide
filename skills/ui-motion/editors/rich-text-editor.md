@@ -1,7 +1,6 @@
 ---
 slug: rich-text-editor
 category: editors
-source: inbox/10_Editors/rich-text-editor/
 ---
 
 # Rich Text Editor · 富文本编辑器

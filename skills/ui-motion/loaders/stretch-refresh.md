@@ -1,7 +1,6 @@
 ---
 slug: stretch-refresh
 category: loaders
-source: inbox/31_Loaders/stretch-refresh/
 ---
 
 # Stretch Refresh · 弹性阻尼下拉刷新

@@ -1,7 +1,6 @@
 ---
 slug: icon-morph
 category: buttons
-source: inbox/01_Buttons/icon-morph
 ---
 
 # Icon Morph · 图标形变按钮

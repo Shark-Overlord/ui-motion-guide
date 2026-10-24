@@ -1,7 +1,6 @@
 ---
 slug: date-range-picker
 category: pickers
-source: inbox/09_Pickers/date-range-picker/
 ---
 
 # Date Range Picker · 日期区间选择器

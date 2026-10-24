@@ -1,7 +1,6 @@
 ---
 slug: typewriter-terminal
 category: special-type
-source: inbox/30_Special_type/typewriter-terminal/
 ---
 
 # Typewriter Terminal · 拟真终端打字机

@@ -1,7 +1,6 @@
 ---
 slug: payment-flow
 category: illustrations
-source: inbox/34_Illustrations/payment-flow/
 ---
 
 # Payment Flow · 四方支付授权结算流转图

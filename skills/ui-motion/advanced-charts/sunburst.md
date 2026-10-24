@@ -1,7 +1,6 @@
 ---
 slug: sunburst
 category: advanced-charts
-source: inbox/19_Advanced_charts/sunburst/
 ---
 
 # Sunburst · 旭日旭日图

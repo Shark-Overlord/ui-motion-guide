@@ -1,7 +1,6 @@
 ---
 slug: activity-heatmap
 category: activity
-source: inbox/21_Activity/activity-heatmap/
 ---
 
 # Activity Heatmap · 活动热力图

@@ -1,7 +1,6 @@
 ---
 slug: multi-region-failover
 category: illustrations
-source: inbox/34_Illustrations/multi-region-failover/
 ---
 
 # Multi-Region Failover · 多区域容灾故障切换示意图

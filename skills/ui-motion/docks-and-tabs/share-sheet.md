@@ -1,7 +1,6 @@
 ---
 slug: share-sheet
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/share-sheet/
 ---
 
 # Share Sheet · 分享面板与抽屉

@@ -1,7 +1,6 @@
 ---
 slug: text-morph
 category: text-effects
-source: inbox/23_Text_effects/text-morph/
 ---
 
 # Text Morph · 字形平滑形变

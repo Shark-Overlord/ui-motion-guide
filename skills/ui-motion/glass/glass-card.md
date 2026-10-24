@@ -1,7 +1,6 @@
 ---
 slug: glass-card
 category: glass
-source: inbox/25_Glass/glass-card/
 ---
 
 # Glass Card · 玻璃拟态卡片

@@ -1,7 +1,6 @@
 ---
 slug: realtime-stream
 category: charts
-source: inbox/18_Charts/realtime-stream/
 ---
 
 # Realtime Stream · 实时流图

@@ -1,7 +1,6 @@
 ---
 slug: cover-flow
 category: galleries
-source: inbox/27_Galleries/cover-flow/
 ---
 
 # Cover Flow · 3D 封面流

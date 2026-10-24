@@ -1,7 +1,6 @@
 ---
 slug: floating-button-group
 category: buttons
-source: inbox/01_Buttons/floating-button-group
 ---
 
 # Floating Button Group · 浮动工具栏组

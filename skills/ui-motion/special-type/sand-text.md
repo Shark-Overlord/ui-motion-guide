@@ -1,7 +1,6 @@
 ---
 slug: sand-text
 category: special-type
-source: inbox/30_Special_type/sand-text/
 ---
 
 # Sand Text · 沙粒重构物理文字

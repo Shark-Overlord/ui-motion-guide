@@ -1,7 +1,6 @@
 ---
 slug: code-block
 category: editors
-source: inbox/10_Editors/code-block/
 ---
 
 # Code Block · 代码块

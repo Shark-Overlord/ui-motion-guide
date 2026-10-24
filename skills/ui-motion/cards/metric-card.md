@@ -1,7 +1,6 @@
 ---
 slug: metric-card
 category: cards
-source: inbox/17_Cards/metric-card/
 ---
 
 # Metric Card · 指标统计卡片

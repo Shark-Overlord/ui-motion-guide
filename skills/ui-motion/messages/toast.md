@@ -1,7 +1,6 @@
 ---
 slug: toast
 category: messages
-source: inbox/14_Messages/toast/
 ---
 
 # Toast · 吐司提示

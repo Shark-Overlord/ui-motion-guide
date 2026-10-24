@@ -1,7 +1,6 @@
 ---
 slug: hover-card
 category: overlays
-source: inbox/13_Overlays/hover-card/
 ---
 
 # Hover Card · 悬停卡片

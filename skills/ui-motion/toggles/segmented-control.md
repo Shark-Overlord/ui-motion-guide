@@ -1,7 +1,6 @@
 ---
 slug: segmented-control
 category: toggles
-source: inbox/07_Toggles/segmented-control/
 ---
 
 # Segmented Control · 分段控制切换胶囊

@@ -1,7 +1,6 @@
 ---
 slug: elastic-slider
 category: sliders
-source: inbox/08_Sliders/elastic-slider/
 ---
 
 # Elastic Slider · 橡皮筋弹性滑块

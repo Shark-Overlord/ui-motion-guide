@@ -1,7 +1,6 @@
 ---
 slug: morph-select
 category: selects
-source: inbox/06_Selects/morph-select/
 ---
 
 # Morph Select · 形变卡片选择器

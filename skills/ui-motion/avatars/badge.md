@@ -1,7 +1,6 @@
 ---
 slug: badge
 category: avatars
-source: inbox/16_Avatars/badge/
 ---
 
 # Badge · 徽标

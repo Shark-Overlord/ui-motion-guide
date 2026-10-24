@@ -1,7 +1,6 @@
 ---
 slug: dot-grid
 category: cursor
-source: inbox/33_Cursor/dot-grid/
 ---
 
 # Dot Grid · 交互式光标排斥点阵

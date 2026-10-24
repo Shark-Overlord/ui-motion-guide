@@ -1,7 +1,6 @@
 ---
 slug: filter-toolbar
 category: activity
-source: inbox/21_Activity/filter-toolbar/
 ---
 
 # Filter Toolbar · 筛选工具栏

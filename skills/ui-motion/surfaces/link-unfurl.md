@@ -1,7 +1,6 @@
 ---
 slug: link-unfurl
 category: surfaces
-source: inbox/26_Surfaces/link-unfurl/
 ---
 
 # Link Unfurl · 链接展开卡片

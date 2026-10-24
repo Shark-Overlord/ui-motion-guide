@@ -1,7 +1,6 @@
 ---
 slug: textarea
 category: text-fields
-source: inbox/04_Text_fields/textarea
 ---
 
 # Textarea · 多行文本域

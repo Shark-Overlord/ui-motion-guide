@@ -1,7 +1,6 @@
 ---
 slug: orbit-logos
 category: playful
-source: inbox/32_Playful/orbit-logos/
 ---
 
 # Orbit Logos · 双同心轨道集成图标坞

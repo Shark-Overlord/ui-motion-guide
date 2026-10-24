@@ -1,7 +1,6 @@
 ---
 slug: product-gallery
 category: galleries
-source: inbox/27_Galleries/product-gallery/
 ---
 
 # Product Gallery · 电商商品画廊

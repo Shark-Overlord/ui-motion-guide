@@ -1,7 +1,6 @@
 ---
 slug: chip-group
 category: selects
-source: inbox/06_Selects/chip-group/
 ---
 
 # Chip Group · 过滤标签胶囊组

@@ -1,7 +1,6 @@
 ---
 slug: switch
 category: toggles
-source: inbox/07_Toggles/switch/
 ---
 
 # Switch · 机械拉伸滑动开关

@@ -1,7 +1,6 @@
 ---
 slug: bottom-sheet
 category: overlays
-source: inbox/13_Overlays/bottom-sheet/
 ---
 
 # Bottom Sheet · 底部抽屉

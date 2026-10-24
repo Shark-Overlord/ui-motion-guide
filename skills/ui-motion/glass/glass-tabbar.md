@@ -1,7 +1,6 @@
 ---
 slug: glass-tabbar
 category: glass
-source: inbox/25_Glass/glass-tabbar/
 ---
 
 # Glass Tabbar · 玻璃拟态标签栏

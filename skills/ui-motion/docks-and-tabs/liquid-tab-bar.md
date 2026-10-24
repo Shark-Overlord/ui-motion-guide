@@ -1,7 +1,6 @@
 ---
 slug: liquid-tab-bar
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/liquid-tab-bar/
 ---
 
 # Liquid Tab Bar · 液态拉伸标签栏

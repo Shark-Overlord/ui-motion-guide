@@ -1,7 +1,6 @@
 ---
 slug: swipe-actions
 category: gestures
-source: inbox/02_Gestures/swipe-actions
 ---
 
 # Swipe Actions · 滑动手势操作行

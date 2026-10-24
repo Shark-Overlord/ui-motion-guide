@@ -1,7 +1,6 @@
 ---
 slug: copy-button
 category: buttons
-source: inbox/01_Buttons/copy-button
 ---
 
 # Copy Button · 复制按钮

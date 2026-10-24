@@ -1,7 +1,6 @@
 ---
 slug: mention-input
 category: special-inputs
-source: inbox/05_Special_inputs/mention-input
 ---
 
 # Mention Input · 富交互提及输入框

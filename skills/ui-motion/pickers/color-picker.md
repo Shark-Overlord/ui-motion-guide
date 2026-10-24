@@ -1,7 +1,6 @@
 ---
 slug: color-picker
 category: pickers
-source: inbox/09_Pickers/color-picker/
 ---
 
 # Color Picker · 颜色选择器

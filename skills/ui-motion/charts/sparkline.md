@@ -1,7 +1,6 @@
 ---
 slug: sparkline
 category: charts
-source: inbox/18_Charts/sparkline/
 ---
 
 # Sparkline · 迷你折线图

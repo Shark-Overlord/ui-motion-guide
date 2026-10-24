@@ -1,7 +1,6 @@
 ---
 slug: action-button
 category: buttons
-source: inbox/01_Buttons/action-button
 ---
 
 # Action Button · 异步操作按钮

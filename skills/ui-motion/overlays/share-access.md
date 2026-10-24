@@ -1,7 +1,6 @@
 ---
 slug: share-access
 category: overlays
-source: inbox/13_Overlays/share-access/
 ---
 
 # Share Access · 共享访问管理

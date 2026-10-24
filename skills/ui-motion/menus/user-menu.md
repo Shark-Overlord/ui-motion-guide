@@ -1,7 +1,6 @@
 ---
 slug: user-menu
 category: menus
-source: inbox/03_Menus/user-menu
 ---
 
 # User Menu · 用户账户菜单

@@ -1,7 +1,6 @@
 ---
 slug: voice-orb
 category: audio-and-video
-source: inbox/28_Audio_and_video/voice-orb/
 ---
 
 # Voice Orb · 语音助手光球

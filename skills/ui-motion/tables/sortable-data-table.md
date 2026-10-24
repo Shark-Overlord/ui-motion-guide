@@ -1,7 +1,6 @@
 ---
 slug: sortable-data-table
 category: tables
-source: inbox/20_Tables/sortable-data-table/
 ---
 
 # Sortable Data Table 可排序与行选择交互数据表格
@@ -10,9 +9,9 @@ source: inbox/20_Tables/sortable-data-table/
 
 ## 原型清单
 
-- `inbox/20_Tables/sortable-data-table/index.html`：表头列、排序手柄、行级多选框、底部已选计数栏原型。
-- `inbox/20_Tables/sortable-data-table/styles.css`：固定列宽、斑马纹、排序指示箭头形变与移动端卡片式自适应样式。
-- `inbox/20_Tables/sortable-data-table/motion.json`：行移动弹簧（400ms，0 过冲）、箭头旋转形变（260ms，0.12 弹性）与多选淡入淡出参数。
+- `index.html`：表头列、排序手柄、行级多选框、底部已选计数栏原型。
+- `styles.css`：固定列宽、斑马纹、排序指示箭头形变与移动端卡片式自适应样式。
+- `motion.json`：行移动弹簧（400ms，0 过冲）、箭头旋转形变（260ms，0.12 弹性）与多选淡入淡出参数。
 
 ## 适用
 

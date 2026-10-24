@@ -1,7 +1,6 @@
 ---
 slug: resizable-panels
 category: expand
-source: inbox/12_Expand/resizable-panels/
 ---
 
 # Resizable Panels · 可调面板组

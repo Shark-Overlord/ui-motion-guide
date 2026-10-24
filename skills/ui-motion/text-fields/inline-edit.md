@@ -1,7 +1,6 @@
 ---
 slug: inline-edit
 category: text-fields
-source: inbox/04_Text_fields/inline-edit
 ---
 
 # Inline Edit · 行内就地编辑

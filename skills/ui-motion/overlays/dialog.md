@@ -1,7 +1,6 @@
 ---
 slug: dialog
 category: overlays
-source: inbox/13_Overlays/dialog/
 ---
 
 # Dialog · 对话框

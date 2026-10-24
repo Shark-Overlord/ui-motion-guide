@@ -1,7 +1,6 @@
 ---
 slug: now-playing
 category: audio-and-video
-source: inbox/28_Audio_and_video/now-playing/
 ---
 
 # Now Playing · 音乐播放胶囊与大卡片

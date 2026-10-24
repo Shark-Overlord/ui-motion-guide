@@ -1,7 +1,6 @@
 ---
 slug: tag-input
 category: special-inputs
-source: inbox/05_Special_inputs/tag-input
 ---
 
 # Tag Input · 多标签胶囊输入框

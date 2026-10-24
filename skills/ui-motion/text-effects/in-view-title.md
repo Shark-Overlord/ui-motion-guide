@@ -1,7 +1,6 @@
 ---
 slug: in-view-title
 category: text-effects
-source: inbox/23_Text_effects/in-view-title/
 ---
 
 # In-view Title · 视口入场标题

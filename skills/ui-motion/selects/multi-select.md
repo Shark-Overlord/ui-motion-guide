@@ -1,7 +1,6 @@
 ---
 slug: multi-select
 category: selects
-source: inbox/06_Selects/multi-select/
 ---
 
 # Multi-select · 多选标签收集器

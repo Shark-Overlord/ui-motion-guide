@@ -1,7 +1,6 @@
 ---
 slug: countdown
 category: progress
-source: inbox/15_Progress/countdown/
 ---
 
 # Countdown · 倒计时

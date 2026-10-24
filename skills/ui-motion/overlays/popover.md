@@ -1,7 +1,6 @@
 ---
 slug: popover
 category: overlays
-source: inbox/13_Overlays/popover/
 ---
 
 # Popover · 弹出框

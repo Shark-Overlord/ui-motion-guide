@@ -1,7 +1,6 @@
 ---
 slug: booking-pill
 category: special-data
-source: inbox/29_Special_data/booking-pill/
 ---
 
 # Booking Pill · 浮动预约胶囊

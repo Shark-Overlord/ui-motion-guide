@@ -1,7 +1,6 @@
 ---
 slug: card
 category: cards
-source: inbox/17_Cards/card/
 ---
 
 # Card · 交互式卡片

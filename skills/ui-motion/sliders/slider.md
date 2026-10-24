@@ -1,7 +1,6 @@
 ---
 slug: slider
 category: sliders
-source: inbox/08_Sliders/slider/
 ---
 
 # Slider · 连续区间与双滑块滑动调节器

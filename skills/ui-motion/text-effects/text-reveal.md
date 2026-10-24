@@ -1,7 +1,6 @@
 ---
 slug: text-reveal
 category: text-effects
-source: inbox/23_Text_effects/text-reveal/
 ---
 
 # Text Reveal · 逐词文本浮现

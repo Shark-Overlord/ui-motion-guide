@@ -1,7 +1,6 @@
 ---
 slug: keycap-keyboard
 category: special-type
-source: inbox/30_Special_type/keycap-keyboard/
 ---
 
 # Keycap Keyboard · 机械键帽虚拟键盘

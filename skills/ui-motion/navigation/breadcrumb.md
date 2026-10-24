@@ -1,7 +1,6 @@
 ---
 slug: breadcrumb
 category: navigation
-source: inbox/11_Navigation/breadcrumb/
 ---
 
 # Breadcrumb · 面包屑导航

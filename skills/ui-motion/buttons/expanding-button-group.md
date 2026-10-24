@@ -1,7 +1,6 @@
 ---
 slug: expanding-button-group
 category: buttons
-source: inbox/01_Buttons/expanding-button-group
 ---
 
 # Expanding Button Group · 展开按钮组

@@ -1,7 +1,6 @@
 ---
 slug: combobox
 category: selects
-source: inbox/06_Selects/combobox/
 ---
 
 # Combobox · 组合搜索选择框

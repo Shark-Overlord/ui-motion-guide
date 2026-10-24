@@ -1,7 +1,6 @@
 ---
 slug: dropdown-menu
 category: menus
-source: inbox/03_Menus/dropdown-menu
 ---
 
 # Dropdown Menu · 下拉菜单

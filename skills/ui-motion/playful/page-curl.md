@@ -1,7 +1,6 @@
 ---
 slug: page-curl
 category: playful
-source: inbox/32_Playful/page-curl/
 ---
 
 # Page Curl · 拟真折纸翻页

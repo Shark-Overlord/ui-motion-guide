@@ -1,7 +1,6 @@
 ---
 slug: money-input
 category: special-inputs
-source: inbox/05_Special_inputs/money-input
 ---
 
 # Money Input · 货币金额输入框

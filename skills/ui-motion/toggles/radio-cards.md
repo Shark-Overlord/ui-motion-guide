@@ -1,7 +1,6 @@
 ---
 slug: radio-cards
 category: toggles
-source: inbox/07_Toggles/radio-cards/
 ---
 
 # Radio Cards · 共享高光单选卡片组

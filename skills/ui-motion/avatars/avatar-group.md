@@ -1,7 +1,6 @@
 ---
 slug: avatar-group
 category: avatars
-source: inbox/16_Avatars/avatar-group/
 ---
 
 # Avatar Group · 头像组

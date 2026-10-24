@@ -1,7 +1,6 @@
 ---
 slug: shortcut-recorder
 category: special-inputs
-source: inbox/05_Special_inputs/shortcut-recorder
 ---
 
 # Shortcut Recorder · 键盘快捷键录制器

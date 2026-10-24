@@ -1,7 +1,6 @@
 ---
 slug: action-morph
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/action-morph/
 ---
 
 # Action Morph · 浮动操作形变面板

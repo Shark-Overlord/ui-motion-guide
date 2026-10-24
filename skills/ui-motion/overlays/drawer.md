@@ -1,7 +1,6 @@
 ---
 slug: drawer
 category: overlays
-source: inbox/13_Overlays/drawer/
 ---
 
 # Drawer · 侧边抽屉

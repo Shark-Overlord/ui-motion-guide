@@ -1,7 +1,6 @@
 ---
 slug: data-flow
 category: illustrations
-source: inbox/34_Illustrations/data-flow/
 ---
 
 # Data Flow · 数据流管道示意图

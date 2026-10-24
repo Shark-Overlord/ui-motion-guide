@@ -1,7 +1,6 @@
 ---
 slug: card-stack
 category: cards
-source: inbox/17_Cards/card-stack/
 ---
 
 # Card Stack · 堆叠卡片

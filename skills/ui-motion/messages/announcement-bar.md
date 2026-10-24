@@ -1,7 +1,6 @@
 ---
 slug: announcement-bar
 category: messages
-source: inbox/14_Messages/announcement-bar/
 ---
 
 # Announcement Bar · 公告栏

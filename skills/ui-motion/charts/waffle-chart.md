@@ -1,7 +1,6 @@
 ---
 slug: waffle-chart
 category: charts
-source: inbox/18_Charts/waffle-chart/
 ---
 
 # Waffle Chart · 华夫饼图

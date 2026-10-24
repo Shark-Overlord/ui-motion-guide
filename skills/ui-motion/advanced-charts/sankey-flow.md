@@ -1,7 +1,6 @@
 ---
 slug: sankey-flow
 category: advanced-charts
-source: inbox/19_Advanced_charts/sankey-flow/
 ---
 
 # Sankey Flow · 桑基流向图

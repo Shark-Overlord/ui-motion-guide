@@ -1,7 +1,6 @@
 ---
 slug: line-chart
 category: charts
-source: inbox/18_Charts/line-chart/
 ---
 
 # Line Chart · 折线图

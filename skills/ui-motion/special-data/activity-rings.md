@@ -1,7 +1,6 @@
 ---
 slug: activity-rings
 category: special-data
-source: inbox/29_Special_data/activity-rings/
 ---
 
 # Activity Rings · 活动同心圆环

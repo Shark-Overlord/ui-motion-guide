@@ -1,7 +1,6 @@
 ---
 slug: billing-toggle
 category: toggles
-source: inbox/07_Toggles/billing-toggle/
 ---
 
 # Billing Toggle · 计费周期切换胶囊

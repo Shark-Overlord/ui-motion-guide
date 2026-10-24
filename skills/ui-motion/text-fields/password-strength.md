@@ -1,7 +1,6 @@
 ---
 slug: password-strength
 category: text-fields
-source: inbox/04_Text_fields/password-strength
 ---
 
 # Password Strength · 密码强度计量字段

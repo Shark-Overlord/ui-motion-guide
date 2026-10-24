@@ -1,7 +1,6 @@
 ---
 slug: search-field
 category: text-fields
-source: inbox/04_Text_fields/search-field
 ---
 
 # Search Field · 搜索输入框

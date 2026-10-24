@@ -1,7 +1,6 @@
 ---
 slug: expanding-search
 category: text-fields
-source: inbox/04_Text_fields/expanding-search
 ---
 
 # Expanding Search · 展开式搜索字段

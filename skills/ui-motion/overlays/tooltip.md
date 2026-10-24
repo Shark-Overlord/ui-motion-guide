@@ -1,7 +1,6 @@
 ---
 slug: tooltip
 category: overlays
-source: inbox/13_Overlays/tooltip/
 ---
 
 # Tooltip · 文字提示

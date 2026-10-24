@@ -1,7 +1,6 @@
 ---
 slug: phone-input
 category: special-inputs
-source: inbox/05_Special_inputs/phone-input
 ---
 
 # Phone Input · 国际电话号码输入框

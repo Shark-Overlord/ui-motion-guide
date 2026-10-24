@@ -1,7 +1,6 @@
 ---
 slug: radio-group
 category: toggles
-source: inbox/07_Toggles/radio-group/
 ---
 
 # Radio Group · 滑动高光单选组

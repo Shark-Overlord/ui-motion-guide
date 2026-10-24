@@ -1,7 +1,6 @@
 ---
 slug: signature-pad
 category: editors
-source: inbox/10_Editors/signature-pad/
 ---
 
 # Signature Pad · 电子签名板

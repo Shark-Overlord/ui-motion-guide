@@ -1,7 +1,6 @@
 ---
 slug: data-grid
 category: advanced-charts
-source: inbox/19_Advanced_charts/data-grid/
 ---
 
 # Data Grid · 高性能数据网格

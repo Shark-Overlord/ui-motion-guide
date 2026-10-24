@@ -1,7 +1,6 @@
 ---
 slug: sheet-stack
 category: surfaces
-source: inbox/26_Surfaces/sheet-stack/
 ---
 
 # Sheet Stack · 抽屉堆叠表面

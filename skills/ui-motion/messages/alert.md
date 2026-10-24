@@ -1,7 +1,6 @@
 ---
 slug: alert
 category: messages
-source: inbox/14_Messages/alert/
 ---
 
 # Alert · 警示通知栏

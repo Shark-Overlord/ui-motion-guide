@@ -1,7 +1,6 @@
 ---
 slug: dock
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/dock/
 ---
 
 # Dock · 浮动工具栏与形状托盘

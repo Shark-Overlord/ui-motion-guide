@@ -1,7 +1,6 @@
 ---
 slug: donut-chart
 category: charts
-source: inbox/18_Charts/donut-chart/
 ---
 
 # Donut Chart · 环形图

@@ -1,7 +1,6 @@
 ---
 slug: brush-chart
 category: advanced-charts
-source: inbox/19_Advanced_charts/brush-chart/
 ---
 
 # Brush Chart · 笔刷时间范围图表

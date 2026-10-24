@@ -1,7 +1,6 @@
 ---
 slug: time-dial
 category: special-data
-source: inbox/29_Special_data/time-dial/
 ---
 
 # Time Dial · 24小时极坐标多时区罗盘

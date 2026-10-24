@@ -1,7 +1,6 @@
 ---
 slug: morph-nav
 category: docks-and-tabs
-source: inbox/24_Docks_and_tabs/morph-nav/
 ---
 
 # Morph Nav · 形变导航条

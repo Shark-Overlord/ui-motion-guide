@@ -1,7 +1,6 @@
 ---
 slug: ridgeline
 category: charts
-source: inbox/18_Charts/ridgeline/
 ---
 
 # Ridgeline · 山脊图

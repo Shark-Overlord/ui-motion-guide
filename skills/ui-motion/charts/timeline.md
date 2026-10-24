@@ -1,7 +1,6 @@
 ---
 slug: timeline
 category: charts
-source: inbox/18_Charts/timeline/
 ---
 
 # Timeline · 时间线

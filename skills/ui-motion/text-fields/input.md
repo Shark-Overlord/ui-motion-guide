@@ -1,7 +1,6 @@
 ---
 slug: input
 category: text-fields
-source: inbox/04_Text_fields/input
 ---
 
 # Input · 基础输入框

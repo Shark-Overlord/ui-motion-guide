@@ -1,7 +1,6 @@
 ---
 slug: tree-view
 category: tables
-source: inbox/20_Tables/tree-view/
 ---
 
 # Tree View 阶梯缩进与折叠文件树
@@ -10,9 +9,9 @@ source: inbox/20_Tables/tree-view/
 
 ## 原型清单
 
-- `inbox/20_Tables/tree-view/index.html`：文件树目录、折叠三角箭头、层级引导连线与移动选区高亮原型。
-- `inbox/20_Tables/tree-view/styles.css`：深度缩进（18px 级进）、圆角选中底色、文件夹图标展开与悬停反馈样式。
-- `inbox/20_Tables/tree-view/motion.json`：行高弹簧（400ms，0 过冲）、箭头旋转（260ms，0.12 弹性）、阶梯延迟（35ms，上限 7 档）参数。
+- `index.html`：文件树目录、折叠三角箭头、层级引导连线与移动选区高亮原型。
+- `styles.css`：深度缩进（18px 级进）、圆角选中底色、文件夹图标展开与悬停反馈样式。
+- `motion.json`：行高弹簧（400ms，0 过冲）、箭头旋转（260ms，0.12 弹性）、阶梯延迟（35ms，上限 7 档）参数。
 
 ## 适用
 

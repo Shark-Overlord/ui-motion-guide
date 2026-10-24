@@ -1,7 +1,6 @@
 ---
 slug: toast-stack
 category: messages
-source: inbox/14_Messages/toast-stack/
 ---
 
 # Toast Stack · 吐司通知栈

@@ -1,7 +1,6 @@
 ---
 slug: progress
 category: progress
-source: inbox/15_Progress/progress/
 ---
 
 # Progress · 进度条

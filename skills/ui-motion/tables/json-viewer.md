@@ -1,7 +1,6 @@
 ---
 slug: json-viewer
 category: tables
-source: inbox/20_Tables/json-viewer/
 ---
 
 # JSON Viewer 交互式数据树与搜索探针
@@ -10,9 +9,9 @@ source: inbox/20_Tables/json-viewer/
 
 ## 原型清单
 
-- `inbox/20_Tables/json-viewer/index.html`：JSON 树主体、折叠行、搜索栏、复制提示原型。
-- `inbox/20_Tables/json-viewer/styles.css`：类型色彩变量（键、字符串、数值、布尔值、空值）、行高与缩进连线样式。
-- `inbox/20_Tables/json-viewer/motion.json`：行高折叠（30px）、搜索计数过渡、复制图标缩放（0.6）与提示微模糊（2px）参数。
+- `index.html`：JSON 树主体、折叠行、搜索栏、复制提示原型。
+- `styles.css`：类型色彩变量（键、字符串、数值、布尔值、空值）、行高与缩进连线样式。
+- `motion.json`：行高折叠（30px）、搜索计数过渡、复制图标缩放（0.6）与提示微模糊（2px）参数。
 
 ## 适用
 

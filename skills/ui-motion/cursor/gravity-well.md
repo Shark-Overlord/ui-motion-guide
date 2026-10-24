@@ -1,7 +1,6 @@
 ---
 slug: gravity-well
 category: cursor
-source: inbox/33_Cursor/gravity-well/
 ---
 
 # Gravity Well · 交互式光标引力情绪板

@@ -1,7 +1,6 @@
 ---
 slug: image-compare
 category: media
-source: inbox/22_Media/image-compare/
 ---
 
 # Image Compare · 图像对比滑块

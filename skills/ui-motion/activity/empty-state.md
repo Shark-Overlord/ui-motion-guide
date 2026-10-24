@@ -1,7 +1,6 @@
 ---
 slug: empty-state
 category: activity
-source: inbox/21_Activity/empty-state/
 ---
 
 # Empty State · 空状态反馈

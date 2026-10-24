@@ -1,7 +1,6 @@
 ---
 slug: theme-switch
 category: buttons
-source: inbox/01_Buttons/theme-switch
 ---
 
 # Theme Switch · 主题切换按钮

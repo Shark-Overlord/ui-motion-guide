@@ -1,7 +1,6 @@
 ---
 slug: gauge
 category: charts
-source: inbox/18_Charts/gauge/
 ---
 
 # Gauge · 仪表盘

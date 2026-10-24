@@ -1,7 +1,6 @@
 ---
 slug: avatar
 category: avatars
-source: inbox/16_Avatars/avatar/
 ---
 
 # Avatar · 头像

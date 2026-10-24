@@ -1,7 +1,6 @@
 ---
 slug: text-shimmer
 category: text-effects
-source: inbox/23_Text_effects/text-shimmer/
 ---
 
 # Text Shimmer · 文本扫光微动效

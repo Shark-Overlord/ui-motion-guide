@@ -1,7 +1,6 @@
 ---
 slug: usage-meter
 category: progress
-source: inbox/15_Progress/usage-meter/
 ---
 
 # Usage Meter · 用量计量表
