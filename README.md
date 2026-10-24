@@ -68,41 +68,39 @@ cp -r ui-motion-guide/skills/ui-motion <你的项目根目录>/.claude/skills/ui
 
 ---
 
-## 支持的组件分类
+## 动效涵盖组件范围
 
-| 类别 | 涵盖交互 | 规范入口 |
-| :--- | :--- | :--- |
-| **Buttons · 按钮** | 按压回弹、异步三态反馈、复制反馈、分割菜单、按钮组、浮动工具栏、展开组、图标切换、原地防误删确认、主题切换 | [buttons/INDEX.md](skills/ui-motion/buttons/INDEX.md) |
-| **Gestures · 手势** | 长按蓄力确认、左右滑动露底操作与双轴手势锁 | [gestures/INDEX.md](skills/ui-motion/gestures/INDEX.md) |
-| **Menus · 菜单** | 右键上下文菜单、下拉动作菜单、用户账户弹出卡片 | [menus/INDEX.md](skills/ui-motion/menus/INDEX.md) |
-| **Text fields · 文本输入** | 输入框焦点环、密码明暗切换、密码强度计量、带清除搜索框、点击展开搜索条、原地行内编辑 | [text-fields/INDEX.md](skills/ui-motion/text-fields/INDEX.md) |
-| **Special inputs · 专用输入** | 数字步进滚轮、货币金额输入、国际区号号码、多标签胶囊输入、@提及浮层、快捷键录制 | [special-inputs/INDEX.md](skills/ui-motion/special-inputs/INDEX.md) |
-| **Selects · 选择控件** | 紧凑单选下拉、可搜索组合框、触发器原地形变选择器、多选标签收集器、流式过滤胶囊组 | [selects/INDEX.md](skills/ui-motion/selects/INDEX.md) |
-| **Toggles · 开关与单选** | 二值弹性开关、真实笔触复选框、滑动胶囊分段控制、单选列表、对比单选卡片、年付/月付计费切换 | [toggles/INDEX.md](skills/ui-motion/toggles/INDEX.md) |
-| **Sliders · 滑块** | 连续数值平滑调节滑块、越界橡皮筋弹性拉伸滑块 | [sliders/INDEX.md](skills/ui-motion/sliders/INDEX.md) |
-| **Pickers · 选择器** | 拾色器、日历面板、日期选择器、日期范围选择器、时间滚轮选择器 | [pickers/INDEX.md](skills/ui-motion/pickers/INDEX.md) |
-| **Editors · 编辑器** | 语法高亮代码块、文件拖拽投递区、富文本格式化工具栏、矢量签名手写板 | [editors/INDEX.md](skills/ui-motion/editors/INDEX.md) |
-| **Navigation · 导航** | 面包屑折叠路径、弹性分页器、滑动高光标签页（Tabs） | [navigation/INDEX.md](skills/ui-motion/navigation/INDEX.md) |
-| **Expand · 展开与折叠** | 手风琴折叠面板、卡片原位展开、可拖拽分割面板、自适应阴影滚动区 | [expand/INDEX.md](skills/ui-motion/expand/INDEX.md) |
-| **Overlays · 浮层弹窗** | 底部抽屉、模态对话框（Dialog）、侧边抽屉（Drawer）、悬浮预览卡、气泡弹层（Popover）、分享权限面板、跟随动量提示（Tooltip） | [overlays/INDEX.md](skills/ui-motion/overlays/INDEX.md) |
-| **Messages · 消息通知** | 状态警示条、顶部滚动公告栏、单条 Toast 提示、多层折叠 Toast 堆叠 | [messages/INDEX.md](skills/ui-motion/messages/INDEX.md) |
-| **Progress · 进度与加载** | 环形倒计时、平滑进度条、骨架屏扫光、分步向导条（Stepper）、配额用量仪表 | [progress/INDEX.md](skills/ui-motion/progress/INDEX.md) |
-| **Avatars · 头像与徽标** | 交互头像、悬停展开层叠头像组、状态脉冲徽标 | [avatars/INDEX.md](skills/ui-motion/avatars/INDEX.md) |
-| **Cards · 卡片** | 多层卡片堆叠切换、多态信息卡片、动态指标度量卡片 | [cards/INDEX.md](skills/ui-motion/cards/INDEX.md) |
-| **Charts · 基础图表** | 滚轮计数器（Odometer）、柱状图、环形图、漏斗图、仪表盘、折线图、雷达图、实时数据流、脊线图、斜率图、迷你走势图、分割柱图、时间轴、华夫饼图 | [charts/INDEX.md](skills/ui-motion/charts/INDEX.md) |
-| **Advanced charts · 高级图表** | 刷选缩放图、交互数据网格、竞速条形图、桑基能量流、河流图、旭日图、矩形树图 | [advanced-charts/INDEX.md](skills/ui-motion/advanced-charts/INDEX.md) |
-| **Tables · 表格与树** | 即时聊天对话流、嵌套评论回复树、JSON 折叠查看器、列排序数据表、层级文件目录树 | [tables/INDEX.md](skills/ui-motion/tables/INDEX.md) |
-| **Activity · 动态与筛选** | 年度活跃热力图、空状态引导插画、多维筛选过滤工具栏 | [activity/INDEX.md](skills/ui-motion/activity/INDEX.md) |
-| **Media · 媒体展示** | 手势轮播画廊、媒体拖拽上传区、双图卷帘滑动对比 | [media/INDEX.md](skills/ui-motion/media/INDEX.md) |
-| **Text effects · 文字动效** | 视口滚动触发标题、字符平滑形变、逐字翻转揭示、流光文字扫光 | [text-effects/INDEX.md](skills/ui-motion/text-effects/INDEX.md) |
-| **Docks & tabs · 停靠与高级导航** | 动作按钮原位形变、Mac 风格放大 Dock 栏、流体水滴 Tab 栏、形态变换导航条、同心圆环绕菜单、分享面板 | [docks-and-tabs/INDEX.md](skills/ui-motion/docks-and-tabs/INDEX.md) |
-| **Glass · 毛玻璃质感** | 光泽磨砂卡片、浮动毛玻璃右键菜单、毛玻璃底部标签栏 | [glass/INDEX.md](skills/ui-motion/glass/INDEX.md) |
-| **Surfaces · 复合表面** | 控制中心磁贴面板、3D 全息倾斜卡片、行内胶囊展开卡片、多层抽屉堆叠、纵向折叠卡包 | [surfaces/INDEX.md](skills/ui-motion/surfaces/INDEX.md) |
-| **Galleries · 相册画廊** | 3D 封面流转、全屏灯箱画廊、瀑布流照片网格、电商多图联动画廊 | [galleries/INDEX.md](skills/ui-motion/galleries/INDEX.md) |
-| **Audio & video · 音视频交互** | 正在播放动态胶囊、AI 语音脉冲光球、语音录制实时声波条 | [audio-and-video/INDEX.md](skills/ui-motion/audio-and-video/INDEX.md) |
-| **Special data · 特殊数据** | 三环健身活动圆环、预订时段选择胶囊、滚筒日期轮盘、时钟刻度表盘 | [special-data/INDEX.md](skills/ui-motion/special-data/INDEX.md) |
-| **Special type · 机械字符** | 机械键帽按压键盘、沙漏粒子重力文字、老虎机滚轮字符、打字机终端控制台 | [special-type/INDEX.md](skills/ui-motion/special-type/INDEX.md) |
-| **Loaders · 加载与刷新** | 几何形态循环加载器、骨架屏原位展开内容、橡皮筋下拉刷新 | [loaders/INDEX.md](skills/ui-motion/loaders/INDEX.md) |
-| **Playful · 趣味互动** | 同心圆轨道漫游 Logo 展台、仿真折纸翻页 | [playful/INDEX.md](skills/ui-motion/playful/INDEX.md) |
-| **Cursor · 光标追踪** | 磁性点阵矩阵追踪、引力井中心吸附 | [cursor/INDEX.md](skills/ui-motion/cursor/INDEX.md) |
-| **Illustrations · 拓扑插画** | 流式管道数据流、多区域故障转移重路由、支付流向状态机、高维向量空间检索 | [illustrations/INDEX.md](skills/ui-motion/illustrations/INDEX.md) |
+- [x] Buttons · 按钮
+- [x] Gestures · 手势交互
+- [x] Menus · 菜单
+- [x] Text fields · 文本输入
+- [x] Special inputs · 特殊输入
+- [x] Selects · 选择控件
+- [x] Toggles · 切换控件
+- [x] Sliders · 滑块
+- [x] Pickers · 选择器
+- [x] Editors · 编辑器
+- [x] Navigation · 导航
+- [x] Expand · 展开与折叠
+- [x] Overlays · 浮层弹窗
+- [x] Messages · 消息通知
+- [x] Progress · 进度与加载
+- [x] Avatars · 头像与徽标
+- [x] Cards · 卡片
+- [x] Charts · 图表
+- [x] Advanced charts · 高级图表
+- [x] Tables · 表格与树
+- [x] Activity · 动态记录与筛选
+- [x] Media · 媒体展示
+- [x] Text effects · 文字动效
+- [x] Docks & tabs · 停靠栏与标签页
+- [x] Glass · 毛玻璃组件
+- [x] Surfaces · 复合交互表面
+- [x] Galleries · 相册画廊
+- [x] Audio & video · 音视频交互
+- [x] Special data · 特殊数据组件
+- [x] Special type · 机械与特殊字符
+- [x] Loaders · 加载与刷新
+- [x] Playful · 趣味互动
+- [x] Cursor · 光标追踪
+- [x] Illustrations · 动效拓扑插画
