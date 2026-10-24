@@ -70,37 +70,37 @@ cp -r ui-motion-guide/skills/ui-motion <你的项目根目录>/.claude/skills/ui
 
 ## 动效涵盖组件范围
 
-- [x] Buttons · 按钮
-- [x] Gestures · 手势交互
-- [x] Menus · 菜单
-- [x] Text fields · 文本输入
-- [x] Special inputs · 特殊输入
-- [x] Selects · 选择控件
-- [x] Toggles · 切换控件
-- [x] Sliders · 滑块
-- [x] Pickers · 选择器
-- [x] Editors · 编辑器
-- [x] Navigation · 导航
-- [x] Expand · 展开与折叠
-- [x] Overlays · 浮层弹窗
-- [x] Messages · 消息通知
-- [x] Progress · 进度与加载
-- [x] Avatars · 头像与徽标
-- [x] Cards · 卡片
-- [x] Charts · 图表
-- [x] Advanced charts · 高级图表
-- [x] Tables · 表格与树
-- [x] Activity · 动态记录与筛选
-- [x] Media · 媒体展示
-- [x] Text effects · 文字动效
-- [x] Docks & tabs · 停靠栏与标签页
-- [x] Glass · 毛玻璃组件
-- [x] Surfaces · 复合交互表面
-- [x] Galleries · 相册画廊
-- [x] Audio & video · 音视频交互
-- [x] Special data · 特殊数据组件
-- [x] Special type · 机械与特殊字符
-- [x] Loaders · 加载与刷新
-- [x] Playful · 趣味互动
-- [x] Cursor · 光标追踪
-- [x] Illustrations · 动效拓扑插画
+- ✅ Buttons · 按钮
+- ✅ Gestures · 手势交互
+- ✅ Menus · 菜单
+- ✅ Text fields · 文本输入
+- ✅ Special inputs · 特殊输入
+- ✅ Selects · 选择控件
+- ✅ Toggles · 切换控件
+- ✅ Sliders · 滑块
+- ✅ Pickers · 选择器
+- ✅ Editors · 编辑器
+- ✅ Navigation · 导航
+- ✅ Expand · 展开与折叠
+- ✅ Overlays · 浮层弹窗
+- ✅ Messages · 消息通知
+- ✅ Progress · 进度与加载
+- ✅ Avatars · 头像与徽标
+- ✅ Cards · 卡片
+- ✅ Charts · 图表
+- ✅ Advanced charts · 高级图表
+- ✅ Tables · 表格与树
+- ✅ Activity · 动态记录与筛选
+- ✅ Media · 媒体展示
+- ✅ Text effects · 文字动效
+- ✅ Docks & tabs · 停靠栏与标签页
+- ✅ Glass · 毛玻璃组件
+- ✅ Surfaces · 复合交互表面
+- ✅ Galleries · 相册画廊
+- ✅ Audio & video · 音视频交互
+- ✅ Special data · 特殊数据组件
+- ✅ Special type · 机械与特殊字符
+- ✅ Loaders · 加载与刷新
+- ✅ Playful · 趣味互动
+- ✅ Cursor · 光标追踪
+- ✅ Illustrations · 动效拓扑插画
