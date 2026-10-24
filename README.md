@@ -3,7 +3,8 @@
 让 AI 为你的现有 Web 组件注入细腻的物理弹簧、平滑过渡与微交互动效。
 
 - **在线交互动效对比预览**：[https://shark-overlord.github.io/ui-motion-guide/](https://shark-overlord.github.io/ui-motion-guide/)
-- **OwnAI 官方网站**：[https://ownai.icu/](https://ownai.icu/)
+- **OwnAI 官方网站**：[https://ownai.icu/](https://ownai.icu/)  
+  访问 OwnAI 官网，探索更多 AI 创意作品、精选 Prompt 资产、实战教程与开发者工具。
 
 ---
 
