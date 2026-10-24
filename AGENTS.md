@@ -2,31 +2,8 @@
 
 组件动效 Skill 仓库。
 
-## 使用
+## 使用流程
 
-为项目组件添加动效时，读取 [skills/ui-motion/SKILL.md](skills/ui-motion/SKILL.md) 并按其中的工作流执行。仓库其余目录不是使用时的读取对象。
-
-## 维护
-
-仅在用户要求维护本仓库时执行以下内容。
-
-### 目录
-
-```
-inbox/<NN_Category>/<slug>/          原型原料（index.html、styles.css、script.js 等），不参与路由
-templates/component.md               组件 md 模板
-skills/ui-motion/SKILL.md            第 1 层：工作流 + 类别表
-skills/ui-motion/<category>/INDEX.md 第 2 层：交互意图 → 组件
-skills/ui-motion/<category>/<slug>.md 第 3 层：组件文档
-```
-
-类别目录名为 inbox 类别名去掉编号后的小写形式，如 `01_Buttons` → `buttons`，`02_Gestures` → `gestures`；组件文件名沿用 inbox 的 slug。
-
-### 整理 inbox 原型
-
-1. 读取 `inbox/<NN_Category>/<slug>/` 下的全部源码。
-2. 复制 [templates/component.md](templates/component.md) 到 `skills/ui-motion/<category>/<slug>.md`，按模板注释逐节填写。
-3. 在该类别的 `INDEX.md` 中登记意图与分流；类别首次出现时新建 `INDEX.md`，并在 `SKILL.md` 类别表中登记、从“未收录类别”中移除。
-4. 与其他类别存在易混淆组件时，在双方 `INDEX.md` 中互相指向。
-
-普通组件改造任务不读取 `inbox/`、`templates/`，也不修改本仓库。
+1. 为现有项目组件添加过渡动效、物理弹簧或微交互时，先读取 [skills/ui-motion/SKILL.md](skills/ui-motion/SKILL.md) 并严格按其中的工作流执行。
+2. 用户已指定具体组件或文件时，按 `SKILL.md` 路由表定位对应 `<类别>/<slug>.md` 后直接改造，保留目标项目原有样式、配色和业务逻辑。
+3. 用户未指定具体组件时，先只读扫描目标界面并列出可添加动效的组件建议，待用户确认后再执行修改。
