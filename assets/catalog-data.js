@@ -10,70 +10,70 @@ window.UI_MOTION_CATALOG = [
         "slug": "action-button",
         "title": "Action Button · 异步操作按钮",
         "summary": "执行异步提交操作的高反馈按钮。",
-        "specPath": "skills/ui-motion/buttons/action-button.md",
+        "specPath": "resources/buttons/action-button.md",
         "demoPath": "inbox/01_Buttons/action-button/index.html"
       },
       {
         "slug": "button-group",
         "title": "Button Group · 按钮组",
         "summary": "将多个关联操作紧凑并置于单一胶囊表面上的高级组合控件。",
-        "specPath": "skills/ui-motion/buttons/button-group.md",
+        "specPath": "resources/buttons/button-group.md",
         "demoPath": "inbox/01_Buttons/button-group/index.html"
       },
       {
         "slug": "button",
         "title": "Button · 基础按钮",
         "summary": "基础按钮集合。",
-        "specPath": "skills/ui-motion/buttons/button.md",
+        "specPath": "resources/buttons/button.md",
         "demoPath": "inbox/01_Buttons/button/index.html"
       },
       {
         "slug": "confirm-morph",
         "title": "Confirm Morph · 原位确认变形按钮",
         "summary": "高风险或不可逆操作的原位流转按钮。点击时不弹出打断心流的模态对话框，而是在按钮当前药丸容器内原地平滑伸展变形，承载二次确认、倒计时撤销、异步处理以及可撤回反馈。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/buttons/confirm-morph.md",
+        "specPath": "resources/buttons/confirm-morph.md",
         "demoPath": "inbox/01_Buttons/confirm-morph/index.html"
       },
       {
         "slug": "copy-button",
         "title": "Copy Button · 复制按钮",
         "summary": "点击后把文本真实写入剪贴板，按写入结果切换成功或失败反馈。",
-        "specPath": "skills/ui-motion/buttons/copy-button.md",
+        "specPath": "resources/buttons/copy-button.md",
         "demoPath": "inbox/01_Buttons/copy-button/index.html"
       },
       {
         "slug": "expanding-button-group",
         "title": "Expanding Button Group · 展开按钮组",
         "summary": "空间紧凑的手风琴式横向伸展按钮组。默认仅激活项（或首项）完整展开显示“图标 + 文本”，其余各项收缩为纯图标；当光标指向或键盘聚焦于其他项时，目标项横向伸展显露文本，邻近按钮顺畅推移让位。",
-        "specPath": "skills/ui-motion/buttons/expanding-button-group.md",
+        "specPath": "resources/buttons/expanding-button-group.md",
         "demoPath": "inbox/01_Buttons/expanding-button-group/index.html"
       },
       {
         "slug": "floating-button-group",
         "title": "Floating Button Group · 浮动工具栏组",
         "summary": "适用于画布控制、文档工具栏、消息浮动操作的高质感多按钮悬浮工具组。",
-        "specPath": "skills/ui-motion/buttons/floating-button-group.md",
+        "specPath": "resources/buttons/floating-button-group.md",
         "demoPath": "inbox/01_Buttons/floating-button-group/index.html"
       },
       {
         "slug": "icon-morph",
         "title": "Icon Morph · 图标形变按钮",
         "summary": "通过 SVG 矢量几何形变实现状态流转的图标交互集合。避免了传统直接替换图标的生硬视觉跳跃，通过平滑的矢量形态过渡、遮罩移位与笔触擦除传达前后状态的连续性。涵盖 8 类微动效机制：",
-        "specPath": "skills/ui-motion/buttons/icon-morph.md",
+        "specPath": "resources/buttons/icon-morph.md",
         "demoPath": "inbox/01_Buttons/icon-morph/index.html"
       },
       {
         "slug": "split-button",
         "title": "Split Button · 分割按钮",
         "summary": "将主操作按钮与下拉次要动作菜单紧密组合的分割按钮。",
-        "specPath": "skills/ui-motion/buttons/split-button.md",
+        "specPath": "resources/buttons/split-button.md",
         "demoPath": "inbox/01_Buttons/split-button/index.html"
       },
       {
         "slug": "theme-switch",
         "title": "Theme Switch · 主题切换按钮",
         "summary": "用于深色/浅色模式切换的交互控件与全屏视图过渡机制。按钮内部通过太阳与月亮双图层的旋转与微模糊顺滑互换；全局借助原生 View Transition API 与 Web Animations API (WAAPI)，提供四种不同几何维度的全屏遮罩展开效果。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/buttons/theme-switch.md",
+        "specPath": "resources/buttons/theme-switch.md",
         "demoPath": "inbox/01_Buttons/theme-switch/index.html"
       }
     ]
@@ -89,14 +89,14 @@ window.UI_MOTION_CATALOG = [
         "slug": "hold-to-confirm",
         "title": "Hold to Confirm · 长按手势确认",
         "summary": "基于指针捕获与物理弹簧的长按蓄力确认交互。用于防止灾难性或不可逆操作的意外误触。通过双面同构层（Surface Face 与 Fill Face）的 `clip-path` 推进，呈现文字与图标随进度被新颜色精准“浸润”的效果；中途松开指针或移出按钮安全区时，进度以弹簧物理曲线平滑倒带归零。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/gestures/hold-to-confirm.md",
+        "specPath": "resources/gestures/hold-to-confirm.md",
         "demoPath": "inbox/02_Gestures/hold-to-confirm/index.html"
       },
       {
         "slug": "swipe-actions",
         "title": "Swipe Actions · 滑动手势操作行",
         "summary": "移动端与触控交互中经典的高保真列表行手势操作。支持左右双向滑动揭露操作项、深滑蓄力直达（Deep Swipe to Commit）、投掷惯性判断（Flick Projection）以及橡皮筋越界阻尼。为无法使用滑动手势的用户和辅助技术提供无缝降级的辅助下拉菜单。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/gestures/swipe-actions.md",
+        "specPath": "resources/gestures/swipe-actions.md",
         "demoPath": "inbox/02_Gestures/swipe-actions/index.html"
       }
     ]
@@ -112,21 +112,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "context-menu",
         "title": "Context Menu · 上下文菜单",
         "summary": "光标精准定位的浮动右键/长按菜单。菜单从光标指针或键盘触发坐标作为动态原点（`transform-origin`）向外弹性展开；内置视口四向防溢出边界裁剪算法，条目间搭载平滑滑动的背景高光胶囊（Gliding Highlight）。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/menus/context-menu.md",
+        "specPath": "resources/menus/context-menu.md",
         "demoPath": "inbox/03_Menus/context-menu/index.html"
       },
       {
         "slug": "dropdown-menu",
         "title": "Dropdown Menu · 下拉菜单",
         "summary": "用于操作栏与列表头的高保真下拉动作菜单。包含触发器文字自适应测量、智能视口防遮挡翻转（Collision Flip）、背景模态锁（Modal Lock）以及键入首字母快速检索（Typeahead）。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/menus/dropdown-menu.md",
+        "specPath": "resources/menus/dropdown-menu.md",
         "demoPath": "inbox/03_Menus/dropdown-menu/index.html"
       },
       {
         "slug": "user-menu",
         "title": "User Menu · 用户账户菜单",
         "summary": "综合型用户个人中心与设置下拉面板。包含触发器头像/名称联动、面板自顶部中心向外展开的弹簧物理补间、条目间单例滑动高光底板、内嵌三段式昼夜主题滑块控制器，以及退出登录时的异步等待态（Sign out 转换为 Signing out... 配合 Spinner 旋转）和登出后回退为 Sign in 的闭环逻辑。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/menus/user-menu.md",
+        "specPath": "resources/menus/user-menu.md",
         "demoPath": "inbox/03_Menus/user-menu/index.html"
       }
     ]
@@ -142,49 +142,49 @@ window.UI_MOTION_CATALOG = [
         "slug": "expanding-search",
         "title": "Expanding Search · 展开式搜索字段",
         "summary": "从 44px 紧凑圆形图标按钮平滑横向伸展至 360px 完整搜索栏的形变组件。解决导航栏/紧凑空间中的搜索视觉侵占问题。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/expanding-search.md",
+        "specPath": "resources/text-fields/expanding-search.md",
         "demoPath": "inbox/04_Text_fields/expanding-search/index.html"
       },
       {
         "slug": "inline-edit",
         "title": "Inline Edit · 行内就地编辑",
         "summary": "排版文本与表单输入控件之间的原地平滑切换组件。解决传统模态弹窗或整表单刷新带来的流程中断与视觉跳动。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/inline-edit.md",
+        "specPath": "resources/text-fields/inline-edit.md",
         "demoPath": "inbox/04_Text_fields/inline-edit/index.html"
       },
       {
         "slug": "input",
         "title": "Input · 基础输入框",
         "summary": "单行表单输入控件。在保留浏览器原生输入合成、选择、撤销与辅助技术的基础上，提供零尺寸抖动的边框平滑过渡，以及下方自适应高度与逐字微模糊进退场的消息插槽。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/input.md",
+        "specPath": "resources/text-fields/input.md",
         "demoPath": "inbox/04_Text_fields/input/index.html"
       },
       {
         "slug": "password-field",
         "title": "Password Field · 密码输入框",
         "summary": "专用于敏感凭据与密码输入的单行字段控件。解决明暗文切换时的生硬突变与图标割裂问题。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/password-field.md",
+        "specPath": "resources/text-fields/password-field.md",
         "demoPath": "inbox/04_Text_fields/password-field/index.html"
       },
       {
         "slug": "password-strength",
         "title": "Password Strength · 密码强度计量字段",
         "summary": "结合实时强度计算、分段波浪计量条与条件核验反馈的高阶密码输入控件。在用户键入密码时提供毫秒级、零卡顿的多维度视觉指引。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/password-strength.md",
+        "specPath": "resources/text-fields/password-strength.md",
         "demoPath": "inbox/04_Text_fields/password-strength/index.html"
       },
       {
         "slug": "search-field",
         "title": "Search Field · 搜索输入框",
         "summary": "带有固定尾部清除槽位与高响应度交互状态的搜索控件。杜绝按钮出现时的内容抖动与焦点丢失。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/search-field.md",
+        "specPath": "resources/text-fields/search-field.md",
         "demoPath": "inbox/04_Text_fields/search-field/index.html"
       },
       {
         "slug": "textarea",
         "title": "Textarea · 多行文本域",
         "summary": "多行长文本输入控件。在完整保留多行排版、行高、原生软换行与输入法合成的基础上，提供与单行输入框一致的零尺寸抖动边框过渡，以及下方自适应高度消息提示槽。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/text-fields/textarea.md",
+        "specPath": "resources/text-fields/textarea.md",
         "demoPath": "inbox/04_Text_fields/textarea/index.html"
       }
     ]
@@ -200,42 +200,42 @@ window.UI_MOTION_CATALOG = [
         "slug": "mention-input",
         "title": "Mention Input · 富交互提及输入框",
         "summary": "基于真实原生 `<textarea>` 与 1:1 同步背景镜像层（Backdrop Mirror）构建的 `@人物` 与 `#频道` 提及输入组件。在完全保留浏览器原生输入法合成、选区与撤销栈（Undo）的前提下，实现正文中提及胶囊高亮与跟随光标坐标的建议浮层。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/mention-input.md",
+        "specPath": "resources/special-inputs/mention-input.md",
         "demoPath": "inbox/05_Special_inputs/mention-input/index.html"
       },
       {
         "slug": "money-input",
         "title": "Money Input · 货币金额输入框",
         "summary": "支持最小货币单位（Minor Units）精确换算、千分位与小数幽灵占位镜像、币种动态切换与自适应缩放的金融级金额输入组件。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/money-input.md",
+        "specPath": "resources/special-inputs/money-input.md",
         "demoPath": "inbox/05_Special_inputs/money-input/index.html"
       },
       {
         "slug": "number-field",
         "title": "Number Field · 数字步进输入框",
         "summary": "集成分位数字滚轮（Odometer）、长按指数加速步进、标签横向拖拽微调（Scrubbing）与越界物理反冲的数值输入控件。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/number-field.md",
+        "specPath": "resources/special-inputs/number-field.md",
         "demoPath": "inbox/05_Special_inputs/number-field/index.html"
       },
       {
         "slug": "phone-input",
         "title": "Phone Input · 国际电话号码输入框",
         "summary": "集成单表面几何形变（Single-Surface Morphing）国家区号选择器、实时号段格式化与未填位掩码引导的电话号码输入组件。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/phone-input.md",
+        "specPath": "resources/special-inputs/phone-input.md",
         "demoPath": "inbox/05_Special_inputs/phone-input/index.html"
       },
       {
         "slug": "shortcut-recorder",
         "title": "Shortcut Recorder · 键盘快捷键录制器",
         "summary": "结合物理键帽按压动效、实时修饰键预览、同键位复用 FLIP 位移与冲突拦截决策的快捷键绑定组件。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/shortcut-recorder.md",
+        "specPath": "resources/special-inputs/shortcut-recorder.md",
         "demoPath": "inbox/05_Special_inputs/shortcut-recorder/index.html"
       },
       {
         "slug": "tag-input",
         "title": "Tag Input · 多标签胶囊输入框",
         "summary": "将已添加标签保持为真实 DOM 胶囊元素，结合共享选中高亮环、两步式安全退格删除与 FLIP 换行重排的复合输入组件。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/special-inputs/tag-input.md",
+        "specPath": "resources/special-inputs/tag-input.md",
         "demoPath": "inbox/05_Special_inputs/tag-input/index.html"
       }
     ]
@@ -251,35 +251,35 @@ window.UI_MOTION_CATALOG = [
         "slug": "chip-group",
         "title": "Chip Group · 过滤标签胶囊组",
         "summary": "用于多维标签筛选、状态标记与分类选择的高性能交互组件。",
-        "specPath": "skills/ui-motion/selects/chip-group.md",
+        "specPath": "resources/selects/chip-group.md",
         "demoPath": "inbox/06_Selects/chip-group/index.html"
       },
       {
         "slug": "combobox",
         "title": "Combobox · 组合搜索选择框",
         "summary": "结合单行文本搜索与浮动候选项列表的自适应选择器。",
-        "specPath": "skills/ui-motion/selects/combobox.md",
+        "specPath": "resources/selects/combobox.md",
         "demoPath": "inbox/06_Selects/combobox/index.html"
       },
       {
         "slug": "morph-select",
         "title": "Morph Select · 形变卡片选择器",
         "summary": "将触发器按钮与展开列表整合为单一连续形变容器的高阶选择器。",
-        "specPath": "skills/ui-motion/selects/morph-select.md",
+        "specPath": "resources/selects/morph-select.md",
         "demoPath": "inbox/06_Selects/morph-select/index.html"
       },
       {
         "slug": "multi-select",
         "title": "Multi-select · 多选标签收集器",
         "summary": "支持在紧凑输入框内收纳多项已选项的高品质选择器。",
-        "specPath": "skills/ui-motion/selects/multi-select.md",
+        "specPath": "resources/selects/multi-select.md",
         "demoPath": "inbox/06_Selects/multi-select/index.html"
       },
       {
         "slug": "select",
         "title": "Select · 原生感单选下拉菜单",
         "summary": "经典紧凑型单选下拉组件。",
-        "specPath": "skills/ui-motion/selects/select.md",
+        "specPath": "resources/selects/select.md",
         "demoPath": "inbox/06_Selects/select/index.html"
       }
     ]
@@ -295,42 +295,42 @@ window.UI_MOTION_CATALOG = [
         "slug": "billing-toggle",
         "title": "Billing Toggle · 计费周期切换胶囊",
         "summary": "专为 SaaS 定价方案设计的月付/年付联动切换胶囊。",
-        "specPath": "skills/ui-motion/toggles/billing-toggle.md",
+        "specPath": "resources/toggles/billing-toggle.md",
         "demoPath": "inbox/07_Toggles/billing-toggle/index.html"
       },
       {
         "slug": "checkbox",
         "title": "Checkbox · 弹性笔触复选框",
         "summary": "具备极具触感的按压反馈与 SVG 真实笔触书写动画的原生复选框。",
-        "specPath": "skills/ui-motion/toggles/checkbox.md",
+        "specPath": "resources/toggles/checkbox.md",
         "demoPath": "inbox/07_Toggles/checkbox/index.html"
       },
       {
         "slug": "radio-cards",
         "title": "Radio Cards · 共享高光单选卡片组",
         "summary": "用于订阅计划选择、支付方式选取及多维方案决策的卡片式单选组。",
-        "specPath": "skills/ui-motion/toggles/radio-cards.md",
+        "specPath": "resources/toggles/radio-cards.md",
         "demoPath": "inbox/07_Toggles/radio-cards/index.html"
       },
       {
         "slug": "radio-group",
         "title": "Radio Group · 滑动高光单选组",
         "summary": "垂直选项列表的机械感单选组件。",
-        "specPath": "skills/ui-motion/toggles/radio-group.md",
+        "specPath": "resources/toggles/radio-group.md",
         "demoPath": "inbox/07_Toggles/radio-group/index.html"
       },
       {
         "slug": "segmented-control",
         "title": "Segmented Control · 分段控制切换胶囊",
         "summary": "用于视图模式切换、页面分栏及紧凑选项互斥的高质感分段胶囊。",
-        "specPath": "skills/ui-motion/toggles/segmented-control.md",
+        "specPath": "resources/toggles/segmented-control.md",
         "demoPath": "inbox/07_Toggles/segmented-control/index.html"
       },
       {
         "slug": "switch",
         "title": "Switch · 机械拉伸滑动开关",
         "summary": "模拟物理受压与横向弹射滑翔的二值开关。",
-        "specPath": "skills/ui-motion/toggles/switch.md",
+        "specPath": "resources/toggles/switch.md",
         "demoPath": "inbox/07_Toggles/switch/index.html"
       }
     ]
@@ -346,14 +346,14 @@ window.UI_MOTION_CATALOG = [
         "slug": "elastic-slider",
         "title": "Elastic Slider · 橡皮筋弹性滑块",
         "summary": "具备触觉阻尼、刻度磁吸与速度倾斜动态气泡的高级弹性滑块。",
-        "specPath": "skills/ui-motion/sliders/elastic-slider.md",
+        "specPath": "resources/sliders/elastic-slider.md",
         "demoPath": "inbox/08_Sliders/elastic-slider/index.html"
       },
       {
         "slug": "slider",
         "title": "Slider · 连续区间与双滑块滑动调节器",
         "summary": "支持单滑块数值调节与双滑块区间选定的精准控制条。",
-        "specPath": "skills/ui-motion/sliders/slider.md",
+        "specPath": "resources/sliders/slider.md",
         "demoPath": "inbox/08_Sliders/slider/index.html"
       }
     ]
@@ -369,35 +369,35 @@ window.UI_MOTION_CATALOG = [
         "slug": "calendar",
         "title": "Calendar · 日历",
         "summary": "用于独立视图或嵌入卡片中的月度日期选择与浏览面板。包含恒定 6 周 42 天零抖动网格、月份标题错峰滑移、整网格方向性平滑切页以及今天指示圆点。涵盖三大核心机制：",
-        "specPath": "skills/ui-motion/pickers/calendar.md",
+        "specPath": "resources/pickers/calendar.md",
         "demoPath": "inbox/09_Pickers/calendar/index.html"
       },
       {
         "slug": "color-picker",
         "title": "Color Picker · 颜色选择器",
         "summary": "用于精细调节界面色彩的高保真拾色器。集成 2D 饱和度与明度调色盘、色相与不透明度滑动条、多格式（Hex/RGB/HSL）平滑切换、屏幕吸色（EyeDropper）以及实时对比度可访问性评级。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/pickers/color-picker.md",
+        "specPath": "resources/pickers/color-picker.md",
         "demoPath": "inbox/09_Pickers/color-picker/index.html"
       },
       {
         "slug": "date-picker",
         "title": "Date Picker · 日期选择器",
         "summary": "用于表单输入流的高保真单日期选择组件。由触发器输入框与浮动弹层日历组成，包含逐段数字滚轮置换、弹层 Presence 浮动展开、月度网格滑动高光胶囊以及全键盘无障碍巡回。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/pickers/date-picker.md",
+        "specPath": "resources/pickers/date-picker.md",
         "demoPath": "inbox/09_Pickers/date-picker/index.html"
       },
       {
         "slug": "date-range-picker",
         "title": "Date Range Picker · 日期区间选择器",
         "summary": "用于选取大跨度时间跨度的高保真双月联动日期区间选择面板。集成左侧预设快捷导轨（Rail Presets）、双月并排连续日期网格、分段胶囊选区绘制（Range Bars Layer）、悬停区间流体预览以及底部确认动作条。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/pickers/date-range-picker.md",
+        "specPath": "resources/pickers/date-range-picker.md",
         "demoPath": "inbox/09_Pickers/date-range-picker/index.html"
       },
       {
         "slug": "time-picker",
         "title": "Time Picker · 时间选择器",
         "summary": "用于精确选取时刻（小时与分钟）的轻量级下拉列表选择组件。包含时间数值微模糊上下置换、弹层 Presence 浮动展开、选项纵向自动滚轮居中（Auto Center Scroll）以及键盘方向键快捷步进巡回。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/pickers/time-picker.md",
+        "specPath": "resources/pickers/time-picker.md",
         "demoPath": "inbox/09_Pickers/time-picker/index.html"
       }
     ]
@@ -413,28 +413,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "code-block",
         "title": "Code Block · 代码块",
         "summary": "用于代码展示与文档集成的高保真代码块组件。集成动态视口高度测量伸缩（Measured Viewport Height）、文件名幽灵标尺防抖置换（Ghost Sizer Swap）、行数折叠展开以及微动画反馈复制按钮。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/editors/code-block.md",
+        "specPath": "resources/editors/code-block.md",
         "demoPath": "inbox/10_Editors/code-block/index.html"
       },
       {
         "slug": "file-dropzone",
         "title": "File Dropzone · 文件投递区",
         "summary": "用于文档附件、编辑器素材与多媒体资源拖拽上传的高保真文件投递区组件。集成三层纸张 3D 浮动张力展开（Three Sheets 3D Hover Spread）、SVG 周长边缘发光流动（SVG Edge Perimeter Glow）、拖放文件抓取反馈以及条目进度卡片平滑淡入。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/editors/file-dropzone.md",
+        "specPath": "resources/editors/file-dropzone.md",
         "demoPath": "inbox/10_Editors/file-dropzone/index.html"
       },
       {
         "slug": "rich-text-editor",
         "title": "Rich Text Editor · 富文本编辑器",
         "summary": "用于文档撰写、发布排版与笔记编辑的高保真富文本编辑器组件。集成选区吸附浮动工具栏（Floating Selection Toolbar）、工具栏双面形变切换（Toolbar Face Morphing）、斜杠快捷指令菜单（Slash Command Menu）以及实时字数微模糊统计。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/editors/rich-text-editor.md",
+        "specPath": "resources/editors/rich-text-editor.md",
         "demoPath": "inbox/10_Editors/rich-text-editor/index.html"
       },
       {
         "slug": "signature-pad",
         "title": "Signature Pad · 电子签名板",
         "summary": "用于合同签署、授权确认与身份认证的高保真压感墨水手写签名板。集成平滑贝塞尔曲线笔触插值（Smooth Ink Spline Interpolation）、签名指引线与提示微模糊隐退（Sign Here Micro-Blur Fade）、墨水颜色与笔宽即时置换、签名回放（Replay Signature）以及主动作异步签署形态流转。涵盖四大核心机制：",
-        "specPath": "skills/ui-motion/editors/signature-pad.md",
+        "specPath": "resources/editors/signature-pad.md",
         "demoPath": "inbox/10_Editors/signature-pad/index.html"
       }
     ]
@@ -450,21 +450,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "breadcrumb",
         "title": "Breadcrumb · 面包屑导航",
         "summary": "用于层级化页面路径导航与上下文层级回溯。",
-        "specPath": "skills/ui-motion/navigation/breadcrumb.md",
+        "specPath": "resources/navigation/breadcrumb.md",
         "demoPath": "inbox/11_Navigation/breadcrumb/index.html"
       },
       {
         "slug": "pagination",
         "title": "Pagination · 分页导航",
         "summary": "用于长列表数据分批浏览的分页控制器。",
-        "specPath": "skills/ui-motion/navigation/pagination.md",
+        "specPath": "resources/navigation/pagination.md",
         "demoPath": "inbox/11_Navigation/pagination/index.html"
       },
       {
         "slug": "tabs",
         "title": "Tabs · 选项卡导航",
         "summary": "用于同级视图维度与上下文模块切换的分段选项卡。",
-        "specPath": "skills/ui-motion/navigation/tabs.md",
+        "specPath": "resources/navigation/tabs.md",
         "demoPath": "inbox/11_Navigation/tabs/index.html"
       }
     ]
@@ -480,28 +480,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "accordion",
         "title": "Accordion · 手风琴折叠面板",
         "summary": "用于垂直区域内容按需展开与折叠的信息架构组件。",
-        "specPath": "skills/ui-motion/expand/accordion.md",
+        "specPath": "resources/expand/accordion.md",
         "demoPath": "inbox/12_Expand/accordion/index.html"
       },
       {
         "slug": "expandable-card",
         "title": "Expandable Card · 可展开卡片",
         "summary": "用于承载多阶段复杂摘要并在原地平滑拉伸展开详情的双维形变卡片。",
-        "specPath": "skills/ui-motion/expand/expandable-card.md",
+        "specPath": "resources/expand/expandable-card.md",
         "demoPath": "inbox/12_Expand/expandable-card/index.html"
       },
       {
         "slug": "resizable-panels",
         "title": "Resizable Panels · 可调面板组",
         "summary": "用于多栏工作区布局与自由横向拖拽调节比例的分栏容器。",
-        "specPath": "skills/ui-motion/expand/resizable-panels.md",
+        "specPath": "resources/expand/resizable-panels.md",
         "demoPath": "inbox/12_Expand/resizable-panels/index.html"
       },
       {
         "slug": "scroll-area",
         "title": "Scroll Area · 滚动区域",
         "summary": "用于限制内容视口并提供动态边缘渐隐遮罩与平滑悬浮滚动条的滚动容器。",
-        "specPath": "skills/ui-motion/expand/scroll-area.md",
+        "specPath": "resources/expand/scroll-area.md",
         "demoPath": "inbox/12_Expand/scroll-area/index.html"
       }
     ]
@@ -517,49 +517,49 @@ window.UI_MOTION_CATALOG = [
         "slug": "bottom-sheet",
         "title": "Bottom Sheet · 底部抽屉",
         "summary": "用于移动端或紧凑视口下自底部滑出的多档停靠交互面板。",
-        "specPath": "skills/ui-motion/overlays/bottom-sheet.md",
+        "specPath": "resources/overlays/bottom-sheet.md",
         "demoPath": "inbox/13_Overlays/bottom-sheet/index.html"
       },
       {
         "slug": "dialog",
         "title": "Dialog · 对话框",
         "summary": "用于承载关键业务决策、不可逆操作二次确认与聚焦任务流的居中模态对话框。",
-        "specPath": "skills/ui-motion/overlays/dialog.md",
+        "specPath": "resources/overlays/dialog.md",
         "demoPath": "inbox/13_Overlays/dialog/index.html"
       },
       {
         "slug": "drawer",
         "title": "Drawer · 侧边抽屉",
         "summary": "用于从屏幕边缘或容器侧方平滑滑出的侧边交互面板。",
-        "specPath": "skills/ui-motion/overlays/drawer.md",
+        "specPath": "resources/overlays/drawer.md",
         "demoPath": "inbox/13_Overlays/drawer/index.html"
       },
       {
         "slug": "hover-card",
         "title": "Hover Card · 悬停卡片",
         "summary": "用于在链接或提及元素上方通过光标悬停快速预览用户画像或富文本信息的浮动卡片。",
-        "specPath": "skills/ui-motion/overlays/hover-card.md",
+        "specPath": "resources/overlays/hover-card.md",
         "demoPath": "inbox/13_Overlays/hover-card/index.html"
       },
       {
         "slug": "popover",
         "title": "Popover · 弹出框",
         "summary": "用于在锚点按钮邻近区域展开上下文交互、微型表单或辅助说明的浮动浮层。",
-        "specPath": "skills/ui-motion/overlays/popover.md",
+        "specPath": "resources/overlays/popover.md",
         "demoPath": "inbox/13_Overlays/popover/index.html"
       },
       {
         "slug": "share-access",
         "title": "Share Access · 共享访问管理",
         "summary": "用于文档与工作区协作者邀请、权限分配与链接分享的复合型权限弹窗。",
-        "specPath": "skills/ui-motion/overlays/share-access.md",
+        "specPath": "resources/overlays/share-access.md",
         "demoPath": "inbox/13_Overlays/share-access/index.html"
       },
       {
         "slug": "tooltip",
         "title": "Tooltip · 文字提示",
         "summary": "用于在悬停或聚焦纯图标与紧凑控件时提供简明辅助说明的轻量浮层。",
-        "specPath": "skills/ui-motion/overlays/tooltip.md",
+        "specPath": "resources/overlays/tooltip.md",
         "demoPath": "inbox/13_Overlays/tooltip/index.html"
       }
     ]
@@ -575,28 +575,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "alert",
         "title": "Alert · 警示通知栏",
         "summary": "用于展示页面局部或全局任务状态、警告与系统反馈的常驻/可收起通知横幅。",
-        "specPath": "skills/ui-motion/messages/alert.md",
+        "specPath": "resources/messages/alert.md",
         "demoPath": "inbox/14_Messages/alert/index.html"
       },
       {
         "slug": "announcement-bar",
         "title": "Announcement Bar · 公告栏",
         "summary": "用于全站或页面顶端传达重要产品更新、运营公告或活动倒计时的通栏公告横幅。",
-        "specPath": "skills/ui-motion/messages/announcement-bar.md",
+        "specPath": "resources/messages/announcement-bar.md",
         "demoPath": "inbox/14_Messages/announcement-bar/index.html"
       },
       {
         "slug": "toast-stack",
         "title": "Toast Stack · 吐司通知栈",
         "summary": "用于在视口右下角管理多条并发通知的层叠堆叠（Card Stacking）与弹性展开组件。",
-        "specPath": "skills/ui-motion/messages/toast-stack.md",
+        "specPath": "resources/messages/toast-stack.md",
         "demoPath": "inbox/14_Messages/toast-stack/index.html"
       },
       {
         "slug": "toast",
         "title": "Toast · 吐司提示",
         "summary": "用于在页面边缘悬浮呈现轻量级、非阻塞型操作反馈（如“草稿已保存”、“链接已复制”）的瞬态通知组件。",
-        "specPath": "skills/ui-motion/messages/toast.md",
+        "specPath": "resources/messages/toast.md",
         "demoPath": "inbox/14_Messages/toast/index.html"
       }
     ]
@@ -612,35 +612,35 @@ window.UI_MOTION_CATALOG = [
         "slug": "countdown",
         "title": "Countdown · 倒计时",
         "summary": "用于在活动大促、版本发布或重要日程节点呈现紧迫感的高品质时间倒计时组件。",
-        "specPath": "skills/ui-motion/progress/countdown.md",
+        "specPath": "resources/progress/countdown.md",
         "demoPath": "inbox/15_Progress/countdown/index.html"
       },
       {
         "slug": "progress",
         "title": "Progress · 进度条",
         "summary": "用于反馈文件上传、批量下载、数据同步或步骤完成度的线性进度条组件。",
-        "specPath": "skills/ui-motion/progress/progress.md",
+        "specPath": "resources/progress/progress.md",
         "demoPath": "inbox/15_Progress/progress/index.html"
       },
       {
         "slug": "skeleton",
         "title": "Skeleton · 骨架屏",
         "summary": "用于在网络异步请求或数据加载期间提供排版占位预期的骨架屏组件。",
-        "specPath": "skills/ui-motion/progress/skeleton.md",
+        "specPath": "resources/progress/skeleton.md",
         "demoPath": "inbox/15_Progress/skeleton/index.html"
       },
       {
         "slug": "stepper",
         "title": "Stepper · 步骤向导",
         "summary": "用于引导用户完成多阶段复杂表单、安装向导或订单推进的步骤条组件。",
-        "specPath": "skills/ui-motion/progress/stepper.md",
+        "specPath": "resources/progress/stepper.md",
         "demoPath": "inbox/15_Progress/stepper/index.html"
       },
       {
         "slug": "usage-meter",
         "title": "Usage Meter · 用量计量表",
         "summary": "用于多维度资源配额、云存储用量与计费限额监控的复合计量仪表盘组件。",
-        "specPath": "skills/ui-motion/progress/usage-meter.md",
+        "specPath": "resources/progress/usage-meter.md",
         "demoPath": "inbox/15_Progress/usage-meter/index.html"
       }
     ]
@@ -656,21 +656,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "avatar-group",
         "title": "Avatar Group · 头像组",
         "summary": "用于团队协同、协作者列表以及多用户头像重叠排布场景。",
-        "specPath": "skills/ui-motion/avatars/avatar-group.md",
+        "specPath": "resources/avatars/avatar-group.md",
         "demoPath": "inbox/16_Avatars/avatar-group/index.html"
       },
       {
         "slug": "avatar",
         "title": "Avatar · 头像",
         "summary": "用于展示用户与实体形象、在线/离线实时状态指示以及图片失效时的首字母缩写兜底。",
-        "specPath": "skills/ui-motion/avatars/avatar.md",
+        "specPath": "resources/avatars/avatar.md",
         "demoPath": "inbox/16_Avatars/avatar/index.html"
       },
       {
         "slug": "badge",
         "title": "Badge · 徽标",
         "summary": "用于展示对象状态、分类标签、审阅阶段或数值指示的紧凑型徽标组件。",
-        "specPath": "skills/ui-motion/avatars/badge.md",
+        "specPath": "resources/avatars/badge.md",
         "demoPath": "inbox/16_Avatars/badge/index.html"
       }
     ]
@@ -686,21 +686,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "card-stack",
         "title": "Card Stack · 堆叠卡片",
         "summary": "用于轻量滑动决策、筛选卡片流（如通过/忽略、保留/跳过）的高流畅度物理手势堆叠卡片组件。",
-        "specPath": "skills/ui-motion/cards/card-stack.md",
+        "specPath": "resources/cards/card-stack.md",
         "demoPath": "inbox/17_Cards/card-stack/index.html"
       },
       {
         "slug": "card",
         "title": "Card · 交互式卡片",
         "summary": "集合封面图片、元数据排版、状态操作与沉浸式全屏快速预览（Quick Look）的高品质内容卡片。",
-        "specPath": "skills/ui-motion/cards/card.md",
+        "specPath": "resources/cards/card.md",
         "demoPath": "inbox/17_Cards/card/index.html"
       },
       {
         "slug": "metric-card",
         "title": "Metric Card · 指标统计卡片",
         "summary": "集成机械垂直数字滚轮计数器、平滑自适应涨跌幅胶囊与分段周期切换的高性能指标卡片。",
-        "specPath": "skills/ui-motion/cards/metric-card.md",
+        "specPath": "resources/cards/metric-card.md",
         "demoPath": "inbox/17_Cards/metric-card/index.html"
       }
     ]
@@ -716,98 +716,98 @@ window.UI_MOTION_CATALOG = [
         "slug": "animated-counter",
         "title": "Animated Counter · 数字翻滚计数器",
         "summary": "用于统计指标、财务数据、计数器及实时响应量动态递增/递减时的机械数字轮盘翻滚动效。通过 Ghost Sizer（隐形占位符）锁死字符列物理几何尺寸，杜绝数字跳变引发的外框横向抖动与重排抖动；配合垂直滚轮与运动模糊模拟真实机械翻牌器质感。",
-        "specPath": "skills/ui-motion/charts/animated-counter.md",
+        "specPath": "resources/charts/animated-counter.md",
         "demoPath": "inbox/18_Charts/animated-counter/index.html"
       },
       {
         "slug": "bar-chart",
         "title": "Bar Chart · 柱状图",
         "summary": "用于离散分类或连续时间序列对比的高性能 SVG 柱状图。包含入场高度错峰生长、均值辅助线平滑升降、光标/指针跟手 Scrubbing 实时探查与数值切换、零抖动 Ghost Sizer 标题指标数值联动，以及键盘全无障碍滑块映射。",
-        "specPath": "skills/ui-motion/charts/bar-chart.md",
+        "specPath": "resources/charts/bar-chart.md",
         "demoPath": "inbox/18_Charts/bar-chart/index.html"
       },
       {
         "slug": "donut-chart",
         "title": "Donut Chart · 环形图",
         "summary": "用于分类份额、渠道占比和资源分配对比的高质感 SVG 环形图。包含入场弧形扫掠（Sweep）、动态角度重分布弹簧动画（Angle Redistribution）、悬停时扇区径向外凸微放大（Lift & Grow）、中心鼓（Center Drum）统计数值与占比平滑切换，以及图例联动过滤。",
-        "specPath": "skills/ui-motion/charts/donut-chart.md",
+        "specPath": "resources/charts/donut-chart.md",
         "demoPath": "inbox/18_Charts/donut-chart/index.html"
       },
       {
         "slug": "funnel-chart",
         "title": "Funnel Chart · 漏斗图",
         "summary": "用于转化漏斗、多阶段流失分析（如电商结账漏斗、注册转化流）的连续曲面 SVG + 粒子流动漏斗图。采用五次光滑过渡曲线（Quintic Smoothstep）插值各阶段宽度，支持步骤间流失率指示、聚焦高亮光晕、跟手探查提示框，以及可选的 Canvas 流体粒子动效。",
-        "specPath": "skills/ui-motion/charts/funnel-chart.md",
+        "specPath": "resources/charts/funnel-chart.md",
         "demoPath": "inbox/18_Charts/funnel-chart/index.html"
       },
       {
         "slug": "gauge",
         "title": "Gauge · 仪表盘",
         "summary": "用于系统负载、健康评分、存储用量和目标达成率的 270 度圆弧仪表盘。包含由零起步的物理阻尼圆弧弹簧生长（First Fill Spring）、跨阈值（Success/Warning/Danger）颜色与状态标签微模糊置换、数字轮盘 Ghost Sizer 防抖，以及原生 `role=\"meter\"` 无障碍语义绑定。",
-        "specPath": "skills/ui-motion/charts/gauge.md",
+        "specPath": "resources/charts/gauge.md",
         "demoPath": "inbox/18_Charts/gauge/index.html"
       },
       {
         "slug": "line-chart",
         "title": "Line Chart · 折线图",
         "summary": "用于连续时间序列、多周期对比（本期 vs 上期）以及多指标趋势分析的高性能平滑折线与面积图。包含样条平滑曲线渲染（Catmull-Rom / Monotone）、重采样路径形变（Shared Morph Grid Points）、跟手十字准星（Crosshair Scrubbing）、边界自适应翻转提示框（Flipped Tooltip），以及图例系列显隐切换。",
-        "specPath": "skills/ui-motion/charts/line-chart.md",
+        "specPath": "resources/charts/line-chart.md",
         "demoPath": "inbox/18_Charts/line-chart/index.html"
       },
       {
         "slug": "radar-chart",
         "title": "Radar Chart · 雷达图",
         "summary": "用于多维属性评估（如城市对比、候选人技能、产品特性分析）的蜘蛛网多边形雷达图。包含多同心多边形环与径向辐条（Spoke）、多系列多边形归一化平滑形变（Morphing）、辐条焦点悬停吸附（Active Spoke）、系列交点圆环与排序对比提示框，以及全键盘轴点轮转。",
-        "specPath": "skills/ui-motion/charts/radar-chart.md",
+        "specPath": "resources/charts/radar-chart.md",
         "demoPath": "inbox/18_Charts/radar-chart/index.html"
       },
       {
         "slug": "realtime-stream",
         "title": "Realtime Stream · 实时流图",
         "summary": "用于高频时间序列实时监控（如 API p95 响应延迟、QPS、网络吞吐量、传感器遥测数据）的 Canvas 连续动态流图。支持固定时间滑动窗口（Rolling Window）、无抖动平滑时间插值、最新数值呼吸脉冲、指针或焦点移入时自动锁定画面（Hold View）供历史探查，以及空格键暂停/恢复。",
-        "specPath": "skills/ui-motion/charts/realtime-stream.md",
+        "specPath": "resources/charts/realtime-stream.md",
         "demoPath": "inbox/18_Charts/realtime-stream/index.html"
       },
       {
         "slug": "ridgeline",
         "title": "Ridgeline · 山脊图",
         "summary": "用于多分组连续数值分布演变（如 12 个月份气温分布、多部门薪资带、多版本响应时间分布）的垂直重叠密度山脊图（Joyplot）。包含高斯核密度估计（KDE）重绘、上下层垂直交错遮挡渲染、悬停单层弹簧浮起透镜（Lens Lift 6px）、四分位间距带（IQR Band）高亮，以及全键盘逐行逐点探查。",
-        "specPath": "skills/ui-motion/charts/ridgeline.md",
+        "specPath": "resources/charts/ridgeline.md",
         "demoPath": "inbox/18_Charts/ridgeline/index.html"
       },
       {
         "slug": "slope-chart",
         "title": "Slope Chart · 坡度图",
         "summary": "用于两期对照（如 Q1 vs Q2、改版前 vs 改版后）指标变动与位次排位跃迁的斜率坡度图。包含从左至右错峰路径笔触展开（700ms Stroke Draw）、标签碰撞避让引线（Leader Lines）、排名升降动态角标（Rank Indicator）、悬停高亮与未聚焦项静音淡化，以及全键盘无障碍巡检。",
-        "specPath": "skills/ui-motion/charts/slope-chart.md",
+        "specPath": "resources/charts/slope-chart.md",
         "demoPath": "inbox/18_Charts/slope-chart/index.html"
       },
       {
         "slug": "sparkline",
         "title": "Sparkline · 迷你折线图",
         "summary": "用于紧凑数据看板、表格行内指标与资产卡片内的极简微型走势图。无冗余坐标网格，采用自适应样条曲线、笔触书写展开（840ms Stroke Reveal）、最新值着陆端点脉冲（Landed End Dot）、零抖动 Ghost Sizer 标题指标数值联动，以及光标掠过时的过去亮起与未来暗化探查（Scrubbing）。",
-        "specPath": "skills/ui-motion/charts/sparkline.md",
+        "specPath": "resources/charts/sparkline.md",
         "demoPath": "inbox/18_Charts/sparkline/index.html"
       },
       {
         "slug": "split-bar",
         "title": "Split Bar · 分割条形图",
         "summary": "用于单维度多分类占比与份额重平衡（如流量渠道分布、存储配额占用、预算开销比例）的比例水平分割条形图。包含横向分段弹性重平衡（Slice Spring）、空间不足自动溢出引导折线（Leader Lines & Outside Labels）、零抖动 Ghost Sizer 标题指标数值联动，以及图例点击过滤重排。",
-        "specPath": "skills/ui-motion/charts/split-bar.md",
+        "specPath": "resources/charts/split-bar.md",
         "demoPath": "inbox/18_Charts/split-bar/index.html"
       },
       {
         "slug": "timeline",
         "title": "Timeline · 时间线",
         "summary": "用于按日历时间分组展示离散事件活动流（如项目动态、审计日志、发布历史、工单生命周期）的分组交互时间线。包含视口交叉驱动的连线垂直生长动画（Downward Segment Scale）、小圆点弹性弹出（Marker Pop Spring）、可折叠详情手风琴（Detail Accordion）、相对时间动态计算与键盘上下箭头巡航。",
-        "specPath": "skills/ui-motion/charts/timeline.md",
+        "specPath": "resources/charts/timeline.md",
         "demoPath": "inbox/18_Charts/timeline/index.html"
       },
       {
         "slug": "waffle-chart",
         "title": "Waffle Chart · 华夫饼图",
         "summary": "用于展示多分类构成与绝对/相对份额占比（如国家电力能源来源结构、人群分布画像、产品开销构成）的 10×10 百分比单元格网格华夫饼图。包含最大余数法（Largest Remainder Method）全量 100 格无缝分配、最少位移重平衡迁移、插槽错峰入场缩放（Slot-staggered Reveal）、光标聚焦环与分类半透明遮罩暗化（Dim Opacity 0.26）、浮动跟随提示框及键盘箭头网格巡航。",
-        "specPath": "skills/ui-motion/charts/waffle-chart.md",
+        "specPath": "resources/charts/waffle-chart.md",
         "demoPath": "inbox/18_Charts/waffle-chart/index.html"
       }
     ]
@@ -823,49 +823,49 @@ window.UI_MOTION_CATALOG = [
         "slug": "brush-chart",
         "title": "Brush Chart · 笔刷时间范围图表",
         "summary": "包含主折线/面积绘图区与底部概览滑块条（Overview Strip）的双层联动时序图表。通过双向拖拽手柄、窗口平移、主图光标十字探查（Scrubbing）以及键盘滑块无障碍映射，在海量连续时间序列中提供毫秒级平滑视窗缩放与区间选定。",
-        "specPath": "skills/ui-motion/advanced-charts/brush-chart.md",
+        "specPath": "resources/advanced-charts/brush-chart.md",
         "demoPath": "inbox/19_Advanced_charts/brush-chart/index.html"
       },
       {
         "slug": "data-grid",
         "title": "Data Grid · 高性能数据网格",
         "summary": "支持万级数据量流畅交互的企业级原生虚拟滚动数据表格。包含基于 `transform: translateY` 的高频虚拟行布局计算、首列绝对定位固定锁定（Column Pinning）、列宽拖拽弹性调节、表头多列排序、实时模糊检索与动态行数计数器联动、复选框多选及全键盘网格巡航。",
-        "specPath": "skills/ui-motion/advanced-charts/data-grid.md",
+        "specPath": "resources/advanced-charts/data-grid.md",
         "demoPath": "inbox/19_Advanced_charts/data-grid/index.html"
       },
       {
         "slug": "race-bar-chart",
         "title": "Race Bar Chart · 动态竞速条形图",
         "summary": "展示多分类或产品随时间推移的位次竞争与数值变迁的高表现力动态图表。通过物理阻尼弹性重排序（Row Reordering）、平滑插值数值滚动、时间线滑块巡航控制（Play/Pause/Scrubbing）以及视口可见性联动，在 60fps 下真实再现排名上下超车与柱宽动态伸缩。",
-        "specPath": "skills/ui-motion/advanced-charts/race-bar-chart.md",
+        "specPath": "resources/advanced-charts/race-bar-chart.md",
         "demoPath": "inbox/19_Advanced_charts/race-bar-chart/index.html"
       },
       {
         "slug": "sankey-flow",
         "title": "Sankey Flow · 桑基流向图",
         "summary": "展示用户转化路径、能量损耗或资金流向的多阶段有向流动图表。包含双向三次贝塞尔流带曲线（Cubic Bezier Ribbons）、前向与后向全链路高亮透镜（Forward/Backward Path Highlighting）、流带内部轻量级微粒子流动 Canvas 动画，以及响应式阶段自适应布局。",
-        "specPath": "skills/ui-motion/advanced-charts/sankey-flow.md",
+        "specPath": "resources/advanced-charts/sankey-flow.md",
         "demoPath": "inbox/19_Advanced_charts/sankey-flow/index.html"
       },
       {
         "slug": "streamgraph",
         "title": "Streamgraph · 流水堆叠面积图",
         "summary": "用于呈现多个类别或主题随连续时间消长演化的有机流状图表。基于李·拜伦（Lee Byron）Wiggle 摆动基准线算法消除由于单一基线累积引发的几何扭曲，结合流层内部自适应居中文本标签、图例悬停聚焦与显隐切换、十字发丝探针光标及全维数据提示卡片。",
-        "specPath": "skills/ui-motion/advanced-charts/streamgraph.md",
+        "specPath": "resources/advanced-charts/streamgraph.md",
         "demoPath": "inbox/19_Advanced_charts/streamgraph/index.html"
       },
       {
         "slug": "sunburst",
         "title": "Sunburst · 旭日旭日图",
         "summary": "以多层同心圆环展示复杂树状层级构成的径向数据可视化组件。支持层级无级缩放下钻（Hierarchical Zoom In/Out）、中心展台数值平滑形变联动、面包屑轨迹导航（Breadcrumb Trail）、右侧明细分类列表联动高亮，以及全键盘扇区巡航访问。",
-        "specPath": "skills/ui-motion/advanced-charts/sunburst.md",
+        "specPath": "resources/advanced-charts/sunburst.md",
         "demoPath": "inbox/19_Advanced_charts/sunburst/index.html"
       },
       {
         "slug": "treemap",
         "title": "Treemap · 矩形树图",
         "summary": "以二维平面嵌套矩形面积呈现复杂树状层级构成的比例分布图表。基于正方形化（Squarified）几何分块算法保证各矩形长宽比接近黄金比例，支持两级层级渐进下钻与支点平滑展开动画（Zoom In/Out）、面包屑路径导航、悬停多级链路关联高亮，以及全键盘方向键空间巡航。",
-        "specPath": "skills/ui-motion/advanced-charts/treemap.md",
+        "specPath": "resources/advanced-charts/treemap.md",
         "demoPath": "inbox/19_Advanced_charts/treemap/index.html"
       }
     ]
@@ -881,35 +881,35 @@ window.UI_MOTION_CATALOG = [
         "slug": "chat-thread",
         "title": "Chat Thread 对话流消息列表",
         "summary": "`chat-thread` 专为即时通讯、客服工单、协作会话与 AI 对话流设计的现代聊天消息组件。原生 Vanilla 实现，支持同作者 5 分钟智能合组、消息滑入弹簧过渡、底部磁吸与未读悬浮胶囊、多表情回应弹簧计数、图片/附件托盘与自适应高度输入框。",
-        "specPath": "skills/ui-motion/tables/chat-thread.md",
+        "specPath": "resources/tables/chat-thread.md",
         "demoPath": "inbox/20_Tables/chat-thread/index.html"
       },
       {
         "slug": "comment-thread",
         "title": "Comment Thread 分层嵌套评论树",
         "summary": "`comment-thread` 专为协作审阅、代码审查、长文批注与社区讨论设计的多层嵌套评论树组件。原生 Vanilla 实现，支持递归树状回复、平滑折叠展开高弹性弹簧过渡、原地行内回复框、表情反应徽标与线程解决/重开状态切换。",
-        "specPath": "skills/ui-motion/tables/comment-thread.md",
+        "specPath": "resources/tables/comment-thread.md",
         "demoPath": "inbox/20_Tables/comment-thread/index.html"
       },
       {
         "slug": "json-viewer",
         "title": "JSON Viewer 交互式数据树与搜索探针",
         "summary": "`json-viewer` 专为 API 调试面板、审计日志分析、配置项查看与开发者工具设计的高保真 JSON 数据可视化树组件。原生 Vanilla 实现，支持任意层级嵌套展开与折叠、关键字全文实时高亮与匹配计数跳转、键值语法高亮、单键路径与值一键复制反馈。",
-        "specPath": "skills/ui-motion/tables/json-viewer.md",
+        "specPath": "resources/tables/json-viewer.md",
         "demoPath": "inbox/20_Tables/json-viewer/index.html"
       },
       {
         "slug": "sortable-data-table",
         "title": "Sortable Data Table 可排序与行选择交互数据表格",
         "summary": "`sortable-data-table` 专为管理后台、项目面板、订单结算列表与用户数据中心设计的高级交互表格组件。原生 Vanilla 实现，支持多列头升降序切换、FLIP 物理弹簧行位移重排（400ms）、全选/部分选中（Indeterminate）状态切换、Shift 连击多选、悬浮选中状态胶囊与响应式卡片流降级。",
-        "specPath": "skills/ui-motion/tables/sortable-data-table.md",
+        "specPath": "resources/tables/sortable-data-table.md",
         "demoPath": "inbox/20_Tables/sortable-data-table/index.html"
       },
       {
         "slug": "tree-view",
         "title": "Tree View 阶梯缩进与折叠文件树",
         "summary": "`tree-view` 专为 IDE 侧边栏、项目代码浏览、企业组织架构与分类目检索设计的高灵动树状目录视图组件。原生 Vanilla 实现，支持任意深度嵌套文件夹开合、行高弹簧平滑过渡（38px）、逐项微差阶梯入场（35ms Stagger）、文件夹图标形态缩放置换、平滑游动选中底色胶囊与符合 WAI-ARIA 规范的全套键盘巡航。",
-        "specPath": "skills/ui-motion/tables/tree-view.md",
+        "specPath": "resources/tables/tree-view.md",
         "demoPath": "inbox/20_Tables/tree-view/index.html"
       }
     ]
@@ -925,21 +925,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "activity-heatmap",
         "title": "Activity Heatmap · 活动热力图",
         "summary": "展示全年或周期性贡献与活动分布的网格日历热力图。核心动效包括进入视口的对角线波浪着色展开、年份切换方向性重着色、光标吸附与平滑滑动的提示气泡、图例强度过滤渐暗、选中高亮框平滑位移以及统计数字滚轮递增。",
-        "specPath": "skills/ui-motion/activity/activity-heatmap.md",
+        "specPath": "resources/activity/activity-heatmap.md",
         "demoPath": "inbox/21_Activity/activity-heatmap/index.html"
       },
       {
         "slug": "empty-state",
         "title": "Empty State · 空状态反馈",
         "summary": "数据或任务为空时的引导与占位视图。核心动效包含图标与文案的键控微模糊交叉置换（Micro-blur State Swap）、外层卡片高度自适应平滑弹簧形变、入场缩放阻尼以及行动按钮物理微按压回弹。",
-        "specPath": "skills/ui-motion/activity/empty-state.md",
+        "specPath": "resources/activity/empty-state.md",
         "demoPath": "inbox/21_Activity/empty-state/index.html"
       },
       {
         "slug": "filter-toolbar",
         "title": "Filter Toolbar · 筛选工具栏",
         "summary": "高交互密度的动态数据过滤工具栏。核心动效包含“添加筛选”按钮向下拉菜单的卡片形态形变（Morphing Popover）、过滤标签（Pill）动态插入与删除时的宽度弹性拉伸与收缩、标签数值变更时的微模糊置换、以及全部条件清空时的平滑高度过渡。",
-        "specPath": "skills/ui-motion/activity/filter-toolbar.md",
+        "specPath": "resources/activity/filter-toolbar.md",
         "demoPath": "inbox/21_Activity/filter-toolbar/index.html"
       }
     ]
@@ -955,21 +955,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "carousel",
         "title": "Carousel · 媒体轮播卡",
         "summary": "多媒体与富卡片轮播滑块。核心动效包含指针对齐吸附与惯性投影（Momentum Projection）、边缘弹性阻尼（Rubberband）、相邻卡片焦点缩放与渐隐、滑动高光指示条（Gliding Pill Indicator）以及悬停/聚焦暂停的自动轮播进度流转。",
-        "specPath": "skills/ui-motion/media/carousel.md",
+        "specPath": "resources/media/carousel.md",
         "demoPath": "inbox/22_Media/carousel/index.html"
       },
       {
         "slug": "file-dropzone",
         "title": "File Dropzone · 媒体文件投递区",
         "summary": "专为多媒体资产（图像、视频、设计素材）上传设计的互动文件投递区。核心动效包含三层素材卡片 3D 扇形展开（Three Sheets Fan-out）、SVG 环绕虚线边缘呼吸律动（Drop Breathe Animation）、多类型文件进度条平滑填充、失败项重试旋转以及条目移除时的高度折叠与淡出。",
-        "specPath": "skills/ui-motion/media/file-dropzone.md",
+        "specPath": "resources/media/file-dropzone.md",
         "demoPath": "inbox/22_Media/file-dropzone/index.html"
       },
       {
         "slug": "image-compare",
         "title": "Image Compare · 图像对比滑块",
         "summary": "双图前后效果分割对比滑块。核心动效包含分界线与胶囊手柄的指针拖拽跟随（Pointer Drag & Catch-up Lag）、边缘弹性拉伸（Edge Rubberband）、双向（横向/纵向）90° 旋转形变切换（Quarter-turn Polygon Clip）、双击居中复位以及键盘无障碍步进。",
-        "specPath": "skills/ui-motion/media/image-compare.md",
+        "specPath": "resources/media/image-compare.md",
         "demoPath": "inbox/22_Media/image-compare/index.html"
       }
     ]
@@ -985,28 +985,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "in-view-title",
         "title": "In-view Title · 视口入场标题",
         "summary": "元素滚入浏览器视口时触发的高级标题入场动效。支持 Blur（高斯模糊浮显）、Words（逐词遮罩升起）、Lines（逐行自下而上滑入）、Tracking（字距展开）以及 Wipe（横向裁切擦除）五种动效模式。核心机制基于 IntersectionObserver 视口占比检测、越过视口顶部的 passed 状态锁定、以及优雅的纯 CSS 离线兜底。",
-        "specPath": "skills/ui-motion/text-effects/in-view-title.md",
+        "specPath": "resources/text-effects/in-view-title.md",
         "demoPath": "inbox/23_Text_effects/in-view-title/index.html"
       },
       {
         "slug": "text-morph",
         "title": "Text Morph · 字形平滑形变",
         "summary": "高保真单行文案平滑字形形变与状态流转组件。核心动效包含新旧字符按出现频次复用（Keyed Character Reuse）、相同字符平滑弹簧位移、退场字符绝对脱轨模糊淡出、进场字符错峰升起模糊淡入、以及外层容器宽度自适应弹性收敛（Zero-Jitter Container Width Morph）。",
-        "specPath": "skills/ui-motion/text-effects/text-morph.md",
+        "specPath": "resources/text-effects/text-morph.md",
         "demoPath": "inbox/23_Text_effects/text-morph/index.html"
       },
       {
         "slug": "text-reveal",
         "title": "Text Reveal · 逐词文本浮现",
         "summary": "标题与正文段落的高品质逐词浮现入场动效。核心动效包含三条独立的 CSS 关键帧轨道（位移 760ms、透明度 440ms、高斯清晰度 580ms）、基于自然空格智能分词、动态自适应错峰步长、遮罩羽化为下行字母留白、以及动画结束后释放滤镜以保障文字字体清晰原生渲染。",
-        "specPath": "skills/ui-motion/text-effects/text-reveal.md",
+        "specPath": "resources/text-effects/text-reveal.md",
         "demoPath": "inbox/23_Text_effects/text-reveal/index.html"
       },
       {
         "slug": "text-shimmer",
         "title": "Text Shimmer · 文本扫光微动效",
         "summary": "文本表面高品质动态流光与扫描微动效。核心机制包含 2.2em 光带周期性扫掠（Shimmer Light Band）、32% 周期驻留微憩、离屏视口自动暂停、完成态光带平滑滑出（Settle Glide）、文字微模糊置换（Micro-blur Text Swap）以及图标矢量变异至成功对勾。",
-        "specPath": "skills/ui-motion/text-effects/text-shimmer.md",
+        "specPath": "resources/text-effects/text-shimmer.md",
         "demoPath": "inbox/23_Text_effects/text-shimmer/index.html"
       }
     ]
@@ -1022,42 +1022,42 @@ window.UI_MOTION_CATALOG = [
         "slug": "action-morph",
         "title": "Action Morph · 浮动操作形变面板",
         "summary": "浮动操作按钮（FAB）在原地物理形变为多级操作菜单及就地录入表单，通过弹簧插值连续同步外壳宽高与圆角，实现零跳变内容交接与异步反馈。",
-        "specPath": "skills/ui-motion/docks-and-tabs/action-morph.md",
+        "specPath": "resources/docks-and-tabs/action-morph.md",
         "demoPath": "inbox/24_Docks_and_tabs/action-morph/index.html"
       },
       {
         "slug": "dock",
         "title": "Dock · 浮动工具栏与形状托盘",
         "summary": "集成子工具托盘有机形变、滑动高光、温和提示气泡与机械数字滚轮的浮动应用工具栏。",
-        "specPath": "skills/ui-motion/docks-and-tabs/dock.md",
+        "specPath": "resources/docks-and-tabs/dock.md",
         "demoPath": "inbox/24_Docks_and_tabs/dock/index.html"
       },
       {
         "slug": "liquid-tab-bar",
         "title": "Liquid Tab Bar · 液态拉伸标签栏",
         "summary": "具有双边缘黏性流动形变、圆角剪裁反色高光、文字插槽动态伸缩与惯性拖拽吸附的流体导航栏。",
-        "specPath": "skills/ui-motion/docks-and-tabs/liquid-tab-bar.md",
+        "specPath": "resources/docks-and-tabs/liquid-tab-bar.md",
         "demoPath": "inbox/24_Docks_and_tabs/liquid-tab-bar/index.html"
       },
       {
         "slug": "morph-nav",
         "title": "Morph Nav · 形变导航条",
         "summary": "单壳体表面自适应测量多级大型内容面板（Mega Menu），结合弹簧连续插值宽高与圆角、方向性微模糊交接和共享高光药丸的顶栏导航系统。",
-        "specPath": "skills/ui-motion/docks-and-tabs/morph-nav.md",
+        "specPath": "resources/docks-and-tabs/morph-nav.md",
         "demoPath": "inbox/24_Docks_and_tabs/morph-nav/index.html"
       },
       {
         "slug": "orbit-menu",
         "title": "Orbit Menu · 环形放射菜单",
         "summary": "以触发点为圆心沿圆弧轨迹错峰展开、集成磁吸透镜吸附、手势牵引绳与矢量图标形变的放射型交互菜单。",
-        "specPath": "skills/ui-motion/docks-and-tabs/orbit-menu.md",
+        "specPath": "resources/docks-and-tabs/orbit-menu.md",
         "demoPath": "inbox/24_Docks_and_tabs/orbit-menu/index.html"
       },
       {
         "slug": "share-sheet",
         "title": "Share Sheet · 分享面板与抽屉",
         "summary": "桌面端原地物理弹簧形变展开、移动端自适应底部滑出抽屉并支持手势拖拽关闭与链接复制反馈的协作分享面板。",
-        "specPath": "skills/ui-motion/docks-and-tabs/share-sheet.md",
+        "specPath": "resources/docks-and-tabs/share-sheet.md",
         "demoPath": "inbox/24_Docks_and_tabs/share-sheet/index.html"
       }
     ]
@@ -1073,21 +1073,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "glass-card",
         "title": "Glass Card · 玻璃拟态卡片",
         "summary": "集成 3D 空间弹簧倾斜、动态径向反光菲涅尔透镜、内容高度平滑展开与微模糊渐显的高质感毛玻璃名片。",
-        "specPath": "skills/ui-motion/glass/glass-card.md",
+        "specPath": "resources/glass/glass-card.md",
         "demoPath": "inbox/25_Glass/glass-card/index.html"
       },
       {
         "slug": "glass-menu",
         "title": "Glass Menu · 玻璃拟态菜单",
         "summary": "自触发器物理平滑形变为毛玻璃菜单、支持子菜单横向交接自适应高度测量、滑动高光胶囊与就地撤销通知的高端浮动菜单。",
-        "specPath": "skills/ui-motion/glass/glass-menu.md",
+        "specPath": "resources/glass/glass-menu.md",
         "demoPath": "inbox/25_Glass/glass-menu/index.html"
       },
       {
         "slug": "glass-tabbar",
         "title": "Glass Tabbar · 玻璃拟态标签栏",
         "summary": "集成速度拉伸与浮起物理的玻璃透镜、水平手势擦动吸附、随页面滚动自适应高度折叠与独立搜索胶囊的主导航标签栏。",
-        "specPath": "skills/ui-motion/glass/glass-tabbar.md",
+        "specPath": "resources/glass/glass-tabbar.md",
         "demoPath": "inbox/25_Glass/glass-tabbar/index.html"
       }
     ]
@@ -1103,35 +1103,35 @@ window.UI_MOTION_CATALOG = [
         "slug": "control-center",
         "title": "Control Center · 控制中心表面",
         "summary": "包含磁贴到全量详情面板的共享几何投影形变、子元素逆缩放校正、弹性微调滑块与径向时间拨盘的综合控制台。",
-        "specPath": "skills/ui-motion/surfaces/control-center.md",
+        "specPath": "resources/surfaces/control-center.md",
         "demoPath": "inbox/26_Surfaces/control-center/index.html"
       },
       {
         "slug": "holo-card",
         "title": "Holo Card · 全息双面卡片",
         "summary": "集成双独立弹簧（倾斜 vs 光泽）、数学三角函数驱动的全息彩虹彩膜、闪粉微粒反光与有方向性 3D 翻转的数字会员卡。",
-        "specPath": "skills/ui-motion/surfaces/holo-card.md",
+        "specPath": "resources/surfaces/holo-card.md",
         "demoPath": "inbox/26_Surfaces/holo-card/index.html"
       },
       {
         "slug": "link-unfurl",
         "title": "Link Unfurl · 链接展开卡片",
         "summary": "从行内文本胶囊（Inline Chip）到外层富媒体大卡片的非对称双轴形变（水平优先、垂直跟随）、Favicon 锚定坐标投影、半隐式欧拉弹簧与手势下拉折叠。",
-        "specPath": "skills/ui-motion/surfaces/link-unfurl.md",
+        "specPath": "resources/surfaces/link-unfurl.md",
         "demoPath": "inbox/26_Surfaces/link-unfurl/index.html"
       },
       {
         "slug": "sheet-stack",
         "title": "Sheet Stack · 抽屉堆叠表面",
         "summary": "多层级任务跳转（Settings → Profile → Photo Picker）的深度透视缩放（depthScale 0.05）、物理回弹弹簧、下拉阻尼滑动释放（Dismiss）手势与严密焦点陷阱隔离。",
-        "specPath": "skills/ui-motion/surfaces/sheet-stack.md",
+        "specPath": "resources/surfaces/sheet-stack.md",
         "demoPath": "inbox/26_Surfaces/sheet-stack/index.html"
       },
       {
         "slug": "wallet-stack",
         "title": "Wallet Stack · 钱包堆叠卡包",
         "summary": "多张卡片的纵向 3D 深度堆叠与展开管理系统，采用临界阻尼弹簧、速度投射衰减、临界跟随限速、光泽与 3D 倾斜陀螺仪。",
-        "specPath": "skills/ui-motion/surfaces/wallet-stack.md",
+        "specPath": "resources/surfaces/wallet-stack.md",
         "demoPath": "inbox/26_Surfaces/wallet-stack/index.html"
       }
     ]
@@ -1147,28 +1147,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "cover-flow",
         "title": "Cover Flow · 3D 封面流",
         "summary": "用于专辑封面、路线画廊、电影海报等富媒体序列展示的立体透视轮播组件。",
-        "specPath": "skills/ui-motion/galleries/cover-flow.md",
+        "specPath": "resources/galleries/cover-flow.md",
         "demoPath": "inbox/27_Galleries/cover-flow/index.html"
       },
       {
         "slug": "lightbox-gallery",
         "title": "Lightbox Gallery · 瀑布流画廊与灯箱",
         "summary": "用于摄影作品集、旅行相册与图片流展示的高性能自适应瀑布流与全屏共享元素灯箱组件。",
-        "specPath": "skills/ui-motion/galleries/lightbox-gallery.md",
+        "specPath": "resources/galleries/lightbox-gallery.md",
         "demoPath": "inbox/27_Galleries/lightbox-gallery/index.html"
       },
       {
         "slug": "photo-grid",
         "title": "Photo Grid · 多列相片网格与查看器",
         "summary": "用于相册图库、摄影资产库与时间线流的高性能可缩放网格与内嵌大图查看器组件。",
-        "specPath": "skills/ui-motion/galleries/photo-grid.md",
+        "specPath": "resources/galleries/photo-grid.md",
         "demoPath": "inbox/27_Galleries/photo-grid/index.html"
       },
       {
         "slug": "product-gallery",
         "title": "Product Gallery · 电商商品画廊",
         "summary": "用于电商商品详情页（PDP）、多规格配置与硬件橱窗展示的高交互质感画廊组件。",
-        "specPath": "skills/ui-motion/galleries/product-gallery.md",
+        "specPath": "resources/galleries/product-gallery.md",
         "demoPath": "inbox/27_Galleries/product-gallery/index.html"
       }
     ]
@@ -1184,21 +1184,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "now-playing",
         "title": "Now Playing · 音乐播放胶囊与大卡片",
         "summary": "用于流媒体音频、播客应用与背景音乐播放的高性能常驻迷你胶囊与大卡片展开组件。",
-        "specPath": "skills/ui-motion/audio-and-video/now-playing.md",
+        "specPath": "resources/audio-and-video/now-playing.md",
         "demoPath": "inbox/28_Audio_and_video/now-playing/index.html"
       },
       {
         "slug": "voice-orb",
         "title": "Voice Orb · 语音助手光球",
         "summary": "用于 AI 智能语音助手、对话终端与实时语音交互的可视化全息流体光球与字幕流转组件。",
-        "specPath": "skills/ui-motion/audio-and-video/voice-orb.md",
+        "specPath": "resources/audio-and-video/voice-orb.md",
         "demoPath": "inbox/28_Audio_and_video/voice-orb/index.html"
       },
       {
         "slug": "voice-recorder",
         "title": "Voice Recorder · 语音录音胶囊与气泡",
         "summary": "用于即时通讯聊天面板、语音留言与备忘录应用的原生录制胶囊展开与消息气泡生成流转组件。",
-        "specPath": "skills/ui-motion/audio-and-video/voice-recorder.md",
+        "specPath": "resources/audio-and-video/voice-recorder.md",
         "demoPath": "inbox/28_Audio_and_video/voice-recorder/index.html"
       }
     ]
@@ -1214,28 +1214,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "activity-rings",
         "title": "Activity Rings · 活动同心圆环",
         "summary": "用于多维度目标完成率追踪、习惯打卡与多指标统计的高质感同心刻度环与周记录联动组件。",
-        "specPath": "skills/ui-motion/special-data/activity-rings.md",
+        "specPath": "resources/special-data/activity-rings.md",
         "demoPath": "inbox/29_Special_data/activity-rings/index.html"
       },
       {
         "slug": "booking-pill",
         "title": "Booking Pill · 浮动预约胶囊",
         "summary": "用于餐厅订座、活动预约与时段订购的多步骤原地物理变形胶囊组件。",
-        "specPath": "skills/ui-motion/special-data/booking-pill.md",
+        "specPath": "resources/special-data/booking-pill.md",
         "demoPath": "inbox/29_Special_data/booking-pill/index.html"
       },
       {
         "slug": "date-reel",
         "title": "Date Reel · 3D 滚筒时间选择盘",
         "summary": "用于精确排期、定时发送与日程预约的四列 3D 滚筒滚轮时间选择器。",
-        "specPath": "skills/ui-motion/special-data/date-reel.md",
+        "specPath": "resources/special-data/date-reel.md",
         "demoPath": "inbox/29_Special_data/date-reel/index.html"
       },
       {
         "slug": "time-dial",
         "title": "Time Dial · 24小时极坐标多时区罗盘",
         "summary": "用于跨国团队协作、多时区会议安排与全球时间同步的 24 小时极坐标表盘罗盘。",
-        "specPath": "skills/ui-motion/special-data/time-dial.md",
+        "specPath": "resources/special-data/time-dial.md",
         "demoPath": "inbox/29_Special_data/time-dial/index.html"
       }
     ]
@@ -1251,28 +1251,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "keycap-keyboard",
         "title": "Keycap Keyboard · 机械键帽虚拟键盘",
         "summary": "拟真机械键帽交互键盘。核心动效机制包括：",
-        "specPath": "skills/ui-motion/special-type/keycap-keyboard.md",
+        "specPath": "resources/special-type/keycap-keyboard.md",
         "demoPath": "inbox/30_Special_type/keycap-keyboard/index.html"
       },
       {
         "slug": "sand-text",
         "title": "Sand Text · 沙粒重构物理文字",
         "summary": "由动态沙粒重力沉降与气流吹散组成的物理文字。",
-        "specPath": "skills/ui-motion/special-type/sand-text.md",
+        "specPath": "resources/special-type/sand-text.md",
         "demoPath": "inbox/30_Special_type/sand-text/index.html"
       },
       {
         "slug": "slot-text",
         "title": "Slot Text · 滚轮字符数字滚动",
         "summary": "金融与统计级平滑逐列滚轮字符组件。核心动效机制包括：",
-        "specPath": "skills/ui-motion/special-type/slot-text.md",
+        "specPath": "resources/special-type/slot-text.md",
         "demoPath": "inbox/30_Special_type/slot-text/index.html"
       },
       {
         "slug": "typewriter-terminal",
         "title": "Typewriter Terminal · 拟真终端打字机",
         "summary": "基于时序时间线的代码安装与终端会话演示终端。",
-        "specPath": "skills/ui-motion/special-type/typewriter-terminal.md",
+        "specPath": "resources/special-type/typewriter-terminal.md",
         "demoPath": "inbox/30_Special_type/typewriter-terminal/index.html"
       }
     ]
@@ -1288,21 +1288,21 @@ window.UI_MOTION_CATALOG = [
         "slug": "morph-loader",
         "title": "Morph Loader · 连续几何形变加载器",
         "summary": "基于 SVG 路径插值与物理弹簧的几何形态无缝变换加载器。",
-        "specPath": "skills/ui-motion/loaders/morph-loader.md",
+        "specPath": "resources/loaders/morph-loader.md",
         "demoPath": "inbox/31_Loaders/morph-loader/index.html"
       },
       {
         "slug": "skeleton-morph",
         "title": "Skeleton Morph · 骨架屏就地内容形变",
         "summary": "基于 FLIP 几何测量与自适应高度缓动的骨架屏内容显露组件。",
-        "specPath": "skills/ui-motion/loaders/skeleton-morph.md",
+        "specPath": "resources/loaders/skeleton-morph.md",
         "demoPath": "inbox/31_Loaders/skeleton-morph/index.html"
       },
       {
         "slug": "stretch-refresh",
         "title": "Stretch Refresh · 弹性阻尼下拉刷新",
         "summary": "具备分层张力位移与非线性阻尼的列表下拉刷新微交互。",
-        "specPath": "skills/ui-motion/loaders/stretch-refresh.md",
+        "specPath": "resources/loaders/stretch-refresh.md",
         "demoPath": "inbox/31_Loaders/stretch-refresh/index.html"
       }
     ]
@@ -1318,14 +1318,14 @@ window.UI_MOTION_CATALOG = [
         "slug": "orbit-logos",
         "title": "Orbit Logos · 双同心轨道集成图标坞",
         "summary": "基于双层同心圆轨道与多频物理阻尼的图标环形漫游与详情卡片展开组件。",
-        "specPath": "skills/ui-motion/playful/orbit-logos.md",
+        "specPath": "resources/playful/orbit-logos.md",
         "demoPath": "inbox/32_Playful/orbit-logos/index.html"
       },
       {
         "slug": "page-curl",
         "title": "Page Curl · 拟真折纸翻页",
         "summary": "基于折痕裁切几何与物理阻尼的仿真书籍/画册翻页微动效。",
-        "specPath": "skills/ui-motion/playful/page-curl.md",
+        "specPath": "resources/playful/page-curl.md",
         "demoPath": "inbox/32_Playful/page-curl/index.html"
       }
     ]
@@ -1341,14 +1341,14 @@ window.UI_MOTION_CATALOG = [
         "slug": "dot-grid",
         "title": "Dot Grid · 交互式光标排斥点阵",
         "summary": "基于 Canvas 2D 物理动力学的网格点阵排斥与波纹交互组件。",
-        "specPath": "skills/ui-motion/cursor/dot-grid.md",
+        "specPath": "resources/cursor/dot-grid.md",
         "demoPath": "inbox/33_Cursor/dot-grid/index.html"
       },
       {
         "slug": "gravity-well",
         "title": "Gravity Well · 交互式光标引力情绪板",
         "summary": "基于光标引力吸附与扩散脉冲波的图片网格物理微交互。",
-        "specPath": "skills/ui-motion/cursor/gravity-well.md",
+        "specPath": "resources/cursor/gravity-well.md",
         "demoPath": "inbox/33_Cursor/gravity-well/index.html"
       }
     ]
@@ -1364,28 +1364,28 @@ window.UI_MOTION_CATALOG = [
         "slug": "data-flow",
         "title": "Data Flow · 数据流管道示意图",
         "summary": "基于离散采样路径、形态融合与实时吞吐计数的动态 ETL 数据流架构示意图。",
-        "specPath": "skills/ui-motion/illustrations/data-flow.md",
+        "specPath": "resources/illustrations/data-flow.md",
         "demoPath": "inbox/34_Illustrations/data-flow/index.html"
       },
       {
         "slug": "multi-region-failover",
         "title": "Multi-Region Failover · 多区域容灾故障切换示意图",
         "summary": "基于等轴测 2.5D 矢量拓扑与健康检查时序的多区域高可用架构演练示意图。",
-        "specPath": "skills/ui-motion/illustrations/multi-region-failover.md",
+        "specPath": "resources/illustrations/multi-region-failover.md",
         "demoPath": "inbox/34_Illustrations/multi-region-failover/index.html"
       },
       {
         "slug": "payment-flow",
         "title": "Payment Flow · 四方支付授权结算流转图",
         "summary": "基于四方支付体系（客户、商户、网关、银行）的授权、批准与结算全流程微动效架构图。",
-        "specPath": "skills/ui-motion/illustrations/payment-flow.md",
+        "specPath": "resources/illustrations/payment-flow.md",
         "demoPath": "inbox/34_Illustrations/payment-flow/index.html"
       },
       {
         "slug": "vector-search",
         "title": "Vector Search · 向量检索与聚类图解",
         "summary": "基于高维向量投影、聚类拓扑与最近邻图遍历的向量检索（Vector Search）动态演示图解。",
-        "specPath": "skills/ui-motion/illustrations/vector-search.md",
+        "specPath": "resources/illustrations/vector-search.md",
         "demoPath": "inbox/34_Illustrations/vector-search/index.html"
       }
     ]

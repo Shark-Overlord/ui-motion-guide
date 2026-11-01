@@ -22,19 +22,41 @@ git clone --depth 1 https://github.com/Shark-Overlord/ui-motion-guide.git
 
 #### 方式 A：作为常驻 Skill 安装（推荐）
 
-将仓库内的 `skills/ui-motion` 复制到你的 AI 编码工具（Claude Code / Cursor / Codex / Antigravity 等）的 Skills 目录中：
+本仓库按通用标准 Skill 目录结构组织（`SKILL.md` + `references/` + `resources/` + `examples/`），直接将仓库整体复制到你的 AI 编码工具（Claude Code / Cursor / Codex / Antigravity 等）的 Skills 目录中即可：
 
 ```bash
 # 全局 Skills 目录示例
-cp -r ui-motion-guide/skills/ui-motion ~/.claude/skills/ui-motion
+cp -r ui-motion-guide ~/.claude/skills/ui-motion
 
 # 或放入当前项目的 Skills 目录
-cp -r ui-motion-guide/skills/ui-motion <你的项目根目录>/.claude/skills/ui-motion
+cp -r ui-motion-guide <你的项目根目录>/.claude/skills/ui-motion
 ```
 
 #### 方式 B：克隆到任意目录，对话时直接指定
 
-无需额外配置，在向 AI 提需求时直接让它先读取仓库根目录下的 `AGENTS.md` 即可。
+无需额外配置，在向 AI 提需求时直接让它先读取仓库根目录下的 `SKILL.md`（或 `AGENTS.md`）即可。
+
+---
+
+## 目录结构
+
+```text
+ui-motion-guide/
+├─ SKILL.md                           # [必需] Skill 主入口指令与 34 大分类路由表
+├─ AGENTS.md                          # 仓库级 Agent 引导规则
+├─ README.md                          # 使用说明与目录结构
+├─ references/                        # [参考手册与通用规范]
+│  ├─ PRIMITIVES.md                   #   ├─ 共享 CSS 缓动令牌与 3 个零依赖 JS 物理/FLIP 微原语
+│  └─ component-template.md           #   └─ 组件动效规范标准 13 节模板
+├─ resources/                         # [组件规范资源库（34 大分类 · 155 个组件）]
+│  ├─ buttons/                        #   ├─ 每个分类含 INDEX.md 慢通道意图路由表 + <slug>.md
+│  ├─ gestures/
+│  ├─ overlays/
+│  └─ ...                             #   └─ 其余全部 UI 组件分类目录
+└─ examples/                          # [静态测试集与全页基准示例]
+   ├─ testset-static/                 #   ├─ 单组件静态测试页面
+   └─ benchmark/                      #   └─ 多组件复合业务场景页面
+```
 
 ---
 

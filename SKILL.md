@@ -46,13 +46,13 @@ description_en: Add physics-based spring transitions, smooth state animations, a
    - **排版动效 vs 机械字符**：标题揭示/流光/字形渐变 → `text-effects`；老虎机滚轮/重力沙漏/实体键帽/打字机 → `special-type`。
    - **数据与进度**：常规图表 → `charts`；拓扑/流向/树图/可刷选大图 → `advanced-charts`；状态进度/步骤/加载形变 → `progress` / `loaders`。
    - **路由分流**：
-     - **命中唯一 `slug`（快通道，1 跳直达）** → 跳过 `<类别>/INDEX.md`，直接读取 `<类别>/<slug>.md`，进入第 4.5 步。
-     - **同类存在多变体或横跨邻近类别（慢通道，2 跳判别）** → 进入第 4 步，读取 **1~2 个候选类别的 `<类别>/INDEX.md`**。
+     - **命中唯一 `slug`（快通道，1 跳直达）** → 跳过 `resources/<类别>/INDEX.md`，直接读取 `resources/<类别>/<slug>.md`，进入第 4.5 步。
+     - **同类存在多变体或横跨邻近类别（慢通道，2 跳判别）** → 进入第 4 步，读取 **1~2 个候选类别的 `resources/<类别>/INDEX.md`**。
 4. **选组件（仅慢通道 / 复合组件）**：用候选 `INDEX.md` 中的完整意图表对照目标 DOM 结构裁决唯一组件 md 并读取。复合组件以业务目的选主组件，再读取必要的辅助组件 md。INDEX 指向其他类别时直接跳转，不必回到本文件。
 4.5. **改造规模分流（单组件 vs 多组件协同）**：
-   - **单组件改造（目标组件数 $N = 1$）** → **不读取** `PRIMITIVES.md`，直接进入第 5 步按 `<类别>/<slug>.md` 内联实现（零额外读取开销）。
-   - **多组件协同改造（目标组件数 $N \ge 2$ 或项目存在公共动画模块）** → 额外读取一次 [PRIMITIVES.md](PRIMITIVES.md)，将 4 个核心缓动变量（`--ease-spring`、`--ease-snappy`、`--ease-standard`、`--ease-exit`）及共享微原语（`createSpring`、`swapText`、`flipChildren`）注入页面/项目公共层，供各组件在第 5 步中统一调用。
-5. **实现**：按组件 md 移植到目标代码。只移植动效机制，改写为目标项目自身的技术栈与状态管理；不改配色、布局、文案和业务逻辑。**严禁在未读取对应 `<类别>/<slug>.md` 的情况下凭经验手写简易过渡或用通用函数（如 `swapText`）替代专属组件机制（如 `copy-button` 的逐字形变与图标描边）；用户未要求改造的组件保持原样不动。**
+   - **单组件改造（目标组件数 $N = 1$）** → **不读取** `references/PRIMITIVES.md`，直接进入第 5 步按 `resources/<类别>/<slug>.md` 内联实现（零额外读取开销）。
+   - **多组件协同改造（目标组件数 $N \ge 2$ 或项目存在公共动画模块）** → 额外读取一次 [references/PRIMITIVES.md](references/PRIMITIVES.md)，将 4 个核心缓动变量（`--ease-spring`、`--ease-snappy`、`--ease-standard`、`--ease-exit`）及共享微原语（`createSpring`、`swapText`、`flipChildren`）注入页面/项目公共层，供各组件在第 5 步中统一调用。
+5. **实现**：按组件 md 移植到目标代码。只移植动效机制，改写为目标项目自身的技术栈与状态管理；不改配色、布局、文案和业务逻辑。**严禁在未读取对应 `resources/<类别>/<slug>.md` 的情况下凭经验手写简易过渡或用通用函数（如 `swapText`）替代专属组件机制（如 `copy-button` 的逐字形变与图标描边）；用户未要求改造的组件保持原样不动。**
    - **改造前宿敌样式清理（Pre-flight Cleanup，必做 4 项）**：
      1. **清除 `transition: all`**：将目标元素及子项上的 `transition: all` 替换为精确属性列表（如 `transform, opacity, background-color`），防止与 JS `requestAnimationFrame` 弹簧或 WAAPI FLIP 产生双重插值抖动。
      2. **剥离子项静态激活/悬停底色（共享滑块结构升级）**：若静态组件把选中/悬停底色或阴影直接写在子项自身（如 `.tab-btn[data-state="active"]`、`.dropdown-menu-item[data-highlighted]`），必须先清除子项自身的静态背景与阴影（改为 `transparent` / `none`），再在父容器注入规范要求的独立运动层（如 `.gliding-pill`、`.dropdown-menu-highlight`、`.tag-input-ring`），避免静态底色遮挡或抵消位移滑动。
@@ -73,42 +73,42 @@ description_en: Add physics-based spring transitions, smooth state animations, a
 
 | 类别 | 包含组件 (`slug` 与端型标注) | 适用 | 慢通道入口 |
 | --- | --- | --- | --- |
-| buttons | `action-button`, `button`, `button-group`, `confirm-morph` `[Web]`, `copy-button`, `expanding-button-group`, `floating-button-group` `[Web]`, `icon-morph`, `split-button`, `theme-switch` | 按钮及其直接关联的交互：基础物理按压、异步反馈、复制、分割菜单、按钮组、浮动工具栏、展开组、图标切换、原地确认、主题切换 | [buttons/INDEX.md](buttons/INDEX.md) |
-| gestures | `hold-to-confirm` `[Mobile]`, `swipe-actions` `[Mobile]` | 以触控手势为主的交互：长按蓄力确认、列表左右滑动操作与双轴手势锁（Web 桌面端优先分流至 `buttons/confirm-morph` 或 `menus/dropdown-menu`） | [gestures/INDEX.md](gestures/INDEX.md) |
-| menus | `context-menu` `[Web]`, `dropdown-menu`, `user-menu` | 菜单及其扩展交互：右键上下文菜单、下拉动作菜单、用户账户卡片面板 | [menus/INDEX.md](menus/INDEX.md) |
-| text-fields | `expanding-search`, `inline-edit`, `input`, `password-field`, `password-strength`, `search-field`, `textarea` | 文本输入与编辑交互：单行/多行输入框、密码明暗切换、密码强度检验、带清除搜索框、可伸展搜索条、原地行内编辑 | [text-fields/INDEX.md](text-fields/INDEX.md) |
-| special-inputs | `mention-input`, `money-input`, `number-field`, `phone-input`, `shortcut-recorder` `[Web]`, `tag-input` | 专项格式与结构化输入：数字步进滚轮、货币金额、国际区号号码、多标签胶囊、@提及浮层、快捷键录制 | [special-inputs/INDEX.md](special-inputs/INDEX.md) |
-| selects | `chip-group`, `combobox`, `morph-select`, `multi-select`, `select` | 选择与过滤交互：紧凑单选下拉、可搜索组合框、容器形变选择器、多选标签收集器、流式过滤标签组 | [selects/INDEX.md](selects/INDEX.md) |
-| toggles | `billing-toggle`, `checkbox`, `radio-cards`, `radio-group`, `segmented-control`, `switch` | 开关与选项切换：二值机械拉伸开关、真实笔触复选框、分段控制胶囊、单选列表、对比单选卡片、计费周期切换 | [toggles/INDEX.md](toggles/INDEX.md) |
-| sliders | `elastic-slider`, `slider` | 连续数值与范围调节：平滑拖拽滑块、触觉橡皮筋弹性拉伸滑块 | [sliders/INDEX.md](sliders/INDEX.md) |
-| pickers | `calendar`, `color-picker`, `date-picker` `[Web]`, `date-range-picker` `[Web]`, `time-picker` `[Web]` | 数据采集与选择器：拾色器、日历面板、日期选择器、双月日期范围选择器、时间选择器（移动端滚筒选时间分流至 `special-data/date-reel`） | [pickers/INDEX.md](pickers/INDEX.md) |
-| editors | `code-block`, `file-dropzone` `[Web]`, `rich-text-editor`, `signature-pad` | 富文本与内容编辑：语法高亮代码块、文件拖拽投递区、富文本格式化编辑器、矢量签名手写板 | [editors/INDEX.md](editors/INDEX.md) |
-| navigation | `breadcrumb` `[Web]`, `pagination`, `tabs` | 页面与层级导航：面包屑折叠路径、弹性分页控制器、滑动高光标签页 | [navigation/INDEX.md](navigation/INDEX.md) |
-| expand | `accordion`, `expandable-card`, `resizable-panels` `[Web]`, `scroll-area` | 内容折叠与伸展：手风琴风琴折、卡片原位展开、可拖拽分割面板、自适应滚动容器 | [expand/INDEX.md](expand/INDEX.md) |
-| overlays | `bottom-sheet` `[Mobile]`, `dialog` `[Web]`, `drawer`, `hover-card` `[Web]`, `popover`, `share-access`, `tooltip` `[Web]` | 浮层与模态视窗：移动端底部抽屉、桌面居中弹窗、侧边抽屉、悬停预览卡片、气泡弹层、分享权限卡片、光标智能提示 | [overlays/INDEX.md](overlays/INDEX.md) |
-| messages | `alert`, `announcement-bar`, `toast`, `toast-stack` | 通知与反馈流转：状态警示条、公告栏滚动、轻量 Toast 提示、多通知堆叠管理 | [messages/INDEX.md](messages/INDEX.md) |
-| progress | `countdown`, `progress`, `skeleton`, `stepper`, `usage-meter` | 进度与加载度量：环形倒计时、线性/环形进度条、骨架屏微光、分步步骤条、用量仪表盘 | [progress/INDEX.md](progress/INDEX.md) |
-| avatars | `avatar`, `avatar-group`, `badge` | 头像与标识呈现：交互头像、层叠头像组、状态指示徽标 | [avatars/INDEX.md](avatars/INDEX.md) |
-| cards | `card`, `card-stack` `[Mobile]`, `metric-card` | 卡片容器与展示：手势滑卡堆叠、多态信息卡片、动态指标度量卡片 | [cards/INDEX.md](cards/INDEX.md) |
-| charts | `animated-counter`, `bar-chart`, `donut-chart`, `funnel-chart`, `gauge`, `line-chart`, `radar-chart`, `realtime-stream`, `ridgeline`, `slope-chart`, `sparkline`, `split-bar`, `timeline`, `waffle-chart` | 基础图表与数据可视化：滚动计数器、柱状图、环形图、漏斗图、仪表盘、折线图、雷达图、实时数据流、脊线图、斜率图、迷你走势图、分割柱图、时间轴、华夫饼图 | [charts/INDEX.md](charts/INDEX.md) |
-| advanced-charts | `brush-chart` `[Web]`, `data-grid` `[Web]`, `race-bar-chart`, `sankey-flow`, `streamgraph`, `sunburst`, `treemap` | 高级可视化与流式拓扑：刷选缩放图、交互数据网格、竞速条形图、桑基能量流、河流图、旭日图、矩形树图 | [advanced-charts/INDEX.md](advanced-charts/INDEX.md) |
-| tables | `chat-thread`, `comment-thread`, `json-viewer`, `sortable-data-table` `[Web]`, `tree-view` | 表格与树状数据结构：即时聊天对话流、嵌套评论回复树、JSON 探针查看器、列排序列宽数据表、层级文件目录树 | [tables/INDEX.md](tables/INDEX.md) |
-| activity | `activity-heatmap`, `empty-state`, `filter-toolbar` | 活跃度与筛选操作：年度活跃热力图、空状态引导插画、多维筛选过滤工具栏 | [activity/INDEX.md](activity/INDEX.md) |
-| media | `carousel`, `file-dropzone` `[Web]`, `image-compare` | 多媒体播放与展示：手势轮播画廊、媒体文件拖拽上传区、双图卷帘对比 | [media/INDEX.md](media/INDEX.md) |
-| text-effects | `in-view-title`, `text-morph`, `text-reveal`, `text-shimmer` | 文本微动效与排版艺术：视口滚动触发标题、字符平滑形变、逐字翻转揭示、流光文字扫光 | [text-effects/INDEX.md](text-effects/INDEX.md) |
-| docks-and-tabs | `action-morph`, `dock` `[Web]`, `liquid-tab-bar` `[Mobile]`, `morph-nav` `[Web]`, `orbit-menu` `[Mobile]`, `share-sheet` | 停靠栏与高级导航：动作原位形变、Mac 风格浮动 Dock 栏、移动端流体水滴 Tab 栏、桌面顶栏 Mega Menu 变形导航、单手圆弧环绕菜单、响应式双态分享面板 | [docks-and-tabs/INDEX.md](docks-and-tabs/INDEX.md) |
-| glass | `glass-card`, `glass-menu`, `glass-tabbar` `[Mobile]` | 毛玻璃拟态质感组件：光泽磨砂卡片、浮动毛玻璃上下文菜单、移动端毛玻璃底部标签栏 | [glass/INDEX.md](glass/INDEX.md) |
-| surfaces | `control-center` `[Mobile]`, `holo-card`, `link-unfurl`, `sheet-stack` `[Mobile]`, `wallet-stack` `[Mobile]` | 高阶复合交互表面：控制中心磁贴面板、3D 全息翻转卡片、链接预览展开胶囊、多层抽屉堆叠、纵向折叠卡包 | [surfaces/INDEX.md](surfaces/INDEX.md) |
-| galleries | `cover-flow`, `lightbox-gallery`, `photo-grid`, `product-gallery` | 相册与展示画廊：3D 封面流转、灯箱全屏画廊、瀑布流照片网格、电商商品多图联动画廊 | [galleries/INDEX.md](galleries/INDEX.md) |
-| audio-and-video | `now-playing`, `voice-orb`, `voice-recorder` | 音视频与语音交互：正在播放动态胶囊、AI 语音脉冲光球、语音录制声波条 | [audio-and-video/INDEX.md](audio-and-video/INDEX.md) |
-| special-data | `activity-rings`, `booking-pill`, `date-reel` `[Mobile]`, `time-dial` | 特殊领域数据交互：三环活动健身圆环、预订状态时段胶囊、移动端 3D 滚筒日期轮盘、时钟刻度表盘 | [special-data/INDEX.md](special-data/INDEX.md) |
-| special-type | `keycap-keyboard` `[Web]`, `sand-text` `[Web]`, `slot-text`, `typewriter-terminal` | 特殊字符与机械交互：机械键帽键盘按压、沙漏光标气流文字、老虎机滚轮字符、打字机终端控制台 | [special-type/INDEX.md](special-type/INDEX.md) |
-| loaders | `morph-loader`, `skeleton-morph`, `stretch-refresh` `[Mobile]` | 加载器与刷新过渡：几何形态循环形变、骨架屏就地内容展开、移动端橡皮筋手势下拉刷新 | [loaders/INDEX.md](loaders/INDEX.md) |
-| playful | `orbit-logos`, `page-curl` | 趣味与沉浸式互动：同心圆轨道漫游展台、仿真折纸书页 | [playful/INDEX.md](playful/INDEX.md) |
-| cursor | `dot-grid` `[Web]`, `gravity-well` `[Web]` | 指针跟随与光标微交互（仅限 Web 桌面端）：磁性点阵矩阵追踪、引力井中心吸附 | [cursor/INDEX.md](cursor/INDEX.md) |
-| illustrations | `data-flow`, `multi-region-failover`, `payment-flow`, `vector-search` | 技术拓扑与动效插画：流式管道数据流、多区域故障转移重路由、支付流向状态机、高维向量空间检索 | [illustrations/INDEX.md](illustrations/INDEX.md) |
+| buttons | `action-button`, `button`, `button-group`, `confirm-morph` `[Web]`, `copy-button`, `expanding-button-group`, `floating-button-group` `[Web]`, `icon-morph`, `split-button`, `theme-switch` | 按钮及其直接关联的交互：基础物理按压、异步反馈、复制、分割菜单、按钮组、浮动工具栏、展开组、图标切换、原地确认、主题切换 | [resources/buttons/INDEX.md](resources/buttons/INDEX.md) |
+| gestures | `hold-to-confirm` `[Mobile]`, `swipe-actions` `[Mobile]` | 以触控手势为主的交互：长按蓄力确认、列表左右滑动操作与双轴手势锁（Web 桌面端优先分流至 `buttons/confirm-morph` 或 `menus/dropdown-menu`） | [resources/gestures/INDEX.md](resources/gestures/INDEX.md) |
+| menus | `context-menu` `[Web]`, `dropdown-menu`, `user-menu` | 菜单及其扩展交互：右键上下文菜单、下拉动作菜单、用户账户卡片面板 | [resources/menus/INDEX.md](resources/menus/INDEX.md) |
+| text-fields | `expanding-search`, `inline-edit`, `input`, `password-field`, `password-strength`, `search-field`, `textarea` | 文本输入与编辑交互：单行/多行输入框、密码明暗切换、密码强度检验、带清除搜索框、可伸展搜索条、原地行内编辑 | [resources/text-fields/INDEX.md](resources/text-fields/INDEX.md) |
+| special-inputs | `mention-input`, `money-input`, `number-field`, `phone-input`, `shortcut-recorder` `[Web]`, `tag-input` | 专项格式与结构化输入：数字步进滚轮、货币金额、国际区号号码、多标签胶囊、@提及浮层、快捷键录制 | [resources/special-inputs/INDEX.md](resources/special-inputs/INDEX.md) |
+| selects | `chip-group`, `combobox`, `morph-select`, `multi-select`, `select` | 选择与过滤交互：紧凑单选下拉、可搜索组合框、容器形变选择器、多选标签收集器、流式过滤标签组 | [resources/selects/INDEX.md](resources/selects/INDEX.md) |
+| toggles | `billing-toggle`, `checkbox`, `radio-cards`, `radio-group`, `segmented-control`, `switch` | 开关与选项切换：二值机械拉伸开关、真实笔触复选框、分段控制胶囊、单选列表、对比单选卡片、计费周期切换 | [resources/toggles/INDEX.md](resources/toggles/INDEX.md) |
+| sliders | `elastic-slider`, `slider` | 连续数值与范围调节：平滑拖拽滑块、触觉橡皮筋弹性拉伸滑块 | [resources/sliders/INDEX.md](resources/sliders/INDEX.md) |
+| pickers | `calendar`, `color-picker`, `date-picker` `[Web]`, `date-range-picker` `[Web]`, `time-picker` `[Web]` | 数据采集与选择器：拾色器、日历面板、日期选择器、双月日期范围选择器、时间选择器（移动端滚筒选时间分流至 `special-data/date-reel`） | [resources/pickers/INDEX.md](resources/pickers/INDEX.md) |
+| editors | `code-block`, `file-dropzone` `[Web]`, `rich-text-editor`, `signature-pad` | 富文本与内容编辑：语法高亮代码块、文件拖拽投递区、富文本格式化编辑器、矢量签名手写板 | [resources/editors/INDEX.md](resources/editors/INDEX.md) |
+| navigation | `breadcrumb` `[Web]`, `pagination`, `tabs` | 页面与层级导航：面包屑折叠路径、弹性分页控制器、滑动高光标签页 | [resources/navigation/INDEX.md](resources/navigation/INDEX.md) |
+| expand | `accordion`, `expandable-card`, `resizable-panels` `[Web]`, `scroll-area` | 内容折叠与伸展：手风琴风琴折、卡片原位展开、可拖拽分割面板、自适应滚动容器 | [resources/expand/INDEX.md](resources/expand/INDEX.md) |
+| overlays | `bottom-sheet` `[Mobile]`, `dialog` `[Web]`, `drawer`, `hover-card` `[Web]`, `popover`, `share-access`, `tooltip` `[Web]` | 浮层与模态视窗：移动端底部抽屉、桌面居中弹窗、侧边抽屉、悬停预览卡片、气泡弹层、分享权限卡片、光标智能提示 | [resources/overlays/INDEX.md](resources/overlays/INDEX.md) |
+| messages | `alert`, `announcement-bar`, `toast`, `toast-stack` | 通知与反馈流转：状态警示条、公告栏滚动、轻量 Toast 提示、多通知堆叠管理 | [resources/messages/INDEX.md](resources/messages/INDEX.md) |
+| progress | `countdown`, `progress`, `skeleton`, `stepper`, `usage-meter` | 进度与加载度量：环形倒计时、线性/环形进度条、骨架屏微光、分步步骤条、用量仪表盘 | [resources/progress/INDEX.md](resources/progress/INDEX.md) |
+| avatars | `avatar`, `avatar-group`, `badge` | 头像与标识呈现：交互头像、层叠头像组、状态指示徽标 | [resources/avatars/INDEX.md](resources/avatars/INDEX.md) |
+| cards | `card`, `card-stack` `[Mobile]`, `metric-card` | 卡片容器与展示：手势滑卡堆叠、多态信息卡片、动态指标度量卡片 | [resources/cards/INDEX.md](resources/cards/INDEX.md) |
+| charts | `animated-counter`, `bar-chart`, `donut-chart`, `funnel-chart`, `gauge`, `line-chart`, `radar-chart`, `realtime-stream`, `ridgeline`, `slope-chart`, `sparkline`, `split-bar`, `timeline`, `waffle-chart` | 基础图表与数据可视化：滚动计数器、柱状图、环形图、漏斗图、仪表盘、折线图、雷达图、实时数据流、脊线图、斜率图、迷你走势图、分割柱图、时间轴、华夫饼图 | [resources/charts/INDEX.md](resources/charts/INDEX.md) |
+| advanced-charts | `brush-chart` `[Web]`, `data-grid` `[Web]`, `race-bar-chart`, `sankey-flow`, `streamgraph`, `sunburst`, `treemap` | 高级可视化与流式拓扑：刷选缩放图、交互数据网格、竞速条形图、桑基能量流、河流图、旭日图、矩形树图 | [resources/advanced-charts/INDEX.md](resources/advanced-charts/INDEX.md) |
+| tables | `chat-thread`, `comment-thread`, `json-viewer`, `sortable-data-table` `[Web]`, `tree-view` | 表格与树状数据结构：即时聊天对话流、嵌套评论回复树、JSON 探针查看器、列排序列宽数据表、层级文件目录树 | [resources/tables/INDEX.md](resources/tables/INDEX.md) |
+| activity | `activity-heatmap`, `empty-state`, `filter-toolbar` | 活跃度与筛选操作：年度活跃热力图、空状态引导插画、多维筛选过滤工具栏 | [resources/activity/INDEX.md](resources/activity/INDEX.md) |
+| media | `carousel`, `file-dropzone` `[Web]`, `image-compare` | 多媒体播放与展示：手势轮播画廊、媒体文件拖拽上传区、双图卷帘对比 | [resources/media/INDEX.md](resources/media/INDEX.md) |
+| text-effects | `in-view-title`, `text-morph`, `text-reveal`, `text-shimmer` | 文本微动效与排版艺术：视口滚动触发标题、字符平滑形变、逐字翻转揭示、流光文字扫光 | [resources/text-effects/INDEX.md](resources/text-effects/INDEX.md) |
+| docks-and-tabs | `action-morph`, `dock` `[Web]`, `liquid-tab-bar` `[Mobile]`, `morph-nav` `[Web]`, `orbit-menu` `[Mobile]`, `share-sheet` | 停靠栏与高级导航：动作原位形变、Mac 风格浮动 Dock 栏、移动端流体水滴 Tab 栏、桌面顶栏 Mega Menu 变形导航、单手圆弧环绕菜单、响应式双态分享面板 | [resources/docks-and-tabs/INDEX.md](resources/docks-and-tabs/INDEX.md) |
+| glass | `glass-card`, `glass-menu`, `glass-tabbar` `[Mobile]` | 毛玻璃拟态质感组件：光泽磨砂卡片、浮动毛玻璃上下文菜单、移动端毛玻璃底部标签栏 | [resources/glass/INDEX.md](resources/glass/INDEX.md) |
+| surfaces | `control-center` `[Mobile]`, `holo-card`, `link-unfurl`, `sheet-stack` `[Mobile]`, `wallet-stack` `[Mobile]` | 高阶复合交互表面：控制中心磁贴面板、3D 全息翻转卡片、链接预览展开胶囊、多层抽屉堆叠、纵向折叠卡包 | [resources/surfaces/INDEX.md](resources/surfaces/INDEX.md) |
+| galleries | `cover-flow`, `lightbox-gallery`, `photo-grid`, `product-gallery` | 相册与展示画廊：3D 封面流转、灯箱全屏画廊、瀑布流照片网格、电商商品多图联动画廊 | [resources/galleries/INDEX.md](resources/galleries/INDEX.md) |
+| audio-and-video | `now-playing`, `voice-orb`, `voice-recorder` | 音视频与语音交互：正在播放动态胶囊、AI 语音脉冲光球、语音录制声波条 | [resources/audio-and-video/INDEX.md](resources/audio-and-video/INDEX.md) |
+| special-data | `activity-rings`, `booking-pill`, `date-reel` `[Mobile]`, `time-dial` | 特殊领域数据交互：三环活动健身圆环、预订状态时段胶囊、移动端 3D 滚筒日期轮盘、时钟刻度表盘 | [resources/special-data/INDEX.md](resources/special-data/INDEX.md) |
+| special-type | `keycap-keyboard` `[Web]`, `sand-text` `[Web]`, `slot-text`, `typewriter-terminal` | 特殊字符与机械交互：机械键帽键盘按压、沙漏光标气流文字、老虎机滚轮字符、打字机终端控制台 | [resources/special-type/INDEX.md](resources/special-type/INDEX.md) |
+| loaders | `morph-loader`, `skeleton-morph`, `stretch-refresh` `[Mobile]` | 加载器与刷新过渡：几何形态循环形变、骨架屏就地内容展开、移动端橡皮筋手势下拉刷新 | [resources/loaders/INDEX.md](resources/loaders/INDEX.md) |
+| playful | `orbit-logos`, `page-curl` | 趣味与沉浸式互动：同心圆轨道漫游展台、仿真折纸书页 | [resources/playful/INDEX.md](resources/playful/INDEX.md) |
+| cursor | `dot-grid` `[Web]`, `gravity-well` `[Web]` | 指针跟随与光标微交互（仅限 Web 桌面端）：磁性点阵矩阵追踪、引力井中心吸附 | [resources/cursor/INDEX.md](resources/cursor/INDEX.md) |
+| illustrations | `data-flow`, `multi-region-failover`, `payment-flow`, `vector-search` | 技术拓扑与动效插画：流式管道数据流、多区域故障转移重路由、支付流向状态机、高维向量空间检索 | [resources/illustrations/INDEX.md](resources/illustrations/INDEX.md) |
 
 ## 未收录交互处理
 
-全部 34 个类别（共 155 个组件规范）已 100% 收录完毕。若目标交互属于未收录的特殊自定义组件，不要将其强行归入不相关的已有类别，可结合 [PRIMITIVES.md](PRIMITIVES.md) 中的共享物理原语与邻近类别机制推导实现。
+全部 34 个类别（共 155 个组件规范）已 100% 收录完毕。若目标交互属于未收录的特殊自定义组件，不要将其强行归入不相关的已有类别，可结合 [references/PRIMITIVES.md](references/PRIMITIVES.md) 中的共享物理原语与邻近类别机制推导实现。
 

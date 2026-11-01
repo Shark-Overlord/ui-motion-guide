@@ -5,7 +5,6 @@ Thumbs.db
 artifacts/
 .agents/
 inbox/
-templates/
-testset-static/
-benchmark/
+examples/
+references/component-template.md
 node_modules/
